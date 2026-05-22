@@ -2,13 +2,13 @@
 
 import React from "react";
 import Link from "next/link";
-import { 
-  User, 
-  Brain, 
-  Code2, 
-  Terminal, 
-  ArrowUpRight, 
-  CheckCircle2, 
+import {
+  User,
+  Brain,
+  Code2,
+  Terminal,
+  ArrowUpRight,
+  CheckCircle2,
   Milestone,
   ShieldCheck,
   HeartHandshake
@@ -48,22 +48,16 @@ export default function AboutPage() {
 
   const journeyTimeline = [
     {
-      date: "2024 - Present",
-      title: "Founder & Principal Engineer",
-      company: "UnifiedStack",
-      desc: "Architecting autonomous multi-agent cognitive platforms, real-time React Native mobile applications, and secure modular SaaS engines for global enterprise clients."
+      date: "Aug 2024 - 2026",
+      title: "Full Stack Software Engineer & AI Architect",
+      company: "Sofyrus Technologies",
+      desc: "Engineered autonomous multi-agent cognitive platforms, real-time React Native mobile applications, and secure modular SaaS engines for global enterprise clients."
     },
     {
-      date: "2023 - 2024",
-      title: "Full Stack & AI Engineer",
-      company: "InnovateTech Labs",
-      desc: "Developed high-speed document indexing engines using LlamaIndex, Pinecone, and Claude. Built scalable NestJS REST APIs handling 5M+ daily requests."
-    },
-    {
-      date: "2022 - 2023",
-      title: "Junior Systems Developer",
-      company: "ApexSoftware Solutions",
-      desc: "Engineered responsive React portals, built real-time WebSocket vehicle dispatch trackers, and structured relational PostgreSQL database indexing."
+      date: "2020 - 2024",
+      title: "B.Tech in Computer Science",
+      company: "Aligarh Muslim University",
+      desc: "Acquired deep foundations in software development, algorithm design, system architecture, and modern full-stack web technologies."
     }
   ];
 
@@ -92,11 +86,11 @@ export default function AboutPage() {
           {/* Avatar Area */}
           <div className="lg:col-span-4 flex justify-center">
             <div className="relative rounded-2xl border border-white/5 bg-white/[0.01] p-4 backdrop-blur-md w-full max-w-[280px]">
-              <div className="relative aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10">
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 group">
                 <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop"
-                  alt="Mohd Huzaifa Profile Placeholder"
-                  className="h-full w-full object-cover grayscale contrast-125"
+                  src="/profile.jpg"
+                  alt="Mohd Huzaifa"
+                  className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-bg-black/80 to-transparent" />
               </div>
@@ -119,7 +113,7 @@ export default function AboutPage() {
             <p>
               Throughout my engineering career, I have successfully designed modular monolithic web dashboards handling massive database loads, geolocated mobile networks executing ultra-fast tracking, and autonomous agent swarms utilizing cyclic state managers like LangGraph.
             </p>
-            
+
             <div className="rounded-xl border border-white/5 bg-white/[0.01] p-5">
               <span className="block text-xs uppercase font-bold tracking-widest text-brand-cyan mb-2">
                 Mission Statement
@@ -191,14 +185,14 @@ export default function AboutPage() {
                 <span className="text-xs font-mono text-brand-cyan bg-brand-cyan/10 border border-brand-cyan/20 px-2 py-0.5 rounded">
                   {item.date}
                 </span>
-                
+
                 <h3 className="mt-3 text-lg font-bold text-white tracking-tight">
                   {item.title}
                 </h3>
                 <span className="block text-xs font-medium text-white/40 mt-0.5">
                   {item.company}
                 </span>
-                
+
                 <p className="mt-3 text-xs leading-relaxed text-white/50">
                   {item.desc}
                 </p>

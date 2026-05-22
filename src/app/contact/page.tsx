@@ -135,7 +135,7 @@ function ContactPageContent() {
 
               {/* WhatsApp direct chat link */}
               <a
-                href="https://wa.me/919000000000?text=Hi%20Mohd%20Huzaifa,%20I'd%20like%20to%20discuss%20an%20AI%20project."
+                href="https://wa.me/918433043426?text=Hi%20Mohd%20Huzaifa,%20I'd%20like%20to%20discuss%20an%20AI%20project."
                 target="_blank"
                 rel="noreferrer"
                 className="w-full flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.01] hover:border-green-500/40 hover:bg-white/[0.02] p-5 text-left transition-all"
@@ -158,7 +158,7 @@ function ContactPageContent() {
               <span className="block font-bold text-white">UnifiedStack India</span>
               <span className="block mt-1">Sole Proprietorship Registry, India.</span>
               <div className="mt-4 flex items-center gap-4">
-                <a href="https://linkedin.com" className="hover:text-white transition-colors"><Linkedin className="h-4.5 w-4.5" /></a>
+                <a href="https://www.linkedin.com/in/mohd-huzaifa-1796b9234" target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Linkedin className="h-4.5 w-4.5" /></a>
                 <a href="https://github.com" className="hover:text-white transition-colors"><Github className="h-4.5 w-4.5" /></a>
               </div>
             </div>
@@ -210,7 +210,7 @@ function ContactPageContent() {
                         value={formData.email}
                         onChange={handleChange}
                         className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40"
-                        placeholder="m.huzaifa@example.com"
+                        placeholder="mohdhuzaifa8126195456@gmail.com"
                         required
                       />
                     </div>

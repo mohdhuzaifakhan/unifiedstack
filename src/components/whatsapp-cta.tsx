@@ -5,7 +5,7 @@ import { MessageCircle } from "lucide-react";
 
 export default function WhatsAppCta() {
   // Direct integration parameter (Phone number placeholder of founder Mohd Huzaifa)
-  const phoneNumber = "919000000000"; // standard Indian dial
+  const phoneNumber = "918433043426"; // standard Indian dial
   const message = encodeURIComponent(
     "Hello Mohd Huzaifa! I am visiting the UnifiedStack website and would like to schedule a consultation for an AI/Software Development project."
   );

@@ -83,22 +83,22 @@ export const MOCK_PROJECTS: Project[] = [
     id: "unified-ai-platform",
     title: "Unified AI Platform",
     category: "AI Agent Development",
-    description: "An enterprise multi-agent workflow orchestration platform designed to automate intricate business operations with deterministic safety pipelines and deep observability.",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop",
-    techStack: ["Next.js", "TypeScript", "LangGraph", "FastAPI", "PostgreSQL", "Pinecone", "OpenAI"],
+    description: "A comprehensive, enterprise-grade platform for building, managing, and observing AI applications. It offers a unified interface for data ingestion, model configuration, pipeline orchestration, and real-time observability, enabling developers and enterprises to design, deploy, and scale robust AI solutions efficiently.",
+    image: "/rag assets/landing page.png",
+    techStack: ["Next.js 15", "TypeScript", "LangGraph", "FastAPI", "PostgreSQL", "Pinecone", "Gemini 2.5", "RAG"],
     metrics: [
-      { label: "Efficiency Increase", value: "340%" },
-      { label: "Execution Latency", value: "<1.2s" },
-      { label: "Cost Optimization", value: "62%" }
+      { label: "Enterprise Scale", value: "Production" },
+      { label: "Core Modules", value: "11 Features" },
+      { label: "Lifecycle Stage", value: "End-to-End" }
     ],
-    problem: "Enterprise workflows required manual execution across dozens of disparate legacy interfaces, leading to data inconsistencies, high costs, and operational bottlenecks.",
-    solution: "Built a customized autonomous multi-agent ecosystem utilizing LangGraph for structured agent swarms, Pinecone vector indexing for immediate retrieval-augmented generation (RAG), and a polished Next.js orchestration cockpit.",
+    problem: "Developing enterprise AI applications traditionally required stitch-assembling fragmented tools for vector search, LLM configuration, data ingestion pipelines, and observability tracking, creating high operational friction and security overhead.",
+    solution: "Designed and engineered Unified AI Platform as a cohesive, production-ready environment that covers data preparation, ingestion routing, model orchestration, dynamic integration playgrounds, and comprehensive observation panels under one elite glassmorphic console.",
     results: [
-      "Successfully automated 88% of standard compliance verification pipelines.",
-      "Allowed direct natural-language query triggers for legacy databases with 0 data leakage.",
-      "Optimized cloud computing costs by 62% via intelligent LLM routing and semantic caching."
+      "Provides complete agent workflow builder, fine-tuning, and MLaaS.",
+      "Ensures zero operational overhead with strict security, IP filtering, and PII redaction.",
+      "Delivers fully observed query pipelines with instant semantic caching."
     ],
-    architecturalOverview: "The system is structured as a hierarchical agent-swarm. A supervisor agent routes complex business inquiries to specific worker agents (Data Extraction, Code Evaluation, Security Auditor). State is synchronized using Redis and persisted in PostgreSQL."
+    architecturalOverview: "Beyond RAG as a service, the platform provides an agent workflow builder, fine-tuning services, and Machine Learning as a Service (MLaaS). It delivers an end-to-end AI lifecycle—from data preparation and training to deployment and monitoring—covering all essential steps required to operate production-ready AI systems."
   },
   {
     id: "ai-qa-automation",
@@ -121,24 +121,25 @@ export const MOCK_PROJECTS: Project[] = [
     ]
   },
   {
-    id: "hyperlocal-social-platform",
-    title: "Hyperlocal Social & Delivery App",
+    id: "town-beat",
+    title: "Town Beat: Hyperlocal Social Network",
     category: "Mobile App Development",
-    description: "A production-grade mobile app linking local vendors, delivery partners, and residents in a real-time geofenced community hub.",
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop",
-    techStack: ["React Native", "Expo", "Node.js", "Express", "Redis", "MongoDB", "Google Maps API"],
+    description: "A hyper-local social networking platform designed to connect citizens based on their city and region. It empowers communities to share local news, organize events, participate in civic discussions, and stay informed about what's happening in their immediate surroundings.",
+    image: "/town beat assets/WhatsApp Image 2026-05-22 at 8.38.50 PM (1).jpeg",
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Express", "MongoDB", "Firebase"],
     metrics: [
-      { label: "Active Mobile Users", value: "45K+" },
-      { label: "Real-time Latency", value: "70ms" },
-      { label: "Rating on App Store", value: "4.8" }
+      { label: "Community Reach", value: "City-Centric" },
+      { label: "Platform Modules", value: "7 Features" },
+      { label: "User Control", value: "Secure Panel" }
     ],
-    problem: "Local community businesses struggled to orchestrate delivery and updates due to the complexity of expensive enterprise delivery networks.",
-    solution: "Engineered a custom React Native mobile app featuring absolute geofencing matching algorithms, real-time WebSocket vehicle tracking, and multi-tier payment pathways.",
+    problem: "Citizens frequently lacked a secure, dedicated digital space to interact directly with their immediate neighborhood and city context, resulting in fragmented communication, unverified news, and low civic engagement.",
+    solution: "Engineered Town Beat, a highly responsive localized platform offering city-centric feeds, interactive community polling booths, initiative support campaigns, and verified user profiles under strict administrative moderation.",
     results: [
-      "Connected over 240 community micro-vendors to active consumer flows.",
-      "Facilitated over 18,000 geolocated transactions in the first two months.",
-      "Achieved sub-100ms real-time state synchronization via custom Redis adapter."
-    ]
+      "Links local residents directly to verified city feeds and interest-based groups.",
+      "Supports organic initiative drives via targeted local civic campaigns.",
+      "Guarantees community safety and content integrity through moderator dashboards."
+    ],
+    architecturalOverview: "Built with a modern tech stack, Town Beat offers a seamless and responsive experience for users to engage with their local community."
   },
   {
     id: "resume-shortlister",
