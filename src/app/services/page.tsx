@@ -1,26 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import { 
-  Bot, 
-  Brain, 
-  Binary, 
-  Layers, 
-  Zap, 
-  Code2, 
-  Smartphone, 
-  Server, 
-  CloudLightning, 
-  Cpu, 
-  CheckCircle2, 
-  ArrowRight,
-  ChevronDown
-} from "lucide-react";
 import GlowingCard from "@/components/ui/glowing-card";
+import {
+  ArrowRight,
+  Binary,
+  Bot,
+  Brain,
+  CheckCircle2,
+  CloudLightning,
+  Code2,
+  Cpu,
+  Layers,
+  Server,
+  Smartphone,
+  Zap
+} from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 export default function ServicesPage() {
   const [activeFilter, setActiveFilter] = useState<"all" | "ai" | "fullstack">("all");
+  const [clientLocation, setClientLocation] = useState<"in" | "intl">("in");
 
   const services = [
     {
@@ -29,7 +29,10 @@ export default function ServicesPage() {
       icon: <Bot className="h-6 w-6 text-brand-purple" />,
       title: "AI Agent Development",
       description: "Stateful, autonomous multi-agent cognitive networks designed to execute complex business routines through cyclic loop workflows.",
-      pricing: "Starting at $5,000",
+      pricing: {
+        in: "Starting at ₹55,000",
+        intl: "Starting at $5,000"
+      },
       delivery: "3-5 Weeks",
       tech: ["LangGraph", "Python", "FastAPI", "Redis"],
       benefits: [
@@ -45,7 +48,10 @@ export default function ServicesPage() {
       icon: <Brain className="h-6 w-6 text-brand-cyan" />,
       title: "Generative AI Solutions",
       description: "Custom integrations of highly advanced LLMs tailored to commercial workflows, delivering high-speed structured text processing.",
-      pricing: "Starting at $4,000",
+      pricing: {
+        in: "Starting at ₹50,000",
+        intl: "Starting at $4,500"
+      },
       delivery: "2-4 Weeks",
       tech: ["GPT-4o", "Claude 3.5 Sonnet", "Gemini Pro", "Pydantic"],
       benefits: [
@@ -61,7 +67,10 @@ export default function ServicesPage() {
       icon: <Binary className="h-6 w-6 text-brand-blue" />,
       title: "RAG Pipelines",
       description: "Optimized retrieval-augmented databases using custom semantic indexers to search massive internal folders securely.",
-      pricing: "Starting at $4,500",
+      pricing: {
+        in: "Starting at ₹52,000",
+        intl: "Starting at $4,800"
+      },
       delivery: "3-4 Weeks",
       tech: ["Pinecone", "ChromaDB", "LlamaIndex", "Text Embedding Models"],
       benefits: [
@@ -77,7 +86,10 @@ export default function ServicesPage() {
       icon: <Layers className="h-6 w-6 text-brand-purple" />,
       title: "LLM Fine-tuning",
       description: "Training open-source models on private hardware datasets to teach proprietary formatting styles and secure local hosting.",
-      pricing: "Starting at $7,500",
+      pricing: {
+        in: "Starting at ₹60,000",
+        intl: "Starting at $6,000"
+      },
       delivery: "4-6 Weeks",
       tech: ["Llama 3", "Mistral 7B", "HuggingFace", "PyTorch"],
       benefits: [
@@ -93,7 +105,10 @@ export default function ServicesPage() {
       icon: <Zap className="h-6 w-6 text-brand-cyan" />,
       title: "AI Automation",
       description: "End-to-end background processes that chain models and database structures, triggering automated customer engagements.",
-      pricing: "Starting at $3,500",
+      pricing: {
+        in: "Starting at ₹50,000",
+        intl: "Starting at $4,000"
+      },
       delivery: "2-3 Weeks",
       tech: ["n8n", "Make", "Custom Cron Node.js", "Webhooks"],
       benefits: [
@@ -109,7 +124,10 @@ export default function ServicesPage() {
       icon: <Code2 className="h-6 w-6 text-brand-blue" />,
       title: "SaaS Development",
       description: "Premium, responsive modular Next.js web applications, containing detailed client portals, Stripe billing, and secure API cores.",
-      pricing: "Starting at $6,000",
+      pricing: {
+        in: "Starting at ₹58,000",
+        intl: "Starting at $5,500"
+      },
       delivery: "4-8 Weeks",
       tech: ["Next.js 15", "TypeScript", "Tailwind CSS", "PostgreSQL"],
       benefits: [
@@ -125,7 +143,10 @@ export default function ServicesPage() {
       icon: <Smartphone className="h-6 w-6 text-brand-purple" />,
       title: "Mobile App Development",
       description: "Sub-100ms real-time React Native mobile apps built for geolocated dispatch, community feeds, and offline caching systems.",
-      pricing: "Starting at $6,500",
+      pricing: {
+        in: "Starting at ₹20,000",
+        intl: "Starting at $6,500"
+      },
       delivery: "5-9 Weeks",
       tech: ["React Native", "Expo", "WebSocket", "Redux Toolkit"],
       benefits: [
@@ -141,7 +162,10 @@ export default function ServicesPage() {
       icon: <Server className="h-6 w-6 text-brand-cyan" />,
       title: "API Development & Backend",
       description: "Ultra-fast RESTful and gRPC web routing layers built on NestJS and FastAPI, with robust validation and security layers.",
-      pricing: "Starting at $4,000",
+      pricing: {
+        in: "Starting at ₹52,000",
+        intl: "Starting at $4,000"
+      },
       delivery: "3-5 Weeks",
       tech: ["NestJS", "FastAPI", "Prisma ORM", "Redis Cache"],
       benefits: [
@@ -157,7 +181,10 @@ export default function ServicesPage() {
       icon: <CloudLightning className="h-6 w-6 text-brand-blue" />,
       title: "DevOps & Cloud Systems",
       description: "Deploying secure Docker setups, CI/CD automated test integrations, and load balancers on AWS and GCP.",
-      pricing: "Starting at $3,500",
+      pricing: {
+        in: "Starting at ₹50,000",
+        intl: "Starting at $3,500"
+      },
       delivery: "2-4 Weeks",
       tech: ["AWS", "Docker", "GitHub Actions", "Terraform"],
       benefits: [
@@ -173,7 +200,10 @@ export default function ServicesPage() {
       icon: <Cpu className="h-6 w-6 text-brand-purple" />,
       title: "AI Testing & Evaluation Systems",
       description: "Adversarial evaluation frameworks designed to test LLM swarms for factual consistency, drift, and toxic inputs.",
-      pricing: "Starting at $5,000",
+      pricing: {
+        in: "Starting at ₹54,000",
+        intl: "Starting at $5,000"
+      },
       delivery: "3-5 Weeks",
       tech: ["LangSmith", "Phoenix", "DeepEval", "Python"],
       benefits: [
@@ -197,7 +227,7 @@ export default function ServicesPage() {
 
       <div className="mx-auto max-w-7xl relative z-10">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="text-xs font-bold uppercase tracking-widest text-brand-cyan">
             Our Offerings
           </span>
@@ -209,17 +239,43 @@ export default function ServicesPage() {
           </p>
         </div>
 
+        {/* Dynamic Location / Currency Switcher */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+          <span className="text-xs font-semibold uppercase tracking-wider text-white/40">Select Client Location & Pricing:</span>
+          <div className="flex rounded-full border border-white/5 bg-white/[0.02] p-1 backdrop-blur-sm">
+            <button
+              onClick={() => setClientLocation("in")}
+              className={`rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+                clientLocation === "in"
+                  ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
+                  : "text-white/60 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              <span>🇮🇳</span> Indian Client (₹)
+            </button>
+            <button
+              onClick={() => setClientLocation("intl")}
+              className={`rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+                clientLocation === "intl"
+                  ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
+                  : "text-white/60 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              <span>🌐</span> International Client ($)
+            </button>
+          </div>
+        </div>
+
         {/* Filter Selection Tabs */}
         <div className="flex justify-center gap-2 mb-12">
           {(["all", "ai", "fullstack"] as const).map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${
-                activeFilter === filter
+              className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${activeFilter === filter
                   ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
                   : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
-              }`}
+                }`}
             >
               {filter === "all" ? "All Services" : filter === "ai" ? "AI Engineering" : "Full Stack & DevOps"}
             </button>
@@ -245,7 +301,9 @@ export default function ServicesPage() {
                   </div>
 
                   <div className="text-right">
-                    <span className="block text-sm font-extrabold text-white">{service.pricing}</span>
+                    <span className="block text-sm font-extrabold text-white">
+                      {clientLocation === "in" ? service.pricing.in : service.pricing.intl}
+                    </span>
                     <span className="block text-[9px] uppercase tracking-wider text-white/40">{service.delivery}</span>
                   </div>
                 </div>
@@ -284,9 +342,9 @@ export default function ServicesPage() {
                     </span>
                   ))}
                 </div>
-                
+
                 <Link
-                  href={`/contact?service=${encodeURIComponent(service.title)}`}
+                  href={`/contact?service=${encodeURIComponent(service.title)}&location=${clientLocation}`}
                   className="w-full sm:w-auto neon-btn inline-flex items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-6 py-3 text-xs font-bold uppercase tracking-wider text-white"
                 >
                   Book consultation

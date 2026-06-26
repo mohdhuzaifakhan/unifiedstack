@@ -1,29 +1,29 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
-import { 
-  Mail, 
-  MessageSquare, 
-  ArrowRight, 
-  CheckCircle2, 
-  Linkedin, 
-  Github, 
-  Calendar,
-  Send,
-  Loader2
-} from "lucide-react";
 import GlowingCard from "@/components/ui/glowing-card";
 import { submitInquiry } from "@/lib/firebase";
+import {
+  ArrowRight,
+  Calendar,
+  CheckCircle2,
+  Github,
+  Linkedin,
+  Loader2,
+  MessageSquare,
+  Send
+} from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import React, { Suspense, useEffect, useState } from "react";
 
 function ContactPageContent() {
   const searchParams = useSearchParams();
+  const [clientLocation, setClientLocation] = useState<"in" | "intl">("in");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     company: "",
     service: "AI Agent Development",
-    budget: "$5,000 - $15,000",
+    budget: "₹50,000 - ₹60,000",
     message: "",
   });
   const [submitting, setSubmitting] = useState(false);
@@ -36,11 +36,23 @@ function ContactPageContent() {
     if (serviceParam) {
       setFormData((prev) => ({ ...prev, service: serviceParam }));
     }
+    const locationParam = searchParams.get("location");
+    if (locationParam === "in" || locationParam === "intl") {
+      setClientLocation(locationParam);
+    }
     const calendlyParam = searchParams.get("calendly");
     if (calendlyParam === "true") {
       setShowCalendly(true);
     }
   }, [searchParams]);
+
+  // Adjust budget default when location changes
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      budget: clientLocation === "in" ? "₹50,000 - ₹60,000" : "$5,000 - $10,000"
+    }));
+  }, [clientLocation]);
 
   const servicesList = [
     "AI Agent Development",
@@ -53,12 +65,21 @@ function ContactPageContent() {
     "Observability & Evaluation"
   ];
 
-  const budgetTiers = [
-    "Under $5,000",
-    "$5,000 - $15,000",
-    "$15,000 - $50,000",
-    "$50,000+"
+  const budgetTiersIn = [
+    "Under ₹20,000",
+    "₹20,000 - ₹50,000",
+    "₹50,000 - ₹60,000",
+    "₹60,000+"
   ];
+
+  const budgetTiersIntl = [
+    "Under $3,000",
+    "$3,000 - $5,000",
+    "$5,000 - $10,000",
+    "$10,000+"
+  ];
+
+  const budgetTiers = clientLocation === "in" ? budgetTiersIn : budgetTiersIntl;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -73,7 +94,10 @@ function ContactPageContent() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const res = await submitInquiry(formData);
+      const res = await submitInquiry({
+        ...formData,
+        message: `[Client Location: ${clientLocation === "in" ? "India" : "International"}] ${formData.message}`
+      });
       if (res.success) {
         setSubmitted(true);
         setFormData({
@@ -81,7 +105,7 @@ function ContactPageContent() {
           email: "",
           company: "",
           service: "AI Agent Development",
-          budget: "$5,000 - $15,000",
+          budget: clientLocation === "in" ? "₹50,000 - ₹60,000" : "$5,000 - $10,000",
           message: "",
         });
       }
@@ -185,6 +209,35 @@ function ContactPageContent() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Location Selector */}
+                  <div>
+                    <span className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2.5">Your Location</span>
+                    <div className="flex rounded-lg border border-white/5 bg-white/[0.02] p-1 w-full sm:w-fit backdrop-blur-sm">
+                      <button
+                        type="button"
+                        onClick={() => setClientLocation("in")}
+                        className={`rounded-md px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+                          clientLocation === "in"
+                            ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-md"
+                            : "text-white/60 hover:text-white hover:bg-white/5"
+                        }`}
+                      >
+                        <span>🇮🇳</span> India (₹)
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setClientLocation("intl")}
+                        className={`rounded-md px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+                          clientLocation === "intl"
+                            ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-md"
+                            : "text-white/60 hover:text-white hover:bg-white/5"
+                        }`}
+                      >
+                        <span>🌐</span> International ($)
+                      </button>
+                    </div>
+                  </div>
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Name */}
                     <div>
@@ -259,11 +312,10 @@ function ContactPageContent() {
                             key={tier}
                             type="button"
                             onClick={() => handleBudgetSelect(tier)}
-                            className={`rounded-lg border py-3 text-center text-xs font-semibold transition-all ${
-                              isSelected
+                            className={`rounded-lg border py-3 text-center text-xs font-semibold transition-all ${isSelected
                                 ? "border-brand-purple bg-brand-purple/10 text-white"
                                 : "border-white/5 bg-white/[0.02] text-white/50 hover:bg-white/5"
-                            }`}
+                              }`}
                           >
                             {tier}
                           </button>
@@ -329,7 +381,7 @@ function ContactPageContent() {
                 Close
               </button>
             </div>
-            
+
             {/* Calendly Inline Widget Mockup */}
             <div className="p-4 sm:p-8 flex flex-col items-center justify-center min-h-[450px]">
               <div className="rounded-xl border border-white/5 bg-white/[0.01] p-6 text-center max-w-md">

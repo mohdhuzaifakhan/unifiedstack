@@ -1,31 +1,31 @@
 "use client";
 
-import React, { use, useState, useEffect, ElementType } from "react";
-import Link from "next/link";
-import { 
-  ArrowLeft, 
-  Clock, 
-  Calendar, 
-  BarChart3, 
-  Database, 
-  Layers, 
-  Loader2,
-  Sparkles, 
-  Layout, 
-  FolderKanban, 
-  Radio, 
-  Cpu, 
-  Network, 
-  Key, 
-  LineChart, 
-  BookOpen, 
-  ShieldCheck, 
-  CheckCircle,
-  ExternalLink,
-  Milestone
-} from "lucide-react";
-import { getProjectById, Project } from "@/lib/firebase";
 import GlowingCard from "@/components/ui/glowing-card";
+import { getProjectById, Project } from "@/lib/firebase";
+import {
+  ArrowLeft,
+  BarChart3,
+  BookOpen,
+  Calendar,
+  CheckCircle,
+  Cpu,
+  Database,
+  ExternalLink,
+  FolderKanban,
+  Github,
+  Key,
+  Layers,
+  Layout,
+  LineChart,
+  Loader2,
+  Milestone,
+  Network,
+  Radio,
+  ShieldCheck,
+  Sparkles
+} from "lucide-react";
+import Link from "next/link";
+import { ElementType, use, useEffect, useState } from "react";
 
 interface Feature {
   num: string;
@@ -138,7 +138,7 @@ const townBeatFeatures: Feature[] = [
     num: "1",
     title: "City-Centric Feed",
     desc: "A personalized feed showcasing the latest posts, news, and updates from your specific city. Stay informed about local happenings in real-time.",
-    images: ["/town beat assets/WhatsApp Image 2026-05-22 at 8.38.50 PM (1).jpeg"],
+    images: ["/townbeat_assets/tb_feed.jpeg"],
     tags: ["Real-time Feed", "City Filter", "Localized News"],
     icon: Layout
   },
@@ -146,7 +146,7 @@ const townBeatFeatures: Feature[] = [
     num: "2",
     title: "Community Groups",
     desc: "Create and join groups tailored to local interests, hobbies, or civic causes. Build meaningful connections with neighbors who share your passions.",
-    images: ["/town beat assets/WhatsApp Image 2026-05-22 at 8.38.51 PM.jpeg"],
+    images: ["/townbeat_assets/tb_groups.jpeg"],
     tags: ["Interest Groups", "Civic Causes", "Neighbor Chats"],
     icon: FolderKanban
   },
@@ -154,7 +154,7 @@ const townBeatFeatures: Feature[] = [
     num: "3",
     title: "Interactive Polls",
     desc: "Participate in local polls to voice your opinion on community matters. Cast your vote, check real-time results, and drive democratic community decisions.",
-    images: ["/town beat assets/WhatsApp Image 2026-05-22 at 8.38.51 PM (1).jpeg"],
+    images: ["/townbeat_assets/tb_polls.jpeg"],
     tags: ["Community Voting", "Real-time Polls", "Local Opinions"],
     icon: BarChart3
   },
@@ -162,7 +162,7 @@ const townBeatFeatures: Feature[] = [
     num: "4",
     title: "Campaigns",
     desc: "Organize and manage local campaigns to drive initiatives, raise awareness, collect community support, and bring about positive change in your neighborhood.",
-    images: ["/town beat assets/WhatsApp Image 2026-05-22 at 8.38.51 PM (2).jpeg"],
+    images: ["/townbeat_assets/tb_campaigns.jpeg"],
     tags: ["Local Initiatives", "Civic Campaigns", "Support Drives"],
     icon: Milestone
   },
@@ -171,8 +171,8 @@ const townBeatFeatures: Feature[] = [
     title: "Secure Authentication",
     desc: "Robust user registration and login system ensuring data privacy and security. Standard sign-in and account registration flows protect community integrity.",
     images: [
-      "/town beat assets/WhatsApp Image 2026-05-22 at 8.38.49 PM.jpeg", 
-      "/town beat assets/WhatsApp Image 2026-05-22 at 8.38.49 PM (1).jpeg"
+      "/townbeat_assets/tb_auth_1.jpeg",
+      "/townbeat_assets/tb_auth_2.jpeg"
     ],
     labels: ["Sign In Panel", "Account Registration"],
     tags: ["Secure Auth", "Data Privacy", "User Verification"],
@@ -182,7 +182,7 @@ const townBeatFeatures: Feature[] = [
     num: "6",
     title: "User Profiles",
     desc: "Manage your digital identity, track your contributions and activities on the platform, and connect directly with other verified local residents.",
-    images: ["/town beat assets/WhatsApp Image 2026-05-22 at 8.38.52 PM.jpeg"],
+    images: ["/townbeat_assets/tb_profile.jpeg"],
     tags: ["Identity Setup", "Activity Tracker", "Resident Connect"],
     icon: Cpu
   },
@@ -190,7 +190,7 @@ const townBeatFeatures: Feature[] = [
     num: "7",
     title: "Admin Dashboard",
     desc: "Specialized administrative controls to oversee platform content, review user flag reports, manage local sponsorships and community ad placements.",
-    images: ["/town beat assets/WhatsApp Image 2026-05-22 at 8.38.50 PM.jpeg"],
+    images: ["/townbeat_assets/tb_admin.jpeg"],
     tags: ["Platform Moderation", "Ad Placements", "Content Safety"],
     icon: Key
   }
@@ -225,7 +225,7 @@ function UnifiedAiPlatformDetails({ project }: { project: Project }) {
               Enterprise Grade
             </span>
           </div>
-          
+
           <h1 className="text-4xl font-extrabold text-white sm:text-5xl md:text-6xl leading-tight tracking-tight">
             {project.title}
           </h1>
@@ -245,6 +245,20 @@ function UnifiedAiPlatformDetails({ project }: { project: Project }) {
               </span>
             ))}
           </div>
+
+          {project.githubLink && (
+            <div className="mt-8">
+              <a
+                href={project.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-purple/15 border border-brand-purple/35 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-purple hover:bg-brand-purple/25 hover:text-white transition-all shadow-lg animate-pulse"
+              >
+                View Source on GitHub
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            </div>
+          )}
         </header>
 
         {/* Quantifiable Stats Summary Grid */}
@@ -303,7 +317,7 @@ function UnifiedAiPlatformDetails({ project }: { project: Project }) {
                 {project.architecturalOverview}
               </p>
             </div>
-            
+
             <div className="rounded-xl border border-brand-purple/20 bg-brand-purple/5 p-5">
               <h4 className="text-xs uppercase font-bold tracking-widest text-brand-cyan mb-2">
                 Production Auditing Guarantee
@@ -338,11 +352,10 @@ function UnifiedAiPlatformDetails({ project }: { project: Project }) {
                 <button
                   key={feat.num}
                   onClick={() => setActiveTab(feat.num)}
-                  className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-semibold tracking-wider transition-all duration-300 ${
-                    isActive
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-semibold tracking-wider transition-all duration-300 ${isActive
                       ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg shadow-brand-purple/10"
                       : "border border-white/5 bg-white/[0.01] text-white/50 hover:bg-white/5 hover:text-white"
-                  }`}
+                    }`}
                 >
                   <Icon className="h-3.5 w-3.5" />
                   {feat.num}. {feat.title}
@@ -542,7 +555,7 @@ function TownBeatDetails({ project }: { project: Project }) {
               Hyperlocal Network
             </span>
           </div>
-          
+
           <h1 className="text-4xl font-extrabold text-white sm:text-5xl md:text-6xl leading-tight tracking-tight">
             {project.title}
           </h1>
@@ -562,6 +575,20 @@ function TownBeatDetails({ project }: { project: Project }) {
               </span>
             ))}
           </div>
+
+          {project.playStoreLink && (
+            <div className="mt-8">
+              <a
+                href={project.playStoreLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-cyan/15 border border-brand-cyan/35 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:bg-brand-cyan/25 hover:text-white transition-all shadow-lg animate-pulse"
+              >
+                Get it on Google Play
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            </div>
+          )}
         </header>
 
         {/* Quantifiable Stats Summary Grid */}
@@ -577,7 +604,7 @@ function TownBeatDetails({ project }: { project: Project }) {
         {/* Hero Feed Mockup */}
         <div className="relative rounded-2xl border border-white/5 bg-white/5 overflow-hidden shadow-2xl mb-16 max-w-lg mx-auto aspect-[9/16] h-[650px] group">
           <img
-            src="/town beat assets/WhatsApp Image 2026-05-22 at 8.38.50 PM (1).jpeg"
+            src="/townbeat_assets/tb_feed.jpeg"
             alt="Town Beat primary interface feed"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.01]"
           />
@@ -620,7 +647,7 @@ function TownBeatDetails({ project }: { project: Project }) {
                 {project.architecturalOverview}
               </p>
             </div>
-            
+
             <div className="rounded-xl border border-brand-purple/20 bg-brand-purple/5 p-5">
               <h4 className="text-xs uppercase font-bold tracking-widest text-brand-cyan mb-2">
                 Civic Verification Promise
@@ -655,11 +682,10 @@ function TownBeatDetails({ project }: { project: Project }) {
                 <button
                   key={feat.num}
                   onClick={() => setActiveTab(feat.num)}
-                  className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-semibold tracking-wider transition-all duration-300 ${
-                    isActive
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-semibold tracking-wider transition-all duration-300 ${isActive
                       ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg shadow-brand-purple/10"
                       : "border border-white/5 bg-white/[0.01] text-white/50 hover:bg-white/5 hover:text-white"
-                  }`}
+                    }`}
                 >
                   <Icon className="h-3.5 w-3.5" />
                   {feat.num}. {feat.title}
@@ -785,6 +811,998 @@ function TownBeatDetails({ project }: { project: Project }) {
   );
 }
 
+const salahTimesFeatures: Feature[] = [
+  {
+    num: "1",
+    title: "Masjid Directory & Correct Salah Times",
+    desc: "Lists all masjids in the city with their correct namaaz timetables. It provides real-time prayer schedule synchronizations to ensure high contextual accuracy for local worshippers.",
+    images: ["/salahtimes/salah_ss1.png"],
+    tags: ["Prayer Timetable", "Masjid Locator", "Time Synchronization"],
+    icon: Layout
+  },
+  {
+    num: "2",
+    title: "Moazzin Timetable Editor",
+    desc: "Allows authorized Moazzens to update prayer tables and adhan settings directly. Ensures immediate replication of prayer adjustments across all connected client applications.",
+    images: ["/salahtimes/salah_ss2.png"],
+    tags: ["Adhan Setup", "Time Adjuster", "Instant Replication"],
+    icon: FolderKanban
+  },
+  {
+    num: "3",
+    title: "Quran Module",
+    desc: "Features a clean reading panel with translations, search, and audio recitations to support daily devotionals and reflection.",
+    images: ["/salahtimes/salah_ss1.png"],
+    tags: ["Surah Indexing", "Offline Reader", "Audio Recitations"],
+    icon: BookOpen
+  },
+  {
+    num: "4",
+    title: "Islamic Calendar",
+    desc: "Provides Hijri dates, holidays, and moon-phase trackers integrated with the local timezone controls.",
+    images: ["/salahtimes/salah_ss2.png"],
+    tags: ["Hijri Tracker", "Islamic Holidays", "Moon-Phase Alignment"],
+    icon: Calendar
+  },
+  {
+    num: "5",
+    title: "Admin Panel & Event Management",
+    desc: "Enables masjid administrators to manage notifications, organize events, broadcast notices, and moderate community requests.",
+    images: ["/salahtimes/salah_ss1.png"],
+    tags: ["Masjid Control", "Event Scheduler", "Broadcaster Admin"],
+    icon: Key
+  },
+  {
+    num: "6",
+    title: "Smart Notifications Engine",
+    desc: "Automatically triggers local push notifications exactly 10 minutes before each namaaz time using background synchronization workers.",
+    images: ["/salahtimes/salah_ss2.png"],
+    tags: ["Push Workers", "Pre-Prayer Alerts", "Offline Scheduling"],
+    icon: Radio
+  }
+];
+
+function SalahTimesDetails({ project }: { project: Project }) {
+  const [activeTab, setActiveTab] = useState<string>("1");
+
+  return (
+    <div className="relative py-12 md:py-20 px-4">
+      {/* Background radial glows */}
+      <div className="pointer-events-none absolute top-20 left-1/2 -translate-x-1/2 h-[450px] w-[700px] rounded-full bg-brand-purple/5 blur-[140px]" />
+      <div className="pointer-events-none absolute bottom-40 right-10 h-[300px] w-[500px] rounded-full bg-brand-cyan/5 blur-[120px]" />
+
+      <div className="mx-auto max-w-6xl relative z-10">
+        {/* Navigation back anchor */}
+        <Link
+          href="/case-studies"
+          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Catalog
+        </Link>
+
+        {/* Header Block */}
+        <header className="border-b border-white/5 pb-10 mb-12">
+          <div className="flex flex-wrap gap-2 mb-6">
+            <span className="rounded bg-brand-purple/20 border border-brand-purple/35 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-brand-cyan">
+              {project.category}
+            </span>
+            <span className="rounded bg-brand-blue/20 border border-brand-blue/35 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white/80">
+              Mobile Application
+            </span>
+          </div>
+
+          <h1 className="text-4xl font-extrabold text-white sm:text-5xl md:text-6xl leading-tight tracking-tight">
+            {project.title}
+          </h1>
+
+          <p className="mt-6 text-base sm:text-lg text-white/70 leading-relaxed max-w-4xl">
+            {project.description}
+          </p>
+
+          {/* Tech Stack Chips */}
+          <div className="mt-8 flex flex-wrap gap-2">
+            {project.techStack.map((tech, idx) => (
+              <span
+                key={idx}
+                className="rounded bg-white/5 border border-white/10 px-3 py-1 text-xs font-mono text-white/50"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          {project.playStoreLink && (
+            <div className="mt-8">
+              <a
+                href={project.playStoreLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-cyan/15 border border-brand-cyan/35 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:bg-brand-cyan/25 hover:text-white transition-all shadow-lg animate-pulse"
+              >
+                Get it on Google Play
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            </div>
+          )}
+        </header>
+
+        {/* Quantifiable Stats Summary Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 border border-white/5 bg-white/[0.01] p-8 rounded-2xl text-center mb-16 backdrop-blur-md">
+          {project.metrics.map((m, idx) => (
+            <div key={idx} className="flex flex-col items-center">
+              <span className="text-3xl font-extrabold text-white">{m.value}</span>
+              <span className="text-xs uppercase tracking-widest text-white/40 mt-2">{m.label}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Hero Feed Mockup */}
+        <div className="relative rounded-2xl border border-white/5 bg-white/5 overflow-hidden shadow-2xl mb-16 max-w-lg mx-auto aspect-[9/16] h-[650px] group">
+          <img
+            src="/salahtimes/salah_ss2.png"
+            alt="Salah Times primary interface"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.01]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-black/45 to-transparent" />
+          <div className="absolute bottom-4 left-4 right-4 rounded bg-black/60 backdrop-blur-md px-3 py-1 text-xs text-white/70 border border-white/10 text-center font-mono">
+            Active Salah Times & Quran Application Dashboard
+          </div>
+        </div>
+
+        {/* Platform Lifecycle Introduction */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-20">
+          <div className="lg:col-span-7 rounded-2xl border border-white/5 bg-white/[0.01] p-8 backdrop-blur-md flex flex-col justify-between">
+            <div>
+              <h3 className="flex items-center gap-2 text-lg font-bold text-white tracking-tight mb-4">
+                <Layers className="h-5 w-5 text-brand-purple shrink-0" />
+                The Congregational Prayer Timing Problem
+              </h3>
+              <p className="text-sm leading-relaxed text-white/60 mb-6">
+                {project.problem}
+              </p>
+            </div>
+            <div className="border-t border-white/5 pt-6">
+              <h3 className="flex items-center gap-2 text-lg font-bold text-white tracking-tight mb-4">
+                <Database className="h-5 w-5 text-brand-cyan shrink-0" />
+                The Salah Times Solution Suite
+              </h3>
+              <p className="text-sm leading-relaxed text-white/60">
+                {project.solution}
+              </p>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5 rounded-2xl border border-white/5 bg-white/[0.01] p-8 backdrop-blur-md flex flex-col justify-between">
+            <div>
+              <h3 className="flex items-center gap-2 text-lg font-bold text-white tracking-tight mb-4">
+                <Milestone className="h-5 w-5 text-brand-blue shrink-0" />
+                Offline-First Real-time Sync
+              </h3>
+              <p className="text-sm leading-relaxed text-white/60 mb-6">
+                {project.architecturalOverview}
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-brand-purple/20 bg-brand-purple/5 p-5">
+              <h4 className="text-xs uppercase font-bold tracking-widest text-brand-cyan mb-2">
+                Prayer Devotional Promise
+              </h4>
+              <p className="text-xs text-white/50 leading-relaxed italic">
+                "Salah Times synchronizes you with local masjids in your city, delivering microsecond-accurate timetables, event alerts, and Quranic readings right to your mobile device."
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Interactive Deep Dive Features Navigation */}
+        <div className="mb-20">
+          <div className="text-center max-w-xl mx-auto mb-12">
+            <span className="text-xs font-bold uppercase tracking-widest text-brand-purple">
+              6 Core Modular Pillars
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-2">
+              Explore the Feature Catalog
+            </h2>
+            <p className="text-xs text-white/40 mt-2 leading-relaxed">
+              Select a module from the list below to review its screenshots, localized parameters, and interface configurations.
+            </p>
+          </div>
+
+          {/* Feature Tabs Selector */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-10 max-w-4xl mx-auto">
+            {salahTimesFeatures.map((feat) => {
+              const Icon = feat.icon;
+              const isActive = activeTab === feat.num;
+              return (
+                <button
+                  key={feat.num}
+                  onClick={() => setActiveTab(feat.num)}
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-semibold tracking-wider transition-all duration-300 ${isActive
+                      ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg shadow-brand-purple/10"
+                      : "border border-white/5 bg-white/[0.01] text-white/50 hover:bg-white/5 hover:text-white"
+                    }`}
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                  {feat.num}. {feat.title}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Feature Detail Sheet */}
+          {salahTimesFeatures.map((feat) => {
+            if (activeTab !== feat.num) return null;
+            const Icon = feat.icon;
+            return (
+              <div key={feat.num} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch animate-fadeIn">
+                {/* Visual Screenshot display */}
+                <div className="lg:col-span-7 flex flex-col justify-center space-y-4">
+                  {feat.images.length === 1 ? (
+                    <div className="relative rounded-2xl border border-white/5 bg-white/5 overflow-hidden aspect-[9/16] h-[550px] shadow-xl group max-w-xs mx-auto w-full">
+                      <img
+                        src={feat.images[0]}
+                        alt={feat.title}
+                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.02]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-bg-black/50 to-transparent" />
+                      <div className="absolute bottom-3 left-3 rounded bg-black/60 backdrop-blur-md px-2.5 py-1 text-[10px] text-white/70 border border-white/10 font-mono">
+                        Active Mobile Screen
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {feat.images.map((img, i) => (
+                        <div key={i} className="relative rounded-xl overflow-hidden border border-white/5 bg-white/5 aspect-[9/16] h-[450px] max-w-xs mx-auto w-full shadow-lg group">
+                          <img
+                            src={img}
+                            alt={`${feat.title} - View ${i + 1}`}
+                            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.02]"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-bg-black/50 to-transparent" />
+                          <div className="absolute bottom-3 left-3 rounded bg-black/60 backdrop-blur-md px-2.5 py-1 text-[10px] text-white/70 border border-white/10 font-mono">
+                            {feat.labels ? feat.labels[i] : `View ${i + 1}`}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Feature Description card */}
+                <div className="lg:col-span-5">
+                  <GlowingCard className="p-8 h-full flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-6">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-purple/10 border border-brand-purple/20 text-brand-cyan">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <span className="block text-[10px] font-mono tracking-widest text-brand-purple font-bold">PILLAR {feat.num}</span>
+                          <h3 className="text-xl font-bold text-white tracking-tight">{feat.title}</h3>
+                        </div>
+                      </div>
+
+                      <p className="text-sm leading-relaxed text-white/60">
+                        {feat.desc}
+                      </p>
+                    </div>
+
+                    <div className="mt-8 border-t border-white/5 pt-6">
+                      <span className="block text-[10px] font-bold uppercase tracking-wider text-white/30 mb-3">Architectural Directives</span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {feat.tags.map((tag, sIdx) => (
+                          <span
+                            key={sIdx}
+                            className="rounded bg-white/5 border border-white/10 px-2 py-0.5 text-[10px] font-mono text-brand-cyan/80"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </GlowingCard>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Shipped outcomes section */}
+        <div className="rounded-2xl border border-white/5 bg-white/[0.01] p-8 sm:p-10 backdrop-blur-md mb-20">
+          <h3 className="flex items-center gap-2 text-lg font-bold text-white tracking-tight mb-6">
+            <BarChart3 className="h-5 w-5 text-brand-blue shrink-0" />
+            Quantifiable Shipped Value
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {project.results.map((res, idx) => (
+              <div
+                key={idx}
+                className="rounded-xl border border-white/5 bg-white/[0.02] p-6 text-xs sm:text-sm relative hover:border-brand-purple/30 transition-all duration-300"
+              >
+                <span className="absolute top-2 right-4 text-2xl font-mono font-bold text-brand-purple/20">
+                  {idx + 1}
+                </span>
+                <p className="leading-relaxed text-white/70 font-medium">{res}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Contact CTA */}
+        <div className="mt-20 border-t border-white/5 pt-12 text-center">
+          <h3 className="text-xl font-bold text-white tracking-tight mb-4">Interested in expanding Salah Times?</h3>
+          <p className="text-xs text-white/40 max-w-md mx-auto mb-8 leading-relaxed">
+            Partner with UnifiedStack. Schedule a structured technical scoping call directly with founder Mohd Huzaifa to evaluate hyperlocal scaling structures.
+          </p>
+          <Link
+            href="/contact"
+            className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-8 py-4 text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
+          >
+            Schedule structural technical scope call
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const helporaFeatures: Feature[] = [
+  {
+    num: "1",
+    title: "Easy Service Discovery & Booking",
+    desc: "Seamlessly search and browse available services, view profiles, compare ratings, and book the right provider for your budget and schedule requirements.",
+    images: ["/helpora/helpora_ss1.png"],
+    tags: ["Marketplace Discovery", "Instant Booking", "Dynamic Scheduling"],
+    icon: Layout
+  },
+  {
+    num: "2",
+    title: "Verified and Rated Service Providers",
+    desc: "Built-in credentials validation, ID verification checks, and customer ratings/reviews engine to guarantee trusted provider credibility.",
+    images: ["/helpora/helpora_ss2.png"],
+    tags: ["Provider Verification", "Ratings & Reviews", "Trust Validation"],
+    icon: ShieldCheck
+  },
+  {
+    num: "3",
+    title: "Real-time Communication Channel",
+    desc: "Integrated chat messenger enabling customers and service providers to negotiate prices, discuss service requirements, and coordinate times instantly.",
+    images: ["/helpora/helpora_ss1.png"],
+    tags: ["Instant Messaging", "Customer Chat", "Provider Channels"],
+    icon: Radio
+  },
+  {
+    num: "4",
+    title: "Secure Payment Options",
+    desc: "Granular payment escrow pathways supporting flexible credit card billing, stripe checkouts, and automatic invoicing mechanisms.",
+    images: ["/helpora/helpora_ss2.png"],
+    tags: ["Secure Escrow", "Stripe Checkout", "Invoice Generation"],
+    icon: Key
+  },
+  {
+    num: "5",
+    title: "Booking Tracking & Service Flow",
+    desc: "Track the step-by-step progress of your service requests from pending, accepted, in-progress, to completed milestones.",
+    images: ["/helpora/helpora_ss1.png"],
+    tags: ["Milestone Tracker", "Service Mapping", "Status Real-time"],
+    icon: FolderKanban
+  }
+];
+
+function HelporaDetails({ project }: { project: Project }) {
+  const [activeTab, setActiveTab] = useState<string>("1");
+
+  return (
+    <div className="relative py-12 md:py-20 px-4">
+      {/* Background radial glows */}
+      <div className="pointer-events-none absolute top-20 left-1/2 -translate-x-1/2 h-[450px] w-[700px] rounded-full bg-brand-purple/5 blur-[140px]" />
+      <div className="pointer-events-none absolute bottom-40 right-10 h-[300px] w-[500px] rounded-full bg-brand-cyan/5 blur-[120px]" />
+
+      <div className="mx-auto max-w-6xl relative z-10">
+        {/* Navigation back anchor */}
+        <Link
+          href="/case-studies"
+          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Catalog
+        </Link>
+
+        {/* Header Block */}
+        <header className="border-b border-white/5 pb-10 mb-12">
+          <div className="flex flex-wrap gap-2 mb-6">
+            <span className="rounded bg-brand-purple/20 border border-brand-purple/35 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-brand-cyan">
+              {project.category}
+            </span>
+            <span className="rounded bg-brand-blue/20 border border-brand-blue/35 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white/80">
+              On-Demand Marketplace
+            </span>
+          </div>
+
+          <h1 className="text-4xl font-extrabold text-white sm:text-5xl md:text-6xl leading-tight tracking-tight">
+            {project.title}
+          </h1>
+
+          <p className="mt-6 text-base sm:text-lg text-white/70 leading-relaxed max-w-4xl">
+            {project.description}
+          </p>
+
+          {/* Tech Stack Chips */}
+          <div className="mt-8 flex flex-wrap gap-2">
+            {project.techStack.map((tech, idx) => (
+              <span
+                key={idx}
+                className="rounded bg-white/5 border border-white/10 px-3 py-1 text-xs font-mono text-white/50"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          {project.playStoreLink && (
+            <div className="mt-8">
+              <a
+                href={project.playStoreLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-cyan/15 border border-brand-cyan/35 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:bg-brand-cyan/25 hover:text-white transition-all shadow-lg animate-pulse"
+              >
+                Get it on Google Play
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            </div>
+          )}
+        </header>
+
+        {/* Quantifiable Stats Summary Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 border border-white/5 bg-white/[0.01] p-8 rounded-2xl text-center mb-16 backdrop-blur-md">
+          {project.metrics.map((m, idx) => (
+            <div key={idx} className="flex flex-col items-center">
+              <span className="text-3xl font-extrabold text-white">{m.value}</span>
+              <span className="text-xs uppercase tracking-widest text-white/40 mt-2">{m.label}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Hero Mockup */}
+        <div className="relative rounded-2xl border border-white/5 bg-white/5 overflow-hidden shadow-2xl mb-16 max-w-lg mx-auto aspect-[9/16] h-[650px] group">
+          <img
+            src="/helpora/helpora_ss1.png"
+            alt="Helpora primary interface"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.01]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-black/45 to-transparent" />
+          <div className="absolute bottom-4 left-4 right-4 rounded bg-black/60 backdrop-blur-md px-3 py-1 text-xs text-white/70 border border-white/10 text-center font-mono">
+            Active Helpora Customer & Provider Hub
+          </div>
+        </div>
+
+        {/* Platform Lifecycle Introduction */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-20">
+          <div className="lg:col-span-7 rounded-2xl border border-white/5 bg-white/[0.01] p-8 backdrop-blur-md flex flex-col justify-between">
+            <div>
+              <h3 className="flex items-center gap-2 text-lg font-bold text-white tracking-tight mb-4">
+                <Layers className="h-5 w-5 text-brand-purple shrink-0" />
+                The Service Coordination Hassle
+              </h3>
+              <p className="text-sm leading-relaxed text-white/60 mb-6">
+                {project.problem}
+              </p>
+            </div>
+            <div className="border-t border-white/5 pt-6">
+              <h3 className="flex items-center gap-2 text-lg font-bold text-white tracking-tight mb-4">
+                <Database className="h-5 w-5 text-brand-cyan shrink-0" />
+                The Helpora Marketplace Solution
+              </h3>
+              <p className="text-sm leading-relaxed text-white/60">
+                {project.solution}
+              </p>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5 rounded-2xl border border-white/5 bg-white/[0.01] p-8 backdrop-blur-md flex flex-col justify-between">
+            <div>
+              <h3 className="flex items-center gap-2 text-lg font-bold text-white tracking-tight mb-4">
+                <Milestone className="h-5 w-5 text-brand-blue shrink-0" />
+                Escrow Billing & Real-time Messaging
+              </h3>
+              <p className="text-sm leading-relaxed text-white/60 mb-6">
+                {project.architecturalOverview}
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-brand-purple/20 bg-brand-purple/5 p-5">
+              <h4 className="text-xs uppercase font-bold tracking-widest text-brand-cyan mb-2">
+                Verified Provider Commitment
+              </h4>
+              <p className="text-xs text-white/50 leading-relaxed italic">
+                "Helpora acts as a robust transactional bridge, bringing customers and certified local providers together with escrow checks, real-time message routes, and automated timelines."
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Interactive Deep Dive Features Navigation */}
+        <div className="mb-20">
+          <div className="text-center max-w-xl mx-auto mb-12">
+            <span className="text-xs font-bold uppercase tracking-widest text-brand-purple">
+              5 Core Modular Pillars
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-2">
+              Explore the Feature Catalog
+            </h2>
+            <p className="text-xs text-white/40 mt-2 leading-relaxed">
+              Select a module from the list below to review its screenshots, localized parameters, and interface configurations.
+            </p>
+          </div>
+
+          {/* Feature Tabs Selector */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-10 max-w-4xl mx-auto">
+            {helporaFeatures.map((feat) => {
+              const Icon = feat.icon;
+              const isActive = activeTab === feat.num;
+              return (
+                <button
+                  key={feat.num}
+                  onClick={() => setActiveTab(feat.num)}
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-semibold tracking-wider transition-all duration-300 ${isActive
+                      ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg shadow-brand-purple/10"
+                      : "border border-white/5 bg-white/[0.01] text-white/50 hover:bg-white/5 hover:text-white"
+                    }`}
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                  {feat.num}. {feat.title}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Feature Detail Sheet */}
+          {helporaFeatures.map((feat) => {
+            if (activeTab !== feat.num) return null;
+            const Icon = feat.icon;
+            return (
+              <div key={feat.num} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch animate-fadeIn">
+                {/* Visual Screenshot display */}
+                <div className="lg:col-span-7 flex flex-col justify-center space-y-4">
+                  {feat.images.length === 1 ? (
+                    <div className="relative rounded-2xl border border-white/5 bg-white/5 overflow-hidden aspect-[9/16] h-[550px] shadow-xl group max-w-xs mx-auto w-full">
+                      <img
+                        src={feat.images[0]}
+                        alt={feat.title}
+                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.02]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-bg-black/50 to-transparent" />
+                      <div className="absolute bottom-3 left-3 rounded bg-black/60 backdrop-blur-md px-2.5 py-1 text-[10px] text-white/70 border border-white/10 font-mono">
+                        Active Mobile Screen
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {feat.images.map((img, i) => (
+                        <div key={i} className="relative rounded-xl overflow-hidden border border-white/5 bg-white/5 aspect-[9/16] h-[450px] max-w-xs mx-auto w-full shadow-lg group">
+                          <img
+                            src={img}
+                            alt={`${feat.title} - View ${i + 1}`}
+                            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.02]"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-bg-black/50 to-transparent" />
+                          <div className="absolute bottom-3 left-3 rounded bg-black/60 backdrop-blur-md px-2.5 py-1 text-[10px] text-white/70 border border-white/10 font-mono">
+                            {feat.labels ? feat.labels[i] : `View ${i + 1}`}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Feature Description card */}
+                <div className="lg:col-span-5">
+                  <GlowingCard className="p-8 h-full flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-6">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-purple/10 border border-brand-purple/20 text-brand-cyan">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <span className="block text-[10px] font-mono tracking-widest text-brand-purple font-bold">PILLAR {feat.num}</span>
+                          <h3 className="text-xl font-bold text-white tracking-tight">{feat.title}</h3>
+                        </div>
+                      </div>
+
+                      <p className="text-sm leading-relaxed text-white/60">
+                        {feat.desc}
+                      </p>
+                    </div>
+
+                    <div className="mt-8 border-t border-white/5 pt-6">
+                      <span className="block text-[10px] font-bold uppercase tracking-wider text-white/30 mb-3">Architectural Directives</span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {feat.tags.map((tag, sIdx) => (
+                          <span
+                            key={sIdx}
+                            className="rounded bg-white/5 border border-white/10 px-2 py-0.5 text-[10px] font-mono text-brand-cyan/80"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </GlowingCard>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Shipped outcomes section */}
+        <div className="rounded-2xl border border-white/5 bg-white/[0.01] p-8 sm:p-10 backdrop-blur-md mb-20">
+          <h3 className="flex items-center gap-2 text-lg font-bold text-white tracking-tight mb-6">
+            <BarChart3 className="h-5 w-5 text-brand-blue shrink-0" />
+            Quantifiable Shipped Value
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {project.results.map((res, idx) => (
+              <div
+                key={idx}
+                className="rounded-xl border border-white/5 bg-white/[0.02] p-6 text-xs sm:text-sm relative hover:border-brand-purple/30 transition-all duration-300"
+              >
+                <span className="absolute top-2 right-4 text-2xl font-mono font-bold text-brand-purple/20">
+                  {idx + 1}
+                </span>
+                <p className="leading-relaxed text-white/70 font-medium">{res}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Contact CTA */}
+        <div className="mt-20 border-t border-white/5 pt-12 text-center">
+          <h3 className="text-xl font-bold text-white tracking-tight mb-4">Interested in expanding Helpora?</h3>
+          <p className="text-xs text-white/40 max-w-md mx-auto mb-8 leading-relaxed">
+            Partner with UnifiedStack. Schedule a structured technical scoping call directly with founder Mohd Huzaifa to evaluate hyperlocal scaling structures.
+          </p>
+          <Link
+            href="/contact"
+            className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-8 py-4 text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
+          >
+            Schedule structural technical scope call
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const vibeWaveFeatures: Feature[] = [
+  {
+    num: "1",
+    title: "Real-time Proximity Engine",
+    desc: "Uses coordinate-tracking queries to locate and signal active users in your immediate physical vicinity within a 100-meter range.",
+    images: ["/vibewave/vibewave_ss1.png"],
+    tags: ["GeoFirestore", "Proximity Range", "Live Signals"],
+    icon: Radio
+  },
+  {
+    num: "2",
+    title: "Interest-Based Matching Weights",
+    desc: "Categorizes matching cards by specific filters: professional collaboration, study sessions, coffee catch-ups, or gaming sessions.",
+    images: ["/vibewave/vibewave_ss2.png"],
+    tags: ["Interest Vectors", "Proximity Hub", "Matching Metrics"],
+    icon: Layout
+  },
+  {
+    num: "3",
+    title: "Proximity Chat Routing",
+    desc: "Facilitates low-latency messaging rooms enabling nearby matched users to establish quick offline coordinates.",
+    images: ["/vibewave/vibewave_ss3.png"],
+    tags: ["P2P Chat", "Instant Sync", "Firebase Auth"],
+    icon: Radio
+  },
+  {
+    num: "4",
+    title: "Privacy & Visibility Control",
+    desc: "Granular configuration toggles to enable or disable active proximity waves, allowing users to browse incognito.",
+    images: ["/vibewave/vibewave_ss2.png"],
+    tags: ["Privacy Guard", "Incognito Signals", "Profile Control"],
+    icon: Key
+  },
+  {
+    num: "5",
+    title: "Vibe Match Audits",
+    desc: "Interactive metrics page analyzing matching history and visual connection maps to customize discovery parameters.",
+    images: ["/vibewave/vibewave_ss1.png"],
+    tags: ["Match History", "Analytics Dashboard", "Directory Maps"],
+    icon: FolderKanban
+  }
+];
+
+function VibeWaveDetails({ project }: { project: Project }) {
+  const [activeTab, setActiveTab] = useState<string>("1");
+
+  return (
+    <div className="relative py-12 md:py-20 px-4">
+      {/* Background radial glows */}
+      <div className="pointer-events-none absolute top-20 left-1/2 -translate-x-1/2 h-[450px] w-[700px] rounded-full bg-brand-purple/5 blur-[140px]" />
+      <div className="pointer-events-none absolute bottom-40 right-10 h-[300px] w-[500px] rounded-full bg-brand-cyan/5 blur-[120px]" />
+
+      <div className="mx-auto max-w-6xl relative z-10">
+        {/* Navigation back anchor */}
+        <Link
+          href="/case-studies"
+          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Catalog
+        </Link>
+
+        {/* Header Block */}
+        <header className="border-b border-white/5 pb-10 mb-12">
+          <div className="flex flex-wrap gap-2 mb-6">
+            <span className="rounded bg-brand-purple/20 border border-brand-purple/35 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-brand-cyan">
+              {project.category}
+            </span>
+            <span className="rounded bg-brand-blue/20 border border-brand-blue/35 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white/80">
+              Proximity Social Network
+            </span>
+          </div>
+
+          <h1 className="text-4xl font-extrabold text-white sm:text-5xl md:text-6xl leading-tight tracking-tight">
+            {project.title}
+          </h1>
+
+          <p className="mt-6 text-base sm:text-lg text-white/70 leading-relaxed max-w-4xl">
+            {project.description}
+          </p>
+
+          {/* Tech Stack Chips */}
+          <div className="mt-8 flex flex-wrap gap-2">
+            {project.techStack.map((tech, idx) => (
+              <span
+                key={idx}
+                className="rounded bg-white/5 border border-white/10 px-3 py-1 text-xs font-mono text-white/50"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          {project.playStoreLink && (
+            <div className="mt-8">
+              <a
+                href={project.playStoreLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-cyan/15 border border-brand-cyan/35 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:bg-brand-cyan/25 hover:text-white transition-all shadow-lg animate-pulse"
+              >
+                Get it on Google Play
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            </div>
+          )}
+        </header>
+
+        {/* Quantifiable Stats Summary Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 border border-white/5 bg-white/[0.01] p-8 rounded-2xl text-center mb-16 backdrop-blur-md">
+          {project.metrics.map((m, idx) => (
+            <div key={idx} className="flex flex-col items-center">
+              <span className="text-3xl font-extrabold text-white">{m.value}</span>
+              <span className="text-xs uppercase tracking-widest text-white/40 mt-2">{m.label}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Hero Mockup */}
+        <div className="relative rounded-2xl border border-white/5 bg-white/5 overflow-hidden shadow-2xl mb-16 max-w-lg mx-auto aspect-[9/16] h-[650px] group">
+          <img
+            src="/vibewave/vibewave_ss1.png"
+            alt="VibeWave primary interface"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.01]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-black/45 to-transparent" />
+          <div className="absolute bottom-4 left-4 right-4 rounded bg-black/60 backdrop-blur-md px-3 py-1 text-xs text-white/70 border border-white/10 text-center font-mono">
+            Active VibeWave Active Matching Feed
+          </div>
+        </div>
+
+        {/* Platform Lifecycle Introduction */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-20">
+          <div className="lg:col-span-7 rounded-2xl border border-white/5 bg-white/[0.01] p-8 backdrop-blur-md flex flex-col justify-between">
+            <div>
+              <h3 className="flex items-center gap-2 text-lg font-bold text-white tracking-tight mb-4">
+                <Layers className="h-5 w-5 text-brand-purple shrink-0" />
+                The Proximity Connection Gap
+              </h3>
+              <p className="text-sm leading-relaxed text-white/60 mb-6">
+                {project.problem}
+              </p>
+            </div>
+            <div className="border-t border-white/5 pt-6">
+              <h3 className="flex items-center gap-2 text-lg font-bold text-white tracking-tight mb-4">
+                <Database className="h-5 w-5 text-brand-cyan shrink-0" />
+                The VibeWave Discovery Suite
+              </h3>
+              <p className="text-sm leading-relaxed text-white/60">
+                {project.solution}
+              </p>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5 rounded-2xl border border-white/5 bg-white/[0.01] p-8 backdrop-blur-md flex flex-col justify-between">
+            <div>
+              <h3 className="flex items-center gap-2 text-lg font-bold text-white tracking-tight mb-4">
+                <Milestone className="h-5 w-5 text-brand-blue shrink-0" />
+                Low-Latency Coordinate Loops
+              </h3>
+              <p className="text-sm leading-relaxed text-white/60 mb-6">
+                {project.architecturalOverview}
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-brand-purple/20 bg-brand-purple/5 p-5">
+              <h4 className="text-xs uppercase font-bold tracking-widest text-brand-cyan mb-2">
+                Discovery Signal Auditing
+              </h4>
+              <p className="text-xs text-white/50 leading-relaxed italic">
+                "VibeWave leverages high-precision coordinate indexes to map your immediate surroundings, linking you contextually to peers with identical goal alignments."
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Interactive Deep Dive Features Navigation */}
+        <div className="mb-20">
+          <div className="text-center max-w-xl mx-auto mb-12">
+            <span className="text-xs font-bold uppercase tracking-widest text-brand-purple">
+              5 Core Modular Pillars
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-2">
+              Explore the Feature Catalog
+            </h2>
+            <p className="text-xs text-white/40 mt-2 leading-relaxed">
+              Select a module from the list below to review its screenshots, localized parameters, and interface configurations.
+            </p>
+          </div>
+
+          {/* Feature Tabs Selector */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-10 max-w-4xl mx-auto">
+            {vibeWaveFeatures.map((feat) => {
+              const Icon = feat.icon;
+              const isActive = activeTab === feat.num;
+              return (
+                <button
+                  key={feat.num}
+                  onClick={() => setActiveTab(feat.num)}
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-semibold tracking-wider transition-all duration-300 ${isActive
+                      ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg shadow-brand-purple/10"
+                      : "border border-white/5 bg-white/[0.01] text-white/50 hover:bg-white/5 hover:text-white"
+                    }`}
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                  {feat.num}. {feat.title}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Feature Detail Sheet */}
+          {vibeWaveFeatures.map((feat) => {
+            if (activeTab !== feat.num) return null;
+            const Icon = feat.icon;
+            return (
+              <div key={feat.num} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch animate-fadeIn">
+                {/* Visual Screenshot display */}
+                <div className="lg:col-span-7 flex flex-col justify-center space-y-4">
+                  {feat.images.length === 1 ? (
+                    <div className="relative rounded-2xl border border-white/5 bg-white/5 overflow-hidden aspect-[9/16] h-[550px] shadow-xl group max-w-xs mx-auto w-full">
+                      <img
+                        src={feat.images[0]}
+                        alt={feat.title}
+                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.02]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-bg-black/50 to-transparent" />
+                      <div className="absolute bottom-3 left-3 rounded bg-black/60 backdrop-blur-md px-2.5 py-1 text-[10px] text-white/70 border border-white/10 font-mono">
+                        Active Mobile Screen
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {feat.images.map((img, i) => (
+                        <div key={i} className="relative rounded-xl overflow-hidden border border-white/5 bg-white/5 aspect-[9/16] h-[450px] max-w-xs mx-auto w-full shadow-lg group">
+                          <img
+                            src={img}
+                            alt={`${feat.title} - View ${i + 1}`}
+                            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.02]"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-bg-black/50 to-transparent" />
+                          <div className="absolute bottom-3 left-3 rounded bg-black/60 backdrop-blur-md px-2.5 py-1 text-[10px] text-white/70 border border-white/10 font-mono">
+                            {feat.labels ? feat.labels[i] : `View ${i + 1}`}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Feature Description card */}
+                <div className="lg:col-span-5">
+                  <GlowingCard className="p-8 h-full flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-6">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-purple/10 border border-brand-purple/20 text-brand-cyan">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <span className="block text-[10px] font-mono tracking-widest text-brand-purple font-bold">PILLAR {feat.num}</span>
+                          <h3 className="text-xl font-bold text-white tracking-tight">{feat.title}</h3>
+                        </div>
+                      </div>
+
+                      <p className="text-sm leading-relaxed text-white/60">
+                        {feat.desc}
+                      </p>
+                    </div>
+
+                    <div className="mt-8 border-t border-white/5 pt-6">
+                      <span className="block text-[10px] font-bold uppercase tracking-wider text-white/30 mb-3">Architectural Directives</span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {feat.tags.map((tag, sIdx) => (
+                          <span
+                            key={sIdx}
+                            className="rounded bg-white/5 border border-white/10 px-2 py-0.5 text-[10px] font-mono text-brand-cyan/80"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </GlowingCard>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Shipped outcomes section */}
+        <div className="rounded-2xl border border-white/5 bg-white/[0.01] p-8 sm:p-10 backdrop-blur-md mb-20">
+          <h3 className="flex items-center gap-2 text-lg font-bold text-white tracking-tight mb-6">
+            <BarChart3 className="h-5 w-5 text-brand-blue shrink-0" />
+            Quantifiable Shipped Value
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {project.results.map((res, idx) => (
+              <div
+                key={idx}
+                className="rounded-xl border border-white/5 bg-white/[0.02] p-6 text-xs sm:text-sm relative hover:border-brand-purple/30 transition-all duration-300"
+              >
+                <span className="absolute top-2 right-4 text-2xl font-mono font-bold text-brand-purple/20">
+                  {idx + 1}
+                </span>
+                <p className="leading-relaxed text-white/70 font-medium">{res}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Contact CTA */}
+        <div className="mt-20 border-t border-white/5 pt-12 text-center">
+          <h3 className="text-xl font-bold text-white tracking-tight mb-4">Interested in expanding VibeWave?</h3>
+          <p className="text-xs text-white/40 max-w-md mx-auto mb-8 leading-relaxed">
+            Partner with UnifiedStack. Schedule a structured technical scoping call directly with founder Mohd Huzaifa to evaluate hyperlocal scaling structures.
+          </p>
+          <Link
+            href="/contact"
+            className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-8 py-4 text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
+          >
+            Schedule structural technical scope call
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function CaseStudyDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const [project, setProject] = useState<Project | null>(null);
@@ -839,6 +1857,18 @@ export default function CaseStudyDetailsPage({ params }: { params: Promise<{ id:
     return <TownBeatDetails project={project} />;
   }
 
+  if (project.id === "salah-times") {
+    return <SalahTimesDetails project={project} />;
+  }
+
+  if (project.id === "helpora") {
+    return <HelporaDetails project={project} />;
+  }
+
+  if (project.id === "vibe-wave") {
+    return <VibeWaveDetails project={project} />;
+  }
+
   return (
     <div className="relative py-12 md:py-20 px-4">
       {/* Background visual elements */}
@@ -859,7 +1889,7 @@ export default function CaseStudyDetailsPage({ params }: { params: Promise<{ id:
           <span className="rounded bg-brand-purple/20 border border-brand-purple/35 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-brand-cyan">
             {project.category}
           </span>
-          
+
           <h1 className="mt-6 text-3xl font-extrabold text-white sm:text-4xl md:text-5xl leading-tight">
             Case Study: {project.title}
           </h1>
@@ -867,6 +1897,20 @@ export default function CaseStudyDetailsPage({ params }: { params: Promise<{ id:
           <p className="mt-4 text-base text-white/60 leading-relaxed max-w-3xl">
             {project.description}
           </p>
+
+          {project.githubLink && (
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href={project.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 px-4 py-2 text-xs font-bold text-white transition-all cursor-pointer"
+              >
+                <Github className="h-4 w-4 text-brand-purple" />
+                View Source on GitHub
+              </a>
+            </div>
+          )}
         </header>
 
         {/* Quantifiable Stats Summary Grid */}

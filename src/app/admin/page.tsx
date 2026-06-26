@@ -1,33 +1,23 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { 
-  Lock, 
-  Mail, 
-  Layers, 
-  Clock, 
-  CheckCircle, 
-  Trash2, 
-  PlusCircle, 
-  LineChart, 
-  LogOut,
-  FolderDot,
-  Bot,
-  Brain,
-  Binary,
-  ArrowRight,
-  Database
-} from "lucide-react";
 import GlowingCard from "@/components/ui/glowing-card";
-import { getInquiries, getBlogs, getProjects, Inquiry, Blog, Project } from "@/lib/firebase";
+import { Blog, getBlogs, getInquiries, getProjects, Inquiry, Project } from "@/lib/firebase";
+import {
+  ArrowRight,
+  Lock,
+  LogOut,
+  Mail,
+  PlusCircle
+} from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 export default function AdminDashboardPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passcode, setPasscode] = useState("");
   const [error, setError] = useState("");
-  
+
   const [activeTab, setActiveTab] = useState<"leads" | "blogs" | "analytics">("leads");
-  
+
   // Data lists state
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -57,7 +47,7 @@ export default function AdminDashboardPage() {
 
   useEffect(() => {
     if (!isAuthenticated) return;
-    
+
     async function loadAdminData() {
       setLoading(true);
       try {
@@ -120,7 +110,7 @@ export default function AdminDashboardPage() {
     // Reconcile list
     setBlogs([newBlog, ...blogs]);
     setBlogSuccess(true);
-    
+
     // Save to LocalMock Fallback
     const existingBlogs = localStorage.getItem("unifiedstack_blogs") || "[]";
     const parsed = JSON.parse(existingBlogs);
@@ -188,7 +178,7 @@ export default function AdminDashboardPage() {
                 required
               />
             </div>
-            
+
             {error && <span className="block text-[10px] text-red-400 font-medium text-center">{error}</span>}
 
             <button
@@ -235,33 +225,30 @@ export default function AdminDashboardPage() {
         <div className="flex flex-wrap items-center gap-2 mb-8 border-b border-white/5 pb-4">
           <button
             onClick={() => setActiveTab("leads")}
-            className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${
-              activeTab === "leads"
+            className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${activeTab === "leads"
                 ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
                 : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
-            }`}
+              }`}
           >
             Leads Inbox ({inquiries.length})
           </button>
-          
+
           <button
             onClick={() => setActiveTab("blogs")}
-            className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${
-              activeTab === "blogs"
+            className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${activeTab === "blogs"
                 ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
                 : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
-            }`}
+              }`}
           >
             Publish Article
           </button>
 
           <button
             onClick={() => setActiveTab("analytics")}
-            className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${
-              activeTab === "analytics"
+            className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${activeTab === "analytics"
                 ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
                 : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
-            }`}
+              }`}
           >
             Pipeline Analytics
           </button>
@@ -295,16 +282,15 @@ export default function AdminDashboardPage() {
                       <span className="rounded bg-brand-cyan/15 border border-brand-cyan/20 px-2 py-0.5 text-[9px] font-mono text-white/80">
                         {inq.budget}
                       </span>
-                      
+
                       {/* Status selectors */}
                       <select
                         value={inq.status}
                         onChange={(e) => handleStatusChange(idx, e.target.value as any)}
-                        className={`rounded border px-2 py-0.5 text-[10px] font-mono outline-none cursor-pointer bg-bg-black ${
-                          inq.status === "New" ? "border-red-500 text-red-400 bg-red-500/5" :
-                          inq.status === "In Discussion" ? "border-yellow-500 text-yellow-400 bg-yellow-500/5" :
-                          "border-green-500 text-green-400 bg-green-500/5"
-                        }`}
+                        className={`rounded border px-2 py-0.5 text-[10px] font-mono outline-none cursor-pointer bg-bg-black ${inq.status === "New" ? "border-red-500 text-red-400 bg-red-500/5" :
+                            inq.status === "In Discussion" ? "border-yellow-500 text-yellow-400 bg-yellow-500/5" :
+                              "border-green-500 text-green-400 bg-green-500/5"
+                          }`}
                       >
                         <option value="New">New</option>
                         <option value="In Discussion">In Discussion</option>
@@ -344,7 +330,7 @@ export default function AdminDashboardPage() {
                     type="text"
                     id="title"
                     value={blogForm.title}
-                    onChange={(e) => setBlogForm({...blogForm, title: e.target.value})}
+                    onChange={(e) => setBlogForm({ ...blogForm, title: e.target.value })}
                     placeholder="E.g. Optimizing Pinecone Retrieval Performance"
                     className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40"
                     required
@@ -357,7 +343,7 @@ export default function AdminDashboardPage() {
                     <select
                       id="category"
                       value={blogForm.category}
-                      onChange={(e) => setBlogForm({...blogForm, category: e.target.value})}
+                      onChange={(e) => setBlogForm({ ...blogForm, category: e.target.value })}
                       className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 [&>option]:bg-bg-black"
                     >
                       <option value="Agentic AI">Agentic AI</option>
@@ -372,7 +358,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       id="readTime"
                       value={blogForm.readTime}
-                      onChange={(e) => setBlogForm({...blogForm, readTime: e.target.value})}
+                      onChange={(e) => setBlogForm({ ...blogForm, readTime: e.target.value })}
                       className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
                       required
                     />
@@ -385,7 +371,7 @@ export default function AdminDashboardPage() {
                     type="text"
                     id="excerpt"
                     value={blogForm.excerpt}
-                    onChange={(e) => setBlogForm({...blogForm, excerpt: e.target.value})}
+                    onChange={(e) => setBlogForm({ ...blogForm, excerpt: e.target.value })}
                     placeholder="Short description snippet of the article content..."
                     className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40"
                     required
@@ -397,7 +383,7 @@ export default function AdminDashboardPage() {
                   <textarea
                     id="content"
                     value={blogForm.content}
-                    onChange={(e) => setBlogForm({...blogForm, content: e.target.value})}
+                    onChange={(e) => setBlogForm({ ...blogForm, content: e.target.value })}
                     rows={8}
                     className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40 font-mono resize-none"
                     placeholder="# Article Header\n\nWrite article paragraphs. Use ## for sections."

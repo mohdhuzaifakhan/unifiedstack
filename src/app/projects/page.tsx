@@ -1,21 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import { 
-  ArrowRight, 
-  Cpu, 
-  Layers, 
-  Binary, 
-  Activity, 
-  ExternalLink,
+import GlowingCard from "@/components/ui/glowing-card";
+import { MOCK_PROJECTS } from "@/lib/firebase";
+import {
+  Activity,
   ChevronDown,
   ChevronUp,
-  LineChart,
-  ListTodo
+  Cpu,
+  ExternalLink,
+  Layers
 } from "lucide-react";
-import GlowingCard from "@/components/ui/glowing-card";
-import { MOCK_PROJECTS, Project } from "@/lib/firebase";
+import Link from "next/link";
+import { useState } from "react";
 
 export default function ProjectsPage() {
   const [activeFilter, setActiveFilter] = useState<string>("all");
@@ -68,11 +64,10 @@ export default function ProjectsPage() {
             <button
               key={cat.key}
               onClick={() => setActiveFilter(cat.key)}
-              className={`rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-wider transition-all ${
-                activeFilter === cat.key
+              className={`rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-wider transition-all ${activeFilter === cat.key
                   ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
                   : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
-              }`}
+                }`}
             >
               {cat.label}
             </button>
@@ -98,7 +93,7 @@ export default function ProjectsPage() {
                       className="h-full w-full object-cover grayscale brightness-90 contrast-125"
                     />
                     <div className="absolute inset-0 bg-gradient-to-tr from-bg-black/90 via-bg-black/30 to-transparent" />
-                    
+
                     {/* Floating badge */}
                     <span className="absolute top-4 left-4 rounded-full bg-brand-purple/20 border border-brand-purple/30 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-brand-cyan glow-text-cyan">
                       {project.category}
@@ -160,13 +155,39 @@ export default function ProjectsPage() {
                         )}
                       </button>
 
-                      <Link
-                        href={`/contact?project=${encodeURIComponent(project.title)}`}
-                        className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/5 border border-white/10 hover:border-brand-purple text-white/70 hover:text-white transition-colors"
-                        aria-label="Enquire about project"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                      </Link>
+                      <div className="flex items-center gap-2">
+                        {project.playStoreLink && (
+                          <a
+                            href={project.playStoreLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex h-9 px-4 items-center justify-center rounded-full bg-brand-cyan/10 border border-brand-cyan/30 text-xs font-semibold text-brand-cyan hover:bg-brand-cyan/20 hover:text-white transition-all gap-1.5"
+                            aria-label="Download from Google Play"
+                          >
+                            <span>Play Store</span>
+                            <ExternalLink className="h-3.5 w-3.5" />
+                          </a>
+                        )}
+                        {project.githubLink && (
+                          <a
+                            href={project.githubLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex h-9 px-4 items-center justify-center rounded-full bg-brand-purple/10 border border-brand-purple/30 text-xs font-semibold text-brand-purple hover:bg-brand-purple/20 hover:text-white transition-all gap-1.5"
+                            aria-label="View Source on GitHub"
+                          >
+                            <span>GitHub</span>
+                            <ExternalLink className="h-3.5 w-3.5" />
+                          </a>
+                        )}
+                        <Link
+                          href={`/contact?project=${encodeURIComponent(project.title)}`}
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/5 border border-white/10 hover:border-brand-purple text-white/70 hover:text-white transition-colors"
+                          aria-label="Enquire about project"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
