@@ -1,7 +1,7 @@
 "use client";
 
 import GlowingCard from "@/components/ui/glowing-card";
-import { MOCK_PROJECTS } from "@/lib/firebase";
+import { getProjects, Project } from "@/lib/firebase";
 import {
   Activity,
   ChevronDown,
@@ -11,9 +11,11 @@ import {
   Layers
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ProjectsPage() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [expandedProject, setExpandedProject] = useState<string | null>("unified-ai-platform");
 
@@ -25,7 +27,24 @@ export default function ProjectsPage() {
     { key: "Generative AI Solutions", label: "Generative AI" }
   ];
 
-  const filteredProjects = MOCK_PROJECTS.filter((p) => {
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const data = await getProjects();
+        setProjects(data);
+        if (data.length > 0) {
+          setExpandedProject(data[0].id);
+        }
+      } catch (err) {
+        console.error("Failed to load projects:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, []);
+
+  const filteredProjects = projects.filter((p) => {
     if (activeFilter === "all") return true;
     return p.category === activeFilter;
   });
@@ -76,14 +95,23 @@ export default function ProjectsPage() {
 
         {/* Shipped cases list layout */}
         <div className="space-y-8">
-          {filteredProjects.map((project) => {
-            const isExpanded = expandedProject === project.id;
-            return (
-              <GlowingCard
-                key={project.id}
-                id={project.id}
-                className="overflow-hidden border border-white/5 transition-all"
-              >
+          {loading ? (
+            <div className="text-center py-20 text-xs font-mono text-white/40">
+              Retrieving dynamic software case studies...
+            </div>
+          ) : filteredProjects.length === 0 ? (
+            <div className="text-center py-20 text-xs text-white/40 italic border border-white/5 rounded-2xl bg-white/[0.01]">
+              No case studies found matching this category.
+            </div>
+          ) : (
+            filteredProjects.map((project) => {
+              const isExpanded = expandedProject === project.id;
+              return (
+                <GlowingCard
+                  key={project.id}
+                  id={project.id}
+                  className="overflow-hidden border border-white/5 transition-all"
+                >
                 <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
                   {/* Visual mockup block */}
                   <div className="lg:col-span-4 relative min-h-[220px] bg-white/5 overflow-hidden">
@@ -254,8 +282,9 @@ export default function ProjectsPage() {
                   </div>
                 )}
               </GlowingCard>
-            );
-          })}
+                );
+              })
+            )}
         </div>
       </div>
     </div>

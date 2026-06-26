@@ -1,221 +1,45 @@
 "use client";
 
 import GlowingCard from "@/components/ui/glowing-card";
+import * as Lucide from "lucide-react";
 import {
   ArrowRight,
-  Binary,
-  Bot,
-  Brain,
-  CheckCircle2,
-  CloudLightning,
-  Code2,
-  Cpu,
-  Layers,
-  Server,
-  Smartphone,
-  Zap
+  CheckCircle2
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getServices, Service } from "@/lib/firebase";
+import { MOCK_SERVICES } from "@/lib/seedData";
+
+const DynamicIcon = ({ name, className }: { name: string; className?: string }) => {
+  const IconComponent = (Lucide as any)[name];
+  if (!IconComponent) return <Lucide.HelpCircle className={className} />;
+  return <IconComponent className={className} />;
+};
 
 export default function ServicesPage() {
   const [activeFilter, setActiveFilter] = useState<"all" | "ai" | "fullstack">("all");
   const [clientLocation, setClientLocation] = useState<"in" | "intl">("in");
+  const [servicesList, setServicesList] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const services = [
-    {
-      id: "ai-agents",
-      category: "ai",
-      icon: <Bot className="h-6 w-6 text-brand-purple" />,
-      title: "AI Agent Development",
-      description: "Stateful, autonomous multi-agent cognitive networks designed to execute complex business routines through cyclic loop workflows.",
-      pricing: {
-        in: "Starting at ₹55,000",
-        intl: "Starting at $5,000"
-      },
-      delivery: "3-5 Weeks",
-      tech: ["LangGraph", "Python", "FastAPI", "Redis"],
-      benefits: [
-        "Recursive self-backtracking execution model",
-        "Reduction of human operational labor by up to 85%",
-        "Direct integration with enterprise CRM and SQL schemas"
-      ],
-      useCase: "Self-healing customer service coordinators and autonomous billing reconcilers that execute complex loops."
-    },
-    {
-      id: "generative-ai",
-      category: "ai",
-      icon: <Brain className="h-6 w-6 text-brand-cyan" />,
-      title: "Generative AI Solutions",
-      description: "Custom integrations of highly advanced LLMs tailored to commercial workflows, delivering high-speed structured text processing.",
-      pricing: {
-        in: "Starting at ₹50,000",
-        intl: "Starting at $4,500"
-      },
-      delivery: "2-4 Weeks",
-      tech: ["GPT-4o", "Claude 3.5 Sonnet", "Gemini Pro", "Pydantic"],
-      benefits: [
-        "Absolute output structure via typed JSON schemas",
-        "Custom context instructions to reduce prompt drift",
-        "Seamless API fallback failover pipelines"
-      ],
-      useCase: "Dynamic enterprise content generation, automated medical intake records parsing, and legal brief analysis engines."
-    },
-    {
-      id: "rag-pipelines",
-      category: "ai",
-      icon: <Binary className="h-6 w-6 text-brand-blue" />,
-      title: "RAG Pipelines",
-      description: "Optimized retrieval-augmented databases using custom semantic indexers to search massive internal folders securely.",
-      pricing: {
-        in: "Starting at ₹52,000",
-        intl: "Starting at $4,800"
-      },
-      delivery: "3-4 Weeks",
-      tech: ["Pinecone", "ChromaDB", "LlamaIndex", "Text Embedding Models"],
-      benefits: [
-        "Semantic matching beyond simple matching keywords",
-        "Hierarchical chunk algorithms to preserve tables",
-        "Complete enterprise local data container containment"
-      ],
-      useCase: "Internal HR search agents, legal document discovery swarms, and corporate financial report analyzers."
-    },
-    {
-      id: "llm-finetuning",
-      category: "ai",
-      icon: <Layers className="h-6 w-6 text-brand-purple" />,
-      title: "LLM Fine-tuning",
-      description: "Training open-source models on private hardware datasets to teach proprietary formatting styles and secure local hosting.",
-      pricing: {
-        in: "Starting at ₹60,000",
-        intl: "Starting at $6,000"
-      },
-      delivery: "4-6 Weeks",
-      tech: ["Llama 3", "Mistral 7B", "HuggingFace", "PyTorch"],
-      benefits: [
-        "Slash API per-token usage cost overhead by up to 70%",
-        "100% locally deployable in internal secure private clouds",
-        "Highly optimized performance speeds for specialized actions"
-      ],
-      useCase: "Medical terminology generators and customized legal draft compilers trained on local cases."
-    },
-    {
-      id: "ai-automation",
-      category: "ai",
-      icon: <Zap className="h-6 w-6 text-brand-cyan" />,
-      title: "AI Automation",
-      description: "End-to-end background processes that chain models and database structures, triggering automated customer engagements.",
-      pricing: {
-        in: "Starting at ₹50,000",
-        intl: "Starting at $4,000"
-      },
-      delivery: "2-3 Weeks",
-      tech: ["n8n", "Make", "Custom Cron Node.js", "Webhooks"],
-      benefits: [
-        "Fully automated data sync across separate apps",
-        "Instant text parsing from inbound customer tickets",
-        "Elimination of manual entry and human transcription errors"
-      ],
-      useCase: "Email lead auto-reply triggers and internal Slack database updates fueled by vision model parsers."
-    },
-    {
-      id: "web-dev",
-      category: "fullstack",
-      icon: <Code2 className="h-6 w-6 text-brand-blue" />,
-      title: "SaaS Development",
-      description: "Premium, responsive modular Next.js web applications, containing detailed client portals, Stripe billing, and secure API cores.",
-      pricing: {
-        in: "Starting at ₹58,000",
-        intl: "Starting at $5,500"
-      },
-      delivery: "4-8 Weeks",
-      tech: ["Next.js 15", "TypeScript", "Tailwind CSS", "PostgreSQL"],
-      benefits: [
-        "Optimized layout speeds with Server Component rendering",
-        "Stripe integration with complex multi-tier billing",
-        "Robust path permission security protection layers"
-      ],
-      useCase: "Enterprise business management cockpits, subscription-based customer platforms, and dynamic content sites."
-    },
-    {
-      id: "mobile-apps",
-      category: "fullstack",
-      icon: <Smartphone className="h-6 w-6 text-brand-purple" />,
-      title: "Mobile App Development",
-      description: "Sub-100ms real-time React Native mobile apps built for geolocated dispatch, community feeds, and offline caching systems.",
-      pricing: {
-        in: "Starting at ₹20,000",
-        intl: "Starting at $6,500"
-      },
-      delivery: "5-9 Weeks",
-      tech: ["React Native", "Expo", "WebSocket", "Redux Toolkit"],
-      benefits: [
-        "Simultaneous launch on Apple App Store & Google Play",
-        "Instant geolocation mapping calculations",
-        "Ultra-clean local sqlite caching for offline accessibility"
-      ],
-      useCase: "Hyperlocal parcel tracking, community networking hubs, and field inspection logger apps."
-    },
-    {
-      id: "api-dev",
-      category: "fullstack",
-      icon: <Server className="h-6 w-6 text-brand-cyan" />,
-      title: "API Development & Backend",
-      description: "Ultra-fast RESTful and gRPC web routing layers built on NestJS and FastAPI, with robust validation and security layers.",
-      pricing: {
-        in: "Starting at ₹52,000",
-        intl: "Starting at $4,000"
-      },
-      delivery: "3-5 Weeks",
-      tech: ["NestJS", "FastAPI", "Prisma ORM", "Redis Cache"],
-      benefits: [
-        "Highly organized module codebase structure",
-        "Strict automatic parameter schema typechecks",
-        "Sub-30ms execution timings for simple reads"
-      ],
-      useCase: "External third-party API hooks, fast mobile app backends, and multi-tenant data orchestrations."
-    },
-    {
-      id: "devops",
-      category: "fullstack",
-      icon: <CloudLightning className="h-6 w-6 text-brand-blue" />,
-      title: "DevOps & Cloud Systems",
-      description: "Deploying secure Docker setups, CI/CD automated test integrations, and load balancers on AWS and GCP.",
-      pricing: {
-        in: "Starting at ₹50,000",
-        intl: "Starting at $3,500"
-      },
-      delivery: "2-4 Weeks",
-      tech: ["AWS", "Docker", "GitHub Actions", "Terraform"],
-      benefits: [
-        "Fully automated compilation verification testing on commit",
-        "Self-scaling containers to handle user traffic spikes",
-        "Secure VPC environments keeping databases closed"
-      ],
-      useCase: "Zero-downtime deployment pipelines and staging environment replicators."
-    },
-    {
-      id: "ai-testing",
-      category: "ai",
-      icon: <Cpu className="h-6 w-6 text-brand-purple" />,
-      title: "AI Testing & Evaluation Systems",
-      description: "Adversarial evaluation frameworks designed to test LLM swarms for factual consistency, drift, and toxic inputs.",
-      pricing: {
-        in: "Starting at ₹54,000",
-        intl: "Starting at $5,000"
-      },
-      delivery: "3-5 Weeks",
-      tech: ["LangSmith", "Phoenix", "DeepEval", "Python"],
-      benefits: [
-        "Discover conversation bypass risks before launch",
-        "Validate answer accuracies against custom datasets",
-        "Centralized logs monitoring operational drift"
-      ],
-      useCase: "Compliance auditing portals for chatbot solutions operating in financial or clinical setups."
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const data = await getServices();
+        setServicesList(data);
+      } catch (err) {
+        console.error("Failed to load services:", err);
+      } finally {
+        setLoading(false);
+      }
     }
-  ];
+    loadData();
+  }, []);
 
-  const filteredServices = services.filter((s) => {
+  const activeServices = servicesList.length > 0 ? servicesList : MOCK_SERVICES;
+
+  const filteredServices = activeServices.filter((s) => {
     if (activeFilter === "all") return true;
     return s.category === activeFilter;
   });
@@ -290,7 +114,7 @@ export default function ServicesPage() {
                 <div className="flex items-start justify-between border-b border-white/5 pb-5">
                   <div className="flex gap-4">
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 shrink-0">
-                      {service.icon}
+                      <DynamicIcon name={service.iconName} className={`h-6 w-6 ${service.category === 'ai' ? 'text-brand-purple' : 'text-brand-cyan'}`} />
                     </div>
                     <div>
                       <h2 className="text-xl font-bold text-white tracking-tight">{service.title}</h2>

@@ -1,65 +1,42 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
+import GlowingCard from "@/components/ui/glowing-card";
+import { getGlobals, Globals } from "@/lib/firebase";
+import { MOCK_GLOBALS } from "@/lib/seedData";
 import {
-  User,
-  Brain,
-  Code2,
-  Terminal,
   ArrowUpRight,
   CheckCircle2,
-  Milestone,
   ShieldCheck,
-  HeartHandshake
+  Terminal
 } from "lucide-react";
-import GlowingCard from "@/components/ui/glowing-card";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function AboutPage() {
-  const philosophies = [
-    {
-      title: "Deterministic Execution",
-      desc: "Generative LLMs are highly fluid. We build strict, graph-based deterministic barriers using LangGraph to guarantee zero toxic leaks or random hallucinations, making AI enterprise-safe."
-    },
-    {
-      title: "Stateful Modular Codebases",
-      desc: "Premature microservices split engineering focus. We design modular monolith structures with strict interface domains, giving early startups rapid velocity with clean architectural clarity."
-    },
-    {
-      title: "Zero Operational Overhead",
-      desc: "Every database connection, API call, and container deployment is engineered to minimize latency and token counts. Efficiency drives production-grade scalability."
-    }
-  ];
+  const [globals, setGlobals] = useState<Globals | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const skillCategories = [
-    {
-      title: "AI & Cognitive Core",
-      skills: ["LangGraph & LangChain", "RAG Pipeline Orchestration", "Vector Databases (Pinecone, Chroma)", "Adversarial Red-Teaming", "Open-Source Models (Llama, Mistral)", "Structured Output Schemas"]
-    },
-    {
-      title: "Full Stack & Web Core",
-      skills: ["Next.js 15 & React 19", "TypeScript / ESNext", "React Native (Mobile)", "FastAPI / NestJS", "PostgreSQL / MongoDB", "RESTful / gRPC APIs"]
-    },
-    {
-      title: "DevOps & Cloud Orchestration",
-      skills: ["AWS Cloud Infra", "Docker Containerization", "Firebase Ecosystem", "GitHub Actions CI/CD", "Redis In-Memory Cache", "State persistence layers"]
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const globData = await getGlobals();
+        setGlobals(globData);
+      } catch (err) {
+        console.error("Failed to load about page data:", err);
+      } finally {
+        setLoading(false);
+      }
     }
-  ];
+    loadData();
+  }, []);
 
-  const journeyTimeline = [
-    {
-      date: "Aug 2024 - 2026",
-      title: "Full Stack Software Engineer & AI Architect",
-      company: "Sofyrus Technologies",
-      desc: "Engineered autonomous multi-agent cognitive platforms, real-time React Native mobile applications, and secure modular SaaS engines for global enterprise clients."
-    },
-    {
-      date: "2020 - 2024",
-      title: "B.Tech in Computer Science",
-      company: "Aligarh Muslim University",
-      desc: "Acquired deep foundations in software development, algorithm design, system architecture, and modern full-stack web technologies."
-    }
-  ];
+  const activeGlobals = globals || MOCK_GLOBALS;
+  const philosophies = activeGlobals.about?.philosophies || MOCK_GLOBALS.about.philosophies;
+  const skillCategories = activeGlobals.about?.skillCategories || MOCK_GLOBALS.about.skillCategories;
+  const journeyTimeline = activeGlobals.about?.journeyTimeline || MOCK_GLOBALS.about.journeyTimeline;
+  const bioParagraphs = activeGlobals.about?.bio || MOCK_GLOBALS.about.bio;
+  const founderName = activeGlobals.about?.founderName || MOCK_GLOBALS.about.founderName;
+  const founderTitle = activeGlobals.about?.founderTitle || MOCK_GLOBALS.about.founderTitle;
 
   return (
     <div className="relative py-12 md:py-20 px-4">
@@ -74,10 +51,10 @@ export default function AboutPage() {
             The Founder
           </span>
           <h1 className="mt-3 text-4xl font-extrabold text-white sm:text-5xl">
-            Mohd Huzaifa
+            {founderName}
           </h1>
           <p className="mt-2 text-sm text-brand-cyan tracking-wider font-semibold uppercase">
-            Full Stack Software Engineer & AI Architect
+            {founderTitle}
           </p>
         </div>
 
@@ -89,7 +66,7 @@ export default function AboutPage() {
               <div className="relative aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 group">
                 <img
                   src="/profile.jpg"
-                  alt="Mohd Huzaifa"
+                  alt={founderName}
                   className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-bg-black/80 to-transparent" />
@@ -107,12 +84,11 @@ export default function AboutPage() {
           {/* Bio Text */}
           <div className="lg:col-span-8 space-y-6 text-sm sm:text-base leading-relaxed text-white/70">
             <h2 className="text-xl font-bold text-white tracking-tight">Professional Scoping</h2>
-            <p>
-              I am a dedicated **Full Stack Software Engineer** and **AI Architect** with over 2 years of professional, production-grade experience. My core capability lies in bridging the gap between chaotic generative AI models and robust, reliable enterprise system platforms.
-            </p>
-            <p>
-              Throughout my engineering career, I have successfully designed modular monolithic web dashboards handling massive database loads, geolocated mobile networks executing ultra-fast tracking, and autonomous agent swarms utilizing cyclic state managers like LangGraph.
-            </p>
+            {bioParagraphs.map((para, pIdx) => (
+              <p key={pIdx}>
+                {para}
+              </p>
+            ))}
 
             <div className="rounded-xl border border-white/5 bg-white/[0.01] p-5">
               <span className="block text-xs uppercase font-bold tracking-widest text-brand-cyan mb-2">

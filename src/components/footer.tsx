@@ -115,6 +115,11 @@ export default function Footer() {
                   Consultation
                 </Link>
               </li>
+              <li>
+                <Link href="/admin" className="text-white/50 hover:text-brand-cyan transition-colors">
+                  Founder Portal
+                </Link>
+              </li>
             </ul>
           </div>
 

@@ -1,12 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Clock, FileText, BarChart3, Binary, ShieldCheck } from "lucide-react";
 import GlowingCard from "@/components/ui/glowing-card";
-import { MOCK_PROJECTS } from "@/lib/firebase";
+import { getProjects, Project } from "@/lib/firebase";
 
 export default function CaseStudiesPage() {
+  const [caseStudies, setCaseStudies] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const data = await getProjects();
+        setCaseStudies(data);
+      } catch (err) {
+        console.error("Failed to load case studies:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, []);
   return (
     <div className="relative py-12 md:py-20 px-4">
       {/* Background gradients */}
@@ -29,7 +45,16 @@ export default function CaseStudiesPage() {
 
         {/* Catalog List */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {MOCK_PROJECTS.map((caseStudy) => (
+          {loading ? (
+            <div className="col-span-2 text-center py-20 text-xs font-mono text-white/40">
+              Retrieving dynamic engineering analyses...
+            </div>
+          ) : caseStudies.length === 0 ? (
+            <div className="col-span-2 text-center py-20 text-xs text-white/40 italic border border-white/5 rounded-2xl bg-white/[0.01]">
+              No engineering case studies published currently.
+            </div>
+          ) : (
+            caseStudies.map((caseStudy) => (
             <GlowingCard key={caseStudy.id} className="p-6 sm:p-8 flex flex-col justify-between h-[360px]">
               <div>
                 <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-4">
@@ -75,7 +100,8 @@ export default function CaseStudiesPage() {
                 </Link>
               </div>
             </GlowingCard>
-          ))}
+            ))
+          )}
         </div>
 
         {/* Global SLA statement banner */}

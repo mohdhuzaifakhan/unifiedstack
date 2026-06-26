@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
   Bot, 
@@ -15,49 +15,30 @@ import {
   ShieldCheck 
 } from "lucide-react";
 import GlowingCard from "@/components/ui/glowing-card";
+import { getGlobals, Globals } from "@/lib/firebase";
+import { MOCK_GLOBALS } from "@/lib/seedData";
 
 export default function AiSolutionsPage() {
   const [selectedSolution, setSelectedSolution] = useState<"agents" | "rag" | "finetuning">("agents");
+  const [globals, setGlobals] = useState<Globals | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const solutions = {
-    agents: {
-      title: "Multi-Agent System Orchestration",
-      tagline: "Stateful, Cyclic Business Swarms",
-      desc: "We build advanced cognitive networks that split massive business workloads across specialized agent nodes. Unlike basic chains, our swarms back-track, self-evaluate, and cross-reconcile state variables securely.",
-      frameworks: ["LangGraph", "LangChain", "Autogen", "Python stateful dicts"],
-      steps: [
-        { label: "Role Separation", desc: "Dividing workflows into specific agent nodes (Auditor, Searcher, Executioner) with dedicated tools." },
-        { label: "Cyclic Memory State", desc: "Configuring state-sharing tables that persist variables across conversational feedback loops." },
-        { label: "Observability Audits", desc: "Attaching LangSmith monitors to observe token velocities and trace tool calls dynamically." }
-      ],
-      metrics: ["88% Workflow Automation", "Zero drift loops", "99.8% Deterministic execution"]
-    },
-    rag: {
-      title: "Enterprise RAG Pipeline Indexing",
-      tagline: "Semantic Retrieval-Augmented Generation",
-      desc: "Our search architectures bypass keyword limitations. We map documents to high-dimensional coordinate spaces, letting LLMs retrieve exact contextual paragraphs from millions of private files.",
-      frameworks: ["Pinecone", "ChromaDB", "LlamaIndex", "SentenceTransformers"],
-      steps: [
-        { label: "Semantic Chunking", desc: "Dividing PDFs, tables, and spreadsheets intelligently to preserve document structural integrity." },
-        { label: "Embeddings Mapping", desc: "Converting chunks into multi-dimensional vectors using modern embedding models." },
-        { label: "Reranking Filters", desc: "Running retrieved chunks through Cohere/Cross-Encoder filters to eliminate irrelevant data." }
-      ],
-      metrics: ["Sub-1.2s search latency", "0.0% Hallucination rates", "99.9% Contextually grounded answers"]
-    },
-    finetuning: {
-      title: "LLM Fine-Tuning & Local Hosting",
-      tagline: "Proprietary Tone and Format Alignment",
-      desc: "We adapt lightweight open-source base models on private hardware datasets, training them to mirror proprietary communication styles, write complex code formats, and keep data offline.",
-      frameworks: ["HuggingFace", "PyTorch", "LoRA / QLoRA", "vLLM Inference Core"],
-      steps: [
-        { label: "Dataset Scoping", desc: "Synthesizing, filtering, and structuring private corporate data into instruction pairs." },
-        { label: "LoRA Training", desc: "Adjusting a fractional set of weights to align behaviors while keeping base architecture untouched." },
-        { label: "vLLM Hosting Core", desc: "Deploying the aligned model using high-throughput inference engines to minimize token cost." }
-      ],
-      metrics: ["72% Token price reductions", "100% On-prem secure hosting", "Up to 5x latency speedups"]
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const globData = await getGlobals();
+        setGlobals(globData);
+      } catch (err) {
+        console.error("Failed to load AI solutions globals:", err);
+      } finally {
+        setLoading(false);
+      }
     }
-  };
+    loadData();
+  }, []);
 
+  const activeGlobals = globals || MOCK_GLOBALS;
+  const solutions = activeGlobals.aiSolutions || MOCK_GLOBALS.aiSolutions;
   const current = solutions[selectedSolution];
 
   return (
