@@ -109,14 +109,14 @@ export default function HomePage() {
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/contact"
-              className="neon-btn w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-8 py-4 text-sm font-semibold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
+              className="neon-btn w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-5 py-3 sm:px-8 sm:py-4 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
             >
               Book a Consultation
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/projects"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-8 py-4 text-sm font-semibold uppercase tracking-wider text-white hover:bg-white/10 hover:border-white/20 transition-all hover:scale-105"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-5 py-3 sm:px-8 sm:py-4 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white hover:bg-white/10 hover:border-white/20 transition-all hover:scale-105"
             >
               View Projects
               <ArrowUpRight className="h-4 w-4" />
@@ -494,14 +494,14 @@ export default function HomePage() {
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/contact"
-              className="neon-btn w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-8 py-4 text-sm font-semibold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
+              className="neon-btn w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-5 py-3 sm:px-8 sm:py-4 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
             >
               Start Your Project
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/contact?calendly=true"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-8 py-4 text-sm font-semibold uppercase tracking-wider text-white hover:bg-white/10 transition-all hover:scale-105"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-5 py-3 sm:px-8 sm:py-4 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white hover:bg-white/10 transition-all hover:scale-105"
             >
               Schedule Consultation
               <ArrowUpRight className="h-4 w-4" />

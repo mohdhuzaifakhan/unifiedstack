@@ -1,15 +1,15 @@
 "use client";
 
 import GlowingCard from "@/components/ui/glowing-card";
+import { getServices, Service } from "@/lib/firebase";
+import { MOCK_SERVICES } from "@/lib/seedData";
 import * as Lucide from "lucide-react";
 import {
   ArrowRight,
   CheckCircle2
 } from "lucide-react";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { getServices, Service } from "@/lib/firebase";
-import { MOCK_SERVICES } from "@/lib/seedData";
+import { useEffect, useState } from "react";
 
 const DynamicIcon = ({ name, className }: { name: string; className?: string }) => {
   const IconComponent = (Lucide as any)[name];
@@ -69,23 +69,21 @@ export default function ServicesPage() {
           <div className="flex rounded-full border border-white/5 bg-white/[0.02] p-1 backdrop-blur-sm">
             <button
               onClick={() => setClientLocation("in")}
-              className={`rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
-                clientLocation === "in"
-                  ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
-                  : "text-white/60 hover:text-white hover:bg-white/5"
-              }`}
+              className={`rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${clientLocation === "in"
+                ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
+                : "text-white/60 hover:text-white hover:bg-white/5"
+                }`}
             >
-              <span>🇮🇳</span> Indian Client (₹)
+              Indian
             </button>
             <button
               onClick={() => setClientLocation("intl")}
-              className={`rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
-                clientLocation === "intl"
-                  ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
-                  : "text-white/60 hover:text-white hover:bg-white/5"
-              }`}
+              className={`rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${clientLocation === "intl"
+                ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
+                : "text-white/60 hover:text-white hover:bg-white/5"
+                }`}
             >
-              <span>🌐</span> International Client ($)
+              Internationals
             </button>
           </div>
         </div>
@@ -97,11 +95,11 @@ export default function ServicesPage() {
               key={filter}
               onClick={() => setActiveFilter(filter)}
               className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${activeFilter === filter
-                  ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
-                  : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
+                ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
+                : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
                 }`}
             >
-              {filter === "all" ? "All Services" : filter === "ai" ? "AI Engineering" : "Full Stack & DevOps"}
+              {filter === "all" ? "All" : filter === "ai" ? "AI" : "Full Stack"}
             </button>
           ))}
         </div>
@@ -169,7 +167,7 @@ export default function ServicesPage() {
 
                 <Link
                   href={`/contact?service=${encodeURIComponent(service.title)}&location=${clientLocation}`}
-                  className="w-full sm:w-auto neon-btn inline-flex items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-6 py-3 text-xs font-bold uppercase tracking-wider text-white"
+                  className="w-full sm:w-auto neon-btn inline-flex items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-4 py-2 sm:px-6 sm:py-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white"
                 >
                   Book consultation
                   <ArrowRight className="h-3.5 w-3.5" />

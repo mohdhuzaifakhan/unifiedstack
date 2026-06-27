@@ -148,6 +148,28 @@ export interface Globals {
 // HYBRID DATABASE INTERACTION API
 // ==========================================
 
+// Helper to recursively strip undefined properties from an object so Firestore setDoc/addDoc doesn't throw
+function cleanUndefined<T>(obj: T): T {
+  if (obj === null || typeof obj !== "object") {
+    return obj;
+  }
+  if (Array.isArray(obj)) {
+    return obj.map(item => cleanUndefined(item)) as any;
+  }
+  const proto = Object.getPrototypeOf(obj);
+  if (proto !== null && proto !== Object.prototype) {
+    return obj;
+  }
+  const cleaned: any = {};
+  for (const key of Object.keys(obj)) {
+    const val = (obj as any)[key];
+    if (val !== undefined) {
+      cleaned[key] = cleanUndefined(val);
+    }
+  }
+  return cleaned;
+}
+
 export async function submitInquiry(data: Omit<Inquiry, "status" | "createdAt">): Promise<{ success: boolean; id: string }> {
   const inquiryData: Inquiry = {
     ...data,
@@ -157,7 +179,7 @@ export async function submitInquiry(data: Omit<Inquiry, "status" | "createdAt">)
 
   if (isFirebaseConfigured && db) {
     try {
-      const docRef = await addDoc(collection(db, "inquiries"), inquiryData);
+      const docRef = await addDoc(collection(db, "inquiries"), cleanUndefined(inquiryData));
       return { success: true, id: docRef.id };
     } catch (e) {
       console.error("Firebase submit error, falling back: ", e);
@@ -277,7 +299,7 @@ export async function saveBlog(blog: Blog): Promise<{ success: boolean; id: stri
   if (isFirebaseConfigured && db) {
     try {
       const docRef = doc(db, "blogs", blog.id);
-      await setDoc(docRef, blog);
+      await setDoc(docRef, cleanUndefined(blog));
       return { success: true, id: blog.id };
     } catch (e) {
       console.error("Firebase save blog error: ", e);
@@ -358,7 +380,7 @@ export async function saveProject(project: Project): Promise<{ success: boolean;
   if (isFirebaseConfigured && db) {
     try {
       const docRef = doc(db, "projects", project.id);
-      await setDoc(docRef, project);
+      await setDoc(docRef, cleanUndefined(project));
       return { success: true, id: project.id };
     } catch (e) {
       console.error("Firebase save project error: ", e);
@@ -443,7 +465,7 @@ export async function saveService(service: Service): Promise<{ success: boolean;
   if (isFirebaseConfigured && db) {
     try {
       const docRef = doc(db, "services", service.id);
-      await setDoc(docRef, service);
+      await setDoc(docRef, cleanUndefined(service));
       return { success: true, id: service.id };
     } catch (e) {
       console.error("Firebase save service error: ", e);
@@ -503,7 +525,7 @@ export async function saveGlobals(data: Globals): Promise<{ success: boolean }> 
   if (isFirebaseConfigured && db) {
     try {
       const docRef = doc(db, "settings", "globals");
-      await setDoc(docRef, data);
+      await setDoc(docRef, cleanUndefined(data));
       return { success: true };
     } catch (e) {
       console.error("Firebase save globals error: ", e);
@@ -533,30 +555,30 @@ export async function seedDatabase(onProgress?: (msg: string) => void): Promise<
   try {
     if (onProgress) onProgress("Seeding projects...");
     for (const proj of MOCK_PROJECTS) {
-      await setDoc(doc(db, "projects", proj.id), proj);
+      await setDoc(doc(db, "projects", proj.id), cleanUndefined(proj));
       if (onProgress) onProgress(`Seeded project: ${proj.id}`);
     }
 
     if (onProgress) onProgress("Seeding blogs...");
     for (const blog of MOCK_BLOGS) {
-      await setDoc(doc(db, "blogs", blog.id), blog);
+      await setDoc(doc(db, "blogs", blog.id), cleanUndefined(blog));
       if (onProgress) onProgress(`Seeded blog: ${blog.id}`);
     }
 
     if (onProgress) onProgress("Seeding testimonials...");
     for (const test of MOCK_TESTIMONIALS) {
-      await setDoc(doc(db, "testimonials", test.id), test);
+      await setDoc(doc(db, "testimonials", test.id), cleanUndefined(test));
       if (onProgress) onProgress(`Seeded testimonial: ${test.id}`);
     }
 
     if (onProgress) onProgress("Seeding services...");
     for (const service of MOCK_SERVICES) {
-      await setDoc(doc(db, "services", service.id), service);
+      await setDoc(doc(db, "services", service.id), cleanUndefined(service));
       if (onProgress) onProgress(`Seeded service: ${service.id}`);
     }
 
     if (onProgress) onProgress("Seeding global configurations...");
-    await setDoc(doc(db, "settings", "globals"), MOCK_GLOBALS);
+    await setDoc(doc(db, "settings", "globals"), cleanUndefined(MOCK_GLOBALS));
     if (onProgress) onProgress("Seeded globals successfully!");
 
     if (onProgress) onProgress("Database seeded successfully!");

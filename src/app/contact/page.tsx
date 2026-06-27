@@ -216,24 +216,22 @@ function ContactPageContent() {
                       <button
                         type="button"
                         onClick={() => setClientLocation("in")}
-                        className={`rounded-md px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
-                          clientLocation === "in"
-                            ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-md"
-                            : "text-white/60 hover:text-white hover:bg-white/5"
-                        }`}
+                        className={`rounded-md px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${clientLocation === "in"
+                          ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-md"
+                          : "text-white/60 hover:text-white hover:bg-white/5"
+                          }`}
                       >
-                        <span>🇮🇳</span> India (₹)
+                        Indian
                       </button>
                       <button
                         type="button"
                         onClick={() => setClientLocation("intl")}
-                        className={`rounded-md px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
-                          clientLocation === "intl"
-                            ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-md"
-                            : "text-white/60 hover:text-white hover:bg-white/5"
-                        }`}
+                        className={`rounded-md px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${clientLocation === "intl"
+                          ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-md"
+                          : "text-white/60 hover:text-white hover:bg-white/5"
+                          }`}
                       >
-                        <span>🌐</span> International ($)
+                        Internationals
                       </button>
                     </div>
                   </div>
@@ -249,7 +247,7 @@ function ContactPageContent() {
                         value={formData.name}
                         onChange={handleChange}
                         className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40"
-                        placeholder="Mohd Huzaifa"
+                        placeholder="Your Name"
                         required
                       />
                     </div>
@@ -263,7 +261,7 @@ function ContactPageContent() {
                         value={formData.email}
                         onChange={handleChange}
                         className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40"
-                        placeholder="mohdhuzaifa8126195456@gmail.com"
+                        placeholder="company@gmail.com"
                         required
                       />
                     </div>
@@ -313,8 +311,8 @@ function ContactPageContent() {
                             type="button"
                             onClick={() => handleBudgetSelect(tier)}
                             className={`rounded-lg border py-3 text-center text-xs font-semibold transition-all ${isSelected
-                                ? "border-brand-purple bg-brand-purple/10 text-white"
-                                : "border-white/5 bg-white/[0.02] text-white/50 hover:bg-white/5"
+                              ? "border-brand-purple bg-brand-purple/10 text-white"
+                              : "border-white/5 bg-white/[0.02] text-white/50 hover:bg-white/5"
                               }`}
                           >
                             {tier}

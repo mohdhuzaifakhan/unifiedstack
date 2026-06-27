@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import { CheckCircle2, Cpu, Github, Linkedin, Send } from "lucide-react";
 import Link from "next/link";
-import { Cpu, Github, Linkedin, Send, Mail, CheckCircle2 } from "lucide-react";
+import React, { useState } from "react";
 
 export default function Footer() {
   const [email, setEmail] = useState("");

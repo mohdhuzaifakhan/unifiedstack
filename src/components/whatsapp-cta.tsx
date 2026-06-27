@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { MessageCircle } from "lucide-react";
 
 export default function WhatsAppCta() {
@@ -9,7 +8,7 @@ export default function WhatsAppCta() {
   const message = encodeURIComponent(
     "Hello Mohd Huzaifa! I am visiting the UnifiedStack website and would like to schedule a consultation for an AI/Software Development project."
   );
-  
+
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 
   return (
@@ -23,7 +22,7 @@ export default function WhatsAppCta() {
       {/* Dynamic Pulsing Rings */}
       <span className="absolute inset-0 -z-10 animate-ping rounded-full bg-green-500/40 opacity-75" />
       <span className="absolute inset-0 -z-10 animate-pulse rounded-full bg-emerald-400/20" />
-      
+
       <MessageCircle className="h-6 w-6 stroke-[2.5]" />
     </a>
   );

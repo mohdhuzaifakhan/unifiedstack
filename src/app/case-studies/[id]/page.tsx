@@ -1,6 +1,7 @@
 "use client";
 
 import GlowingCard from "@/components/ui/glowing-card";
+import ImageLightbox from "@/components/ui/image-lightbox";
 import { getProjectById, Project } from "@/lib/firebase";
 import {
   ArrowLeft,
@@ -22,10 +23,37 @@ import {
   Network,
   Radio,
   ShieldCheck,
-  Sparkles
+  Sparkles,
+  ZoomIn
 } from "lucide-react";
 import Link from "next/link";
 import { ElementType, use, useEffect, useState } from "react";
+
+function ZoomableImage({ src, alt, className = "" }: { src: string; alt?: string; className?: string }) {
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    window.dispatchEvent(
+      new CustomEvent("view-image", { detail: { src, alt } })
+    );
+  };
+
+  return (
+    <div className="relative w-full h-full group/zoom overflow-hidden cursor-pointer" onClick={handleClick}>
+      <img
+        src={src}
+        alt={alt}
+        className={`${className} transition-all duration-500 group-hover/zoom:scale-[1.015]`}
+      />
+      {/* Zoom overlay */}
+      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/zoom:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10 pointer-events-none">
+        <div className="bg-black/75 backdrop-blur-md border border-white/20 rounded-full p-2.5 text-brand-cyan flex items-center gap-1.5 shadow-lg transform translate-y-2 group-hover/zoom:translate-y-0 transition-all duration-300 pointer-events-none">
+          <ZoomIn className="h-4 w-4" />
+          <span className="text-[9px] font-bold uppercase tracking-widest pr-1">Click to expand</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 interface Feature {
   num: string;
@@ -209,7 +237,7 @@ function UnifiedAiPlatformDetails({ project }: { project: Project }) {
         {/* Navigation back anchor */}
         <Link
           href="/case-studies"
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
+          className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Catalog
@@ -252,7 +280,7 @@ function UnifiedAiPlatformDetails({ project }: { project: Project }) {
                 href={project.githubLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-brand-purple/15 border border-brand-purple/35 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-purple hover:bg-brand-purple/25 hover:text-white transition-all shadow-lg animate-pulse"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-purple/15 border border-brand-purple/35 px-4 py-2 sm:px-5 sm:py-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-brand-purple hover:bg-brand-purple/25 hover:text-white transition-all shadow-lg animate-pulse"
               >
                 View Source on GitHub
                 <ExternalLink className="h-4 w-4" />
@@ -516,7 +544,7 @@ function UnifiedAiPlatformDetails({ project }: { project: Project }) {
           </p>
           <Link
             href="/contact"
-            className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-8 py-4 text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
+            className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-5 py-3 sm:px-8 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
           >
             Schedule structural technical scope call
           </Link>
@@ -539,7 +567,7 @@ function TownBeatDetails({ project }: { project: Project }) {
         {/* Navigation back anchor */}
         <Link
           href="/case-studies"
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
+          className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Catalog
@@ -582,7 +610,7 @@ function TownBeatDetails({ project }: { project: Project }) {
                 href={project.playStoreLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-brand-cyan/15 border border-brand-cyan/35 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:bg-brand-cyan/25 hover:text-white transition-all shadow-lg animate-pulse"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-cyan/15 border border-brand-cyan/35 px-4 py-2 sm:px-5 sm:py-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-brand-cyan hover:bg-brand-cyan/25 hover:text-white transition-all shadow-lg animate-pulse"
               >
                 Get it on Google Play
                 <ExternalLink className="h-4 w-4" />
@@ -801,7 +829,7 @@ function TownBeatDetails({ project }: { project: Project }) {
           </p>
           <Link
             href="/contact"
-            className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-8 py-4 text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
+            className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-5 py-3 sm:px-8 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
           >
             Schedule structural technical scope call
           </Link>
@@ -875,7 +903,7 @@ function SalahTimesDetails({ project }: { project: Project }) {
         {/* Navigation back anchor */}
         <Link
           href="/case-studies"
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
+          className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Catalog
@@ -918,7 +946,7 @@ function SalahTimesDetails({ project }: { project: Project }) {
                 href={project.playStoreLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-brand-cyan/15 border border-brand-cyan/35 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:bg-brand-cyan/25 hover:text-white transition-all shadow-lg animate-pulse"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-cyan/15 border border-brand-cyan/35 px-4 py-2 sm:px-5 sm:py-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-brand-cyan hover:bg-brand-cyan/25 hover:text-white transition-all shadow-lg animate-pulse"
               >
                 Get it on Google Play
                 <ExternalLink className="h-4 w-4" />
@@ -1137,7 +1165,7 @@ function SalahTimesDetails({ project }: { project: Project }) {
           </p>
           <Link
             href="/contact"
-            className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-8 py-4 text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
+            className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-5 py-3 sm:px-8 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
           >
             Schedule structural technical scope call
           </Link>
@@ -1203,7 +1231,7 @@ function HelporaDetails({ project }: { project: Project }) {
         {/* Navigation back anchor */}
         <Link
           href="/case-studies"
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
+          className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Catalog
@@ -1246,7 +1274,7 @@ function HelporaDetails({ project }: { project: Project }) {
                 href={project.playStoreLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-brand-cyan/15 border border-brand-cyan/35 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:bg-brand-cyan/25 hover:text-white transition-all shadow-lg animate-pulse"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-cyan/15 border border-brand-cyan/35 px-4 py-2 sm:px-5 sm:py-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-brand-cyan hover:bg-brand-cyan/25 hover:text-white transition-all shadow-lg animate-pulse"
               >
                 Get it on Google Play
                 <ExternalLink className="h-4 w-4" />
@@ -1465,7 +1493,7 @@ function HelporaDetails({ project }: { project: Project }) {
           </p>
           <Link
             href="/contact"
-            className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-8 py-4 text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
+            className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-5 py-3 sm:px-8 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
           >
             Schedule structural technical scope call
           </Link>
@@ -1531,7 +1559,7 @@ function VibeWaveDetails({ project }: { project: Project }) {
         {/* Navigation back anchor */}
         <Link
           href="/case-studies"
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
+          className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Catalog
@@ -1574,7 +1602,7 @@ function VibeWaveDetails({ project }: { project: Project }) {
                 href={project.playStoreLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-brand-cyan/15 border border-brand-cyan/35 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:bg-brand-cyan/25 hover:text-white transition-all shadow-lg animate-pulse"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-cyan/15 border border-brand-cyan/35 px-4 py-2 sm:px-5 sm:py-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-brand-cyan hover:bg-brand-cyan/25 hover:text-white transition-all shadow-lg animate-pulse"
               >
                 Get it on Google Play
                 <ExternalLink className="h-4 w-4" />
@@ -1793,7 +1821,7 @@ function VibeWaveDetails({ project }: { project: Project }) {
           </p>
           <Link
             href="/contact"
-            className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-8 py-4 text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
+            className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-5 py-3 sm:px-8 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
           >
             Schedule structural technical scope call
           </Link>
@@ -1807,6 +1835,7 @@ export default function CaseStudyDetailsPage({ params }: { params: Promise<{ id:
   const resolvedParams = use(params);
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<{ src: string; alt?: string } | null>(null);
 
   useEffect(() => {
     async function loadData() {
@@ -1821,6 +1850,29 @@ export default function CaseStudyDetailsPage({ params }: { params: Promise<{ id:
     }
     loadData();
   }, [resolvedParams.id]);
+
+  useEffect(() => {
+    const handleGlobalClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target && target.tagName === "IMG" && !target.classList.contains("no-lightbox")) {
+        const img = target as HTMLImageElement;
+        setSelectedImage({
+          src: img.getAttribute("src") || img.src,
+          alt: img.alt || img.title || "Case Study Screenshot"
+        });
+      }
+    };
+
+    const container = document.querySelector<HTMLElement>(".lightbox-enabled");
+    if (container) {
+      container.addEventListener("click", handleGlobalClick);
+    }
+    return () => {
+      if (container) {
+        container.removeEventListener("click", handleGlobalClick);
+      }
+    };
+  }, [loading, project]);
 
   if (loading) {
     return (
@@ -1840,7 +1892,7 @@ export default function CaseStudyDetailsPage({ params }: { params: Promise<{ id:
         </p>
         <Link
           href="/case-studies"
-          className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-5 py-2.5 text-xs text-white hover:bg-white/10"
+          className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-4 py-2 sm:px-5 sm:py-2.5 text-[10px] sm:text-xs text-white hover:bg-white/10"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Case Catalog
@@ -1849,151 +1901,166 @@ export default function CaseStudyDetailsPage({ params }: { params: Promise<{ id:
     );
   }
 
+  let content;
   if (project.id === "unified-ai-platform") {
-    return <UnifiedAiPlatformDetails project={project} />;
-  }
+    content = <UnifiedAiPlatformDetails project={project} />;
+  } else if (project.id === "town-beat") {
+    content = <TownBeatDetails project={project} />;
+  } else if (project.id === "salah-times") {
+    content = <SalahTimesDetails project={project} />;
+  } else if (project.id === "helpora") {
+    content = <HelporaDetails project={project} />;
+  } else if (project.id === "vibe-wave") {
+    content = <VibeWaveDetails project={project} />;
+  } else {
+    content = (
+      <div className="relative py-12 md:py-20 px-4">
+        {/* Background visual elements */}
+        <div className="pointer-events-none absolute top-20 left-1/2 -translate-x-1/2 h-[400px] w-[600px] rounded-full bg-brand-cyan/5 blur-[120px]" />
 
-  if (project.id === "town-beat") {
-    return <TownBeatDetails project={project} />;
-  }
+        <div className="mx-auto max-w-4xl relative z-10">
+          {/* Navigation back anchor */}
+          <Link
+            href="/case-studies"
+            className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Catalog
+          </Link>
 
-  if (project.id === "salah-times") {
-    return <SalahTimesDetails project={project} />;
-  }
+          {/* Header block */}
+          <header className="border-b border-white/5 pb-8 mb-10">
+            <span className="rounded bg-brand-purple/20 border border-brand-purple/35 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-brand-cyan">
+              {project.category}
+            </span>
 
-  if (project.id === "helpora") {
-    return <HelporaDetails project={project} />;
-  }
+            <h1 className="mt-6 text-3xl font-extrabold text-white sm:text-4xl md:text-5xl leading-tight">
+              Case Study: {project.title}
+            </h1>
 
-  if (project.id === "vibe-wave") {
-    return <VibeWaveDetails project={project} />;
+            <p className="mt-4 text-base text-white/60 leading-relaxed max-w-3xl">
+              {project.description}
+            </p>
+
+            {project.githubLink && (
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href={project.githubLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 px-3 py-1.5 sm:px-4 sm:py-2 text-[10px] sm:text-xs font-bold text-white transition-all cursor-pointer"
+                >
+                  <Github className="h-4 w-4 text-brand-purple" />
+                  View Source on GitHub
+                </a>
+              </div>
+            )}
+          </header>
+
+          {/* Quantifiable Stats Summary Grid */}
+          <div className="grid grid-cols-3 gap-4 border border-white/5 bg-white/[0.01] p-6 rounded-2xl text-center mb-12 backdrop-blur-md">
+            {project.metrics.map((m, idx) => (
+              <div key={idx}>
+                <span className="block text-2xl font-extrabold text-white sm:text-3xl">{m.value}</span>
+                <span className="block text-[10px] uppercase tracking-widest text-white/40 mt-1">{m.label}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Image / Architecture Layout Mockup */}
+          <div className="rounded-2xl border border-white/5 bg-white/5 overflow-hidden aspect-video mb-12 shadow-2xl">
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Detailed Breakdown Sections */}
+          <div className="space-y-10 text-sm sm:text-base leading-relaxed text-white/70">
+            {/* Problem */}
+            <section className="rounded-xl border border-white/5 bg-white/[0.01] p-6 sm:p-8 backdrop-blur-md">
+              <h3 className="flex items-center gap-2 text-base font-bold text-white tracking-tight mb-4">
+                <Layers className="h-5 w-5 text-brand-purple shrink-0" />
+                1. Challenge Definition & Operational Bottlenecks
+              </h3>
+              <p className="leading-relaxed text-white/60">
+                {project.problem}
+              </p>
+            </section>
+
+            {/* Solution */}
+            <section className="rounded-xl border border-white/5 bg-white/[0.01] p-6 sm:p-8 backdrop-blur-md">
+              <h3 className="flex items-center gap-2 text-base font-bold text-white tracking-tight mb-4">
+                <Database className="h-5 w-5 text-brand-cyan shrink-0" />
+                2. Core Architectural Engineering Strategy
+              </h3>
+              <p className="leading-relaxed text-white/60">
+                {project.solution}
+              </p>
+              {project.architecturalOverview && (
+                <div className="mt-5 rounded bg-black/40 border border-white/5 p-4 text-xs font-mono text-white/40 leading-relaxed">
+                  <span className="block font-bold text-brand-cyan mb-1">// System Inter-connectivity Node State:</span>
+                  {project.architecturalOverview}
+                </div>
+              )}
+            </section>
+
+            {/* Shipped outcomes */}
+            <section className="rounded-xl border border-white/5 bg-white/[0.01] p-6 sm:p-8 backdrop-blur-md">
+              <h3 className="flex items-center gap-2 text-base font-bold text-white tracking-tight mb-4">
+                <BarChart3 className="h-5 w-5 text-brand-blue shrink-0" />
+                3. Quantifiable Results & Production Benchmarks
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {project.results.map((res, idx) => (
+                  <div
+                    key={idx}
+                    className="rounded-lg border border-white/5 bg-white/[0.01] p-4 text-xs relative"
+                  >
+                    <span className="absolute top-2 right-4 text-lg font-mono font-bold text-brand-purple/20">
+                      {idx + 1}
+                    </span>
+                    <p className="leading-relaxed text-white/55">{res}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
+
+          {/* Contact CTA */}
+          <div className="mt-20 border-t border-white/5 pt-10 text-center">
+            <Link
+              href="/contact"
+              className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-5 py-3 sm:px-8 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
+            >
+              Schedule structural technical scope call
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="relative py-12 md:py-20 px-4">
-      {/* Background visual elements */}
-      <div className="pointer-events-none absolute top-20 left-1/2 -translate-x-1/2 h-[400px] w-[600px] rounded-full bg-brand-cyan/5 blur-[120px]" />
-
-      <div className="mx-auto max-w-4xl relative z-10">
-        {/* Navigation back anchor */}
-        <Link
-          href="/case-studies"
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Catalog
-        </Link>
-
-        {/* Header block */}
-        <header className="border-b border-white/5 pb-8 mb-10">
-          <span className="rounded bg-brand-purple/20 border border-brand-purple/35 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-brand-cyan">
-            {project.category}
-          </span>
-
-          <h1 className="mt-6 text-3xl font-extrabold text-white sm:text-4xl md:text-5xl leading-tight">
-            Case Study: {project.title}
-          </h1>
-
-          <p className="mt-4 text-base text-white/60 leading-relaxed max-w-3xl">
-            {project.description}
-          </p>
-
-          {project.githubLink && (
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href={project.githubLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 px-4 py-2 text-xs font-bold text-white transition-all cursor-pointer"
-              >
-                <Github className="h-4 w-4 text-brand-purple" />
-                View Source on GitHub
-              </a>
-            </div>
-          )}
-        </header>
-
-        {/* Quantifiable Stats Summary Grid */}
-        <div className="grid grid-cols-3 gap-4 border border-white/5 bg-white/[0.01] p-6 rounded-2xl text-center mb-12 backdrop-blur-md">
-          {project.metrics.map((m, idx) => (
-            <div key={idx}>
-              <span className="block text-2xl font-extrabold text-white sm:text-3xl">{m.value}</span>
-              <span className="block text-[10px] uppercase tracking-widest text-white/40 mt-1">{m.label}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Image / Architecture Layout Mockup */}
-        <div className="rounded-2xl border border-white/5 bg-white/5 overflow-hidden aspect-video mb-12 shadow-2xl">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover grayscale brightness-90 contrast-125"
-          />
-        </div>
-
-        {/* Detailed Breakdown Sections */}
-        <div className="space-y-10 text-sm sm:text-base leading-relaxed text-white/70">
-          {/* Problem */}
-          <section className="rounded-xl border border-white/5 bg-white/[0.01] p-6 sm:p-8 backdrop-blur-md">
-            <h3 className="flex items-center gap-2 text-base font-bold text-white tracking-tight mb-4">
-              <Layers className="h-5 w-5 text-brand-purple shrink-0" />
-              1. Challenge Definition & Operational Bottlenecks
-            </h3>
-            <p className="leading-relaxed text-white/60">
-              {project.problem}
-            </p>
-          </section>
-
-          {/* Solution */}
-          <section className="rounded-xl border border-white/5 bg-white/[0.01] p-6 sm:p-8 backdrop-blur-md">
-            <h3 className="flex items-center gap-2 text-base font-bold text-white tracking-tight mb-4">
-              <Database className="h-5 w-5 text-brand-cyan shrink-0" />
-              2. Core Architectural Engineering Strategy
-            </h3>
-            <p className="leading-relaxed text-white/60">
-              {project.solution}
-            </p>
-            {project.architecturalOverview && (
-              <div className="mt-5 rounded bg-black/40 border border-white/5 p-4 text-xs font-mono text-white/40 leading-relaxed">
-                <span className="block font-bold text-brand-cyan mb-1">// System Inter-connectivity Node State:</span>
-                {project.architecturalOverview}
-              </div>
-            )}
-          </section>
-
-          {/* Shipped outcomes */}
-          <section className="rounded-xl border border-white/5 bg-white/[0.01] p-6 sm:p-8 backdrop-blur-md">
-            <h3 className="flex items-center gap-2 text-base font-bold text-white tracking-tight mb-4">
-              <BarChart3 className="h-5 w-5 text-brand-blue shrink-0" />
-              3. Quantifiable Results & Production Benchmarks
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {project.results.map((res, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-lg border border-white/5 bg-white/[0.01] p-4 text-xs relative"
-                >
-                  <span className="absolute top-2 right-4 text-lg font-mono font-bold text-brand-purple/20">
-                    {idx + 1}
-                  </span>
-                  <p className="leading-relaxed text-white/55">{res}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
-
-        {/* Contact CTA */}
-        <div className="mt-20 border-t border-white/5 pt-10 text-center">
-          <Link
-            href="/contact"
-            className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-8 py-4 text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
-          >
-            Schedule structural technical scope call
-          </Link>
-        </div>
-      </div>
+    <div className="lightbox-enabled relative">
+      <style dangerouslySetInnerHTML={{ __html: `
+        .lightbox-enabled img {
+          cursor: zoom-in !important;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+          filter: none !important;
+        }
+        .lightbox-enabled img:hover {
+          transform: scale(1.015) !important;
+          filter: brightness(1.08) !important;
+        }
+      `}} />
+      {content}
+      <ImageLightbox
+        src={selectedImage?.src || null}
+        alt={selectedImage?.alt}
+        onClose={() => setSelectedImage(null)}
+      />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import GlowingCard from "@/components/ui/glowing-card";
+import ImageLightbox from "@/components/ui/image-lightbox";
 import { getProjects, Project } from "@/lib/firebase";
 import {
   Activity,
@@ -8,7 +9,8 @@ import {
   ChevronUp,
   Cpu,
   ExternalLink,
-  Layers
+  Layers,
+  ZoomIn
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -18,6 +20,7 @@ export default function ProjectsPage() {
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [expandedProject, setExpandedProject] = useState<string | null>("unified-ai-platform");
+  const [selectedImage, setSelectedImage] = useState<{ src: string; alt?: string } | null>(null);
 
   const categories = [
     { key: "all", label: "All Cases" },
@@ -83,7 +86,7 @@ export default function ProjectsPage() {
             <button
               key={cat.key}
               onClick={() => setActiveFilter(cat.key)}
-              className={`rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-wider transition-all ${activeFilter === cat.key
+              className={`rounded-full px-4 py-1.5 sm:px-5 sm:py-2 text-[10px] sm:text-xs font-semibold uppercase tracking-wider transition-all ${activeFilter === cat.key
                   ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
                   : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
                 }`}
@@ -114,16 +117,27 @@ export default function ProjectsPage() {
                 >
                 <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
                   {/* Visual mockup block */}
-                  <div className="lg:col-span-4 relative min-h-[220px] bg-white/5 overflow-hidden">
+                  <div className="lg:col-span-4 relative min-h-[220px] bg-white/5 overflow-hidden group/img">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="h-full w-full object-cover grayscale brightness-90 contrast-125"
+                      className="h-full w-full object-cover transition-all duration-500 group-hover/img:scale-[1.03]"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-bg-black/90 via-bg-black/30 to-transparent" />
+                    {/* Hover zoom overlay */}
+                    <div 
+                      onClick={() => setSelectedImage({ src: project.image, alt: project.title })}
+                      className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer z-20"
+                    >
+                      <div className="bg-black/75 backdrop-blur-md border border-white/20 rounded-full p-2 text-brand-cyan flex items-center gap-1 shadow-lg transform translate-y-2 group-hover/img:translate-y-0 transition-all duration-300">
+                        <ZoomIn className="h-4 w-4" />
+                        <span className="text-[9px] font-bold uppercase tracking-widest pr-1">Click to expand</span>
+                      </div>
+                    </div>
+                    
+                    <div className="absolute inset-0 bg-gradient-to-tr from-bg-black/60 via-transparent to-transparent pointer-events-none" />
 
                     {/* Floating badge */}
-                    <span className="absolute top-4 left-4 rounded-full bg-brand-purple/20 border border-brand-purple/30 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-brand-cyan glow-text-cyan">
+                    <span className="absolute top-4 left-4 rounded-full bg-brand-purple/20 border border-brand-purple/30 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-brand-cyan glow-text-cyan z-10 pointer-events-none">
                       {project.category}
                     </span>
                   </div>
@@ -165,10 +179,10 @@ export default function ProjectsPage() {
                       </div>
                     </div>
 
-                    <div className="mt-8 flex items-center justify-between border-t border-white/5 pt-5">
+                    <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-white/5 pt-5">
                       <button
                         onClick={() => toggleExpand(project.id)}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-cyan hover:text-brand-purple transition-colors"
+                        className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-brand-cyan hover:text-brand-purple transition-colors self-start"
                       >
                         {isExpanded ? (
                           <>
@@ -183,13 +197,13 @@ export default function ProjectsPage() {
                         )}
                       </button>
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
                         {project.playStoreLink && (
                           <a
                             href={project.playStoreLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex h-9 px-4 items-center justify-center rounded-full bg-brand-cyan/10 border border-brand-cyan/30 text-xs font-semibold text-brand-cyan hover:bg-brand-cyan/20 hover:text-white transition-all gap-1.5"
+                            className="inline-flex h-8 sm:h-9 px-3 sm:px-4 items-center justify-center rounded-full bg-brand-cyan/10 border border-brand-cyan/30 text-[10px] sm:text-xs font-semibold text-brand-cyan hover:bg-brand-cyan/20 hover:text-white transition-all gap-1.5"
                             aria-label="Download from Google Play"
                           >
                             <span>Play Store</span>
@@ -201,7 +215,7 @@ export default function ProjectsPage() {
                             href={project.githubLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex h-9 px-4 items-center justify-center rounded-full bg-brand-purple/10 border border-brand-purple/30 text-xs font-semibold text-brand-purple hover:bg-brand-purple/20 hover:text-white transition-all gap-1.5"
+                            className="inline-flex h-8 sm:h-9 px-3 sm:px-4 items-center justify-center rounded-full bg-brand-purple/10 border border-brand-purple/30 text-[10px] sm:text-xs font-semibold text-brand-purple hover:bg-brand-purple/20 hover:text-white transition-all gap-1.5"
                             aria-label="View Source on GitHub"
                           >
                             <span>GitHub</span>
@@ -210,7 +224,7 @@ export default function ProjectsPage() {
                         )}
                         <Link
                           href={`/contact?project=${encodeURIComponent(project.title)}`}
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/5 border border-white/10 hover:border-brand-purple text-white/70 hover:text-white transition-colors"
+                          className="inline-flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white/5 border border-white/10 hover:border-brand-purple text-white/70 hover:text-white transition-colors"
                           aria-label="Enquire about project"
                         >
                           <ExternalLink className="h-4 w-4" />
@@ -287,6 +301,12 @@ export default function ProjectsPage() {
             )}
         </div>
       </div>
+
+      <ImageLightbox
+        src={selectedImage?.src || null}
+        alt={selectedImage?.alt}
+        onClose={() => setSelectedImage(null)}
+      />
     </div>
   );
 }

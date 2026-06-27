@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { ArrowUpRight, Cpu, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowUpRight, Cpu } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +18,6 @@ export default function Navbar() {
         setIsScrolled(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -41,11 +40,10 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 z-40 w-full transition-all duration-300 ${
-          isScrolled
+        className={`fixed top-0 left-0 z-40 w-full transition-all duration-300 ${isScrolled
             ? "bg-bg-black/80 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-md border-b border-white/5"
             : "bg-transparent py-5"
-        }`}
+          }`}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
@@ -68,9 +66,8 @@ export default function Navbar() {
                   <Link
                     key={link.path}
                     href={link.path}
-                    className={`text-sm font-medium tracking-wide transition-colors hover:text-brand-cyan ${
-                      isActive ? "text-brand-purple font-semibold" : "text-white/70"
-                    }`}
+                    className={`text-sm font-medium tracking-wide transition-colors hover:text-brand-cyan ${isActive ? "text-brand-purple font-semibold" : "text-white/70"
+                      }`}
                   >
                     {link.name}
                   </Link>
@@ -103,12 +100,11 @@ export default function Navbar() {
 
       {/* Mobile Navigation Drawer Overlay (Full Screen, Highly Mobile Optimized) */}
       <div
-        className={`fixed inset-0 z-30 transform bg-bg-black/95 backdrop-blur-lg transition-transform duration-500 lg:hidden ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed inset-0 z-30 transform bg-bg-black/95 backdrop-blur-lg transition-transform duration-500 lg:hidden ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <div className="flex h-full flex-col justify-between px-6 py-24">
-          <nav className="flex flex-col gap-6 text-center">
+          <nav className="flex flex-col gap-6 text-left items-start">
             {navLinks.map((link) => {
               const isActive = pathname === link.path;
               return (
@@ -116,11 +112,10 @@ export default function Navbar() {
                   key={link.path}
                   href={link.path}
                   onClick={handleLinkClick}
-                  className={`text-xl font-medium tracking-wide transition-colors ${
-                    isActive
+                  className={`text-xl font-medium tracking-wide transition-colors ${isActive
                       ? "text-brand-purple font-bold glow-text-purple"
                       : "text-white/80 hover:text-brand-cyan"
-                  }`}
+                    }`}
                 >
                   {link.name}
                 </Link>
