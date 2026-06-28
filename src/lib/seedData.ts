@@ -672,6 +672,14 @@ export const MOCK_GLOBALS: Globals = {
       "I am an elite, full-stack engineer and AI developer specialized in building autonomous agentic systems and high-scale software infrastructures. Over the past several years, I have helped clients scale dynamic operations, replace slow processes with autonomous workflows, and design robust platforms.",
       "At Sofyrus Technologies, I worked on complex projects ranging from React Native geofenced transport dispatchers to LangGraph swarms that audit patient databases under tight regulatory requirements."
     ],
+    coFounderName: "Mohd Suhail",
+    coFounderTitle: "Co-Founder",
+    coFounderSubtitle: "Business Operations, Finance, & Client Management",
+    coFounderBio: [
+      "Mohd Suhail is the Co-Founder of UnifiedStack, where he leads Business Operations, Finance, and Client Management. With a Bachelor's degree in English and extensive professional experience in taxation and financial compliance, he plays a key role in ensuring the company's operational excellence and sustainable growth.",
+      "Before co-founding UnifiedStack, Mohd Suhail built hands-on expertise in GST compliance, Income Tax Return (ITR) filing, taxation, accounting, and financial management, working closely with businesses across various industries. His strong understanding of financial processes and regulatory compliance enables him to streamline operations and support clients with practical business solutions.",
+      "At UnifiedStack, he oversees business operations, financial planning, strategic partnerships, and client relationships, ensuring projects are delivered efficiently while maintaining the highest standards of professionalism. By combining his financial expertise with a business-first approach, he helps bridge the gap between technology and real-world business needs."
+    ],
     philosophies: [
       {
         title: "Deterministic Execution",
@@ -702,6 +710,12 @@ export const MOCK_GLOBALS: Globals = {
     ],
     journeyTimeline: [
       {
+        date: "Jan 2026 - Present",
+        title: "CEO & Founder",
+        company: "UnifiedStack",
+        desc: "Leading overall corporate strategy, product vision, and technical architecture, building robust enterprise AI systems and software infrastructure."
+      },
+      {
         date: "Aug 2024 - 2026",
         title: "Full Stack Software Engineer & AI Architect",
         company: "Sofyrus Technologies",
@@ -712,6 +726,26 @@ export const MOCK_GLOBALS: Globals = {
         title: "B.Tech in Computer Science",
         company: "Aligarh Muslim University",
         desc: "Acquired deep foundations in software development, algorithm design, system architecture, and modern full-stack web technologies."
+      }
+    ],
+    coFounderJourneyTimeline: [
+      {
+        date: "2026 - Present",
+        title: "Co-Founder & Head of Business Operations",
+        company: "UnifiedStack",
+        desc: "Oversees business operations, financial planning, strategic partnerships, and client relationships, bridging tech with real-world compliance needs."
+      },
+      {
+        date: "Start 2026 - Present",
+        title: "Taxation Specialist",
+        company: "Independent Consultancy",
+        desc: "Built expertise in GST compliance, Income Tax Return (ITR) filing, taxation, accounting, and financial management for cross-industry businesses."
+      },
+      {
+        date: "2023 - 2026",
+        title: "B.A. in English",
+        company: "MJP Rohilkhand University",
+        desc: "Completed Bachelor's degree, developing communication skills, structural thinking, and high-standard professional correspondence."
       }
     ]
   },

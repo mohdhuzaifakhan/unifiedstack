@@ -97,7 +97,7 @@ export default function Footer() {
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <Link href="/about" className="text-white/50 hover:text-brand-cyan transition-colors">
-                  About Founder
+                  About Us
                 </Link>
               </li>
               <li>
@@ -117,7 +117,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/admin" className="text-white/50 hover:text-brand-cyan transition-colors">
-                  Founder Portal
+                  Admin Portal
                 </Link>
               </li>
             </ul>

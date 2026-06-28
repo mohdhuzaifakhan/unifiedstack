@@ -1757,52 +1757,103 @@ export default function AdminDashboardPage() {
                     </div>
                   </GlowingCard>
 
-                  {/* Founder Config */}
-                  <GlowingCard className="p-6 space-y-4">
-                    <h3 className="text-sm font-bold text-brand-purple uppercase tracking-wider font-mono border-b border-white/5 pb-2">// Founder Profile</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Founder Name</label>
-                        <input
-                          type="text"
-                          value={globalsForm.about.founderName}
-                          onChange={(e) => setGlobalsForm({
-                            ...globalsForm,
-                            about: { ...globalsForm.about, founderName: e.target.value }
-                          })}
-                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
-                          required
-                        />
+                  {/* Leadership Config */}
+                  <GlowingCard className="p-6 space-y-6">
+                    <h3 className="text-sm font-bold text-brand-purple uppercase tracking-wider font-mono border-b border-white/5 pb-2">// Leadership Profiles</h3>
+                    
+                    {/* Founder Profile */}
+                    <div className="space-y-4 border-b border-white/5 pb-6">
+                      <span className="text-xs font-bold text-brand-cyan tracking-wider font-mono uppercase">1. Founder Profile</span>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Founder Name</label>
+                          <input
+                            type="text"
+                            value={globalsForm.about.founderName}
+                            onChange={(e) => setGlobalsForm({
+                              ...globalsForm,
+                              about: { ...globalsForm.about, founderName: e.target.value }
+                            })}
+                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Founder Title Role</label>
+                          <input
+                            type="text"
+                            value={globalsForm.about.founderTitle}
+                            onChange={(e) => setGlobalsForm({
+                              ...globalsForm,
+                              about: { ...globalsForm.about, founderTitle: e.target.value }
+                            })}
+                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                            required
+                          />
+                        </div>
                       </div>
                       <div>
-                        <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Founder Title Role</label>
-                        <input
-                          type="text"
-                          value={globalsForm.about.founderTitle}
+                        <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Founder Biography Paragraphs (Double New-lines separate paragraphs)</label>
+                        <textarea
+                          rows={4}
+                          value={globalsForm.about.bio.join("\n\n")}
                           onChange={(e) => setGlobalsForm({
                             ...globalsForm,
-                            about: { ...globalsForm.about, founderTitle: e.target.value }
+                            about: {
+                              ...globalsForm.about,
+                              bio: e.target.value.split("\n\n").map((p) => p.trim()).filter((p) => p.length > 0)
+                            }
                           })}
-                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono leading-relaxed"
                           required
                         />
                       </div>
                     </div>
-                    <div>
-                      <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Biography Paragraphs (Double New-lines separate paragraphs)</label>
-                      <textarea
-                        rows={6}
-                        value={globalsForm.about.bio.join("\n\n")}
-                        onChange={(e) => setGlobalsForm({
-                          ...globalsForm,
-                          about: {
-                            ...globalsForm.about,
-                            bio: e.target.value.split("\n\n").map((p) => p.trim()).filter((p) => p.length > 0)
-                          }
-                        })}
-                        className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono leading-relaxed"
-                        required
-                      />
+
+                    {/* Co-Founder Profile */}
+                    <div className="space-y-4">
+                      <span className="text-xs font-bold text-brand-cyan tracking-wider font-mono uppercase">2. Co-Founder Profile</span>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Co-Founder Name</label>
+                          <input
+                            type="text"
+                            value={globalsForm.about.coFounderName || ""}
+                            onChange={(e) => setGlobalsForm({
+                              ...globalsForm,
+                              about: { ...globalsForm.about, coFounderName: e.target.value }
+                            })}
+                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Co-Founder Title Role</label>
+                          <input
+                            type="text"
+                            value={globalsForm.about.coFounderTitle || ""}
+                            onChange={(e) => setGlobalsForm({
+                              ...globalsForm,
+                              about: { ...globalsForm.about, coFounderTitle: e.target.value }
+                            })}
+                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Co-Founder Biography Paragraphs (Double New-lines separate paragraphs)</label>
+                        <textarea
+                          rows={4}
+                          value={(globalsForm.about.coFounderBio || []).join("\n\n")}
+                          onChange={(e) => setGlobalsForm({
+                            ...globalsForm,
+                            about: {
+                              ...globalsForm.about,
+                              coFounderBio: e.target.value.split("\n\n").map((p) => p.trim()).filter((p) => p.length > 0)
+                            }
+                          })}
+                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono leading-relaxed"
+                        />
+                      </div>
                     </div>
                   </GlowingCard>
 

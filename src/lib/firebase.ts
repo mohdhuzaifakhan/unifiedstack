@@ -131,9 +131,14 @@ export interface Globals {
     founderTitle: string;
     founderSubtitle: string;
     bio: string[];
+    coFounderName?: string;
+    coFounderTitle?: string;
+    coFounderSubtitle?: string;
+    coFounderBio?: string[];
     philosophies: { title: string; desc: string }[];
     skillCategories: { title: string; skills: string[] }[];
     journeyTimeline: { date: string; title: string; company: string; desc: string }[];
+    coFounderJourneyTimeline?: { date: string; title: string; company: string; desc: string }[];
   };
   aiSolutions: {
     agents: { title: string; tagline: string; desc: string; frameworks: string[]; steps: { label: string; desc: string }[]; metrics: string[] };

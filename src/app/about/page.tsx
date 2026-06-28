@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 export default function AboutPage() {
   const [globals, setGlobals] = useState<Globals | null>(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<"founder" | "cofounder">("founder");
 
   useEffect(() => {
     async function loadData() {
@@ -38,6 +39,11 @@ export default function AboutPage() {
   const founderName = activeGlobals.about?.founderName || MOCK_GLOBALS.about.founderName;
   const founderTitle = activeGlobals.about?.founderTitle || MOCK_GLOBALS.about.founderTitle;
 
+  const coFounderName = activeGlobals.about?.coFounderName || MOCK_GLOBALS.about.coFounderName;
+  const coFounderTitle = activeGlobals.about?.coFounderTitle || MOCK_GLOBALS.about.coFounderTitle;
+  const coFounderBio = activeGlobals.about?.coFounderBio || MOCK_GLOBALS.about.coFounderBio || [];
+  const coFounderJourneyTimeline = activeGlobals.about?.coFounderJourneyTimeline || MOCK_GLOBALS.about.coFounderJourneyTimeline || [];
+
   return (
     <div className="relative py-12 md:py-20 px-4">
       {/* Background Gradient Mesh */}
@@ -48,58 +54,142 @@ export default function AboutPage() {
         {/* Header Block */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-bold uppercase tracking-widest text-brand-purple">
-            The Founder
+            Leadership Team
           </span>
           <h1 className="mt-3 text-4xl font-extrabold text-white sm:text-5xl">
-            {founderName}
+            Meet the Founders
           </h1>
           <p className="mt-2 text-sm text-brand-cyan tracking-wider font-semibold uppercase">
-            {founderTitle}
+            Driving Innovation, Strategy, & Operational Excellence
           </p>
         </div>
 
-        {/* Profile Card & Intro */}
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 items-start mb-20">
-          {/* Avatar Area */}
-          <div className="lg:col-span-4 flex justify-center">
-            <div className="relative rounded-2xl border border-white/5 bg-white/[0.01] p-4 backdrop-blur-md w-full max-w-[280px]">
-              <div className="relative aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 group">
-                <img
-                  src="/profile.jpg"
-                  alt={founderName}
-                  className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-bg-black/80 to-transparent" />
-              </div>
-              <div className="mt-4 flex items-center justify-between text-xs text-white/50">
-                <span className="flex items-center gap-1">
-                  <Terminal className="h-3 w-3 text-brand-purple" />
-                  2+ Years Professional
-                </span>
-                <span className="text-brand-cyan glow-text-cyan font-bold">India proprietorship</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Bio Text */}
-          <div className="lg:col-span-8 space-y-6 text-sm sm:text-base leading-relaxed text-white/70">
-            <h2 className="text-xl font-bold text-white tracking-tight">Professional Scoping</h2>
-            {bioParagraphs.map((para, pIdx) => (
-              <p key={pIdx}>
-                {para}
-              </p>
-            ))}
-
-            <div className="rounded-xl border border-white/5 bg-white/[0.01] p-5">
-              <span className="block text-xs uppercase font-bold tracking-widest text-brand-cyan mb-2">
-                Mission Statement
-              </span>
-              <p className="text-xs text-white/50 italic leading-relaxed">
-                "Our mission is to replace unpredictable chat-based AI experiments with robust, secure, and production-tested software systems, helping global enterprises automate work with absolute reliability."
-              </p>
-            </div>
+        {/* Toggle Selector */}
+        <div className="flex justify-center mb-16">
+          <div className="inline-flex rounded-full border border-white/5 bg-white/[0.02] p-1.5 backdrop-blur-md">
+            <button
+              onClick={() => setActiveTab("founder")}
+              className={`rounded-full px-8 py-3 text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+                activeTab === "founder"
+                  ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-xl shadow-brand-purple/20"
+                  : "text-white/50 hover:text-white"
+              }`}
+            >
+              {founderName} (Founder)
+            </button>
+            <button
+              onClick={() => setActiveTab("cofounder")}
+              className={`rounded-full px-8 py-3 text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+                activeTab === "cofounder"
+                  ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-xl shadow-brand-purple/20"
+                  : "text-white/50 hover:text-white"
+              }`}
+            >
+              {coFounderName} (Co-Founder)
+            </button>
           </div>
         </div>
+
+        {/* Profile Details */}
+        {activeTab === "founder" ? (
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 items-start mb-20">
+            {/* Avatar Area */}
+            <div className="lg:col-span-4 flex justify-center">
+              <div className="relative rounded-2xl border border-white/5 bg-white/[0.01] p-4 backdrop-blur-md w-full max-w-[280px]">
+                <div className="relative aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 group">
+                  <img
+                    src="/profile.jpg"
+                    alt={founderName}
+                    className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-bg-black/80 to-transparent" />
+                </div>
+                <div className="mt-4 flex items-center justify-between text-xs text-white/50">
+                  <span className="flex items-center gap-1">
+                    <Terminal className="h-3 w-3 text-brand-purple" />
+                    2+ Years Professional
+                  </span>
+                  <span className="text-brand-cyan glow-text-cyan font-bold">India proprietor</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bio Text */}
+            <div className="lg:col-span-8 space-y-6 text-sm sm:text-base leading-relaxed text-white/70">
+              <div className="space-y-1">
+                <span className="text-xs font-bold uppercase tracking-widest text-brand-purple">
+                  Founder & CEO
+                </span>
+                <h2 className="text-2xl font-bold text-white tracking-tight">{founderName}</h2>
+                <p className="text-xs text-brand-cyan tracking-wider font-semibold uppercase">{founderTitle}</p>
+              </div>
+
+              {bioParagraphs.map((para, pIdx) => (
+                <p key={pIdx}>
+                  {para}
+                </p>
+              ))}
+
+              <div className="rounded-xl border border-white/5 bg-white/[0.01] p-5">
+                <span className="block text-xs uppercase font-bold tracking-widest text-brand-cyan mb-2">
+                  Mission Statement
+                </span>
+                <p className="text-xs text-white/50 italic leading-relaxed">
+                  "Our mission is to replace unpredictable chat-based AI experiments with robust, secure, and production-tested software systems, helping global enterprises automate work with absolute reliability."
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 items-start mb-20">
+            {/* Avatar Area */}
+            <div className="lg:col-span-4 flex justify-center">
+              <div className="relative rounded-2xl border border-white/5 bg-white/[0.01] p-4 backdrop-blur-md w-full max-w-[280px]">
+                <div className="relative aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 group">
+                  <img
+                    src="/suhail.png"
+                    alt={coFounderName}
+                    className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-bg-black/80 to-transparent" />
+                </div>
+                <div className="mt-4 flex items-center justify-between text-xs text-white/50">
+                  <span className="flex items-center gap-1">
+                    <Terminal className="h-3 w-3 text-brand-cyan" />
+                    Taxation & Operations
+                  </span>
+                  <span className="text-brand-purple glow-text-purple font-bold">India proprietor</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bio Text */}
+            <div className="lg:col-span-8 space-y-6 text-sm sm:text-base leading-relaxed text-white/70">
+              <div className="space-y-1">
+                <span className="text-xs font-bold uppercase tracking-widest text-brand-cyan">
+                  Co-Founder
+                </span>
+                <h2 className="text-2xl font-bold text-white tracking-tight">{coFounderName}</h2>
+                <p className="text-xs text-brand-purple tracking-wider font-semibold uppercase">{coFounderTitle}</p>
+              </div>
+
+              {coFounderBio.map((para, pIdx) => (
+                <p key={pIdx}>
+                  {para}
+                </p>
+              ))}
+
+              <div className="rounded-xl border border-white/5 bg-white/[0.01] p-5">
+                <span className="block text-xs uppercase font-bold tracking-widest text-brand-purple mb-2">
+                  Vision Statement
+                </span>
+                <p className="text-xs text-white/50 italic leading-relaxed">
+                  "His vision is to build a company that delivers innovative, scalable, and AI-powered software solutions while creating long-term value for clients through operational excellence and trusted partnerships."
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Engineering Philosophy */}
         <div className="mb-20">
@@ -145,20 +235,28 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Career Timeline */}
-        <div>
+        {/* Dynamic Timeline Section */}
+        <div className="mb-20">
           <h2 className="text-center text-xl font-bold text-white tracking-tight mb-12">
-            Engineering Timeline
+            Professional Timeline ({activeTab === "founder" ? founderName : coFounderName})
           </h2>
           <div className="relative border-l border-white/10 pl-6 sm:pl-10 space-y-10 max-w-3xl mx-auto">
-            {journeyTimeline.map((item, idx) => (
+            {(activeTab === "founder" ? journeyTimeline : coFounderJourneyTimeline).map((item, idx) => (
               <div key={idx} className="relative">
                 {/* Node pointer */}
-                <div className="absolute -left-[31px] sm:-left-[47px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-bg-black border-2 border-brand-purple">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand-cyan" />
+                <div className={`absolute -left-[31px] sm:-left-[47px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-bg-black border-2 ${
+                  activeTab === "founder" ? "border-brand-purple" : "border-brand-cyan"
+                }`}>
+                  <span className={`h-1.5 w-1.5 rounded-full ${
+                    activeTab === "founder" ? "bg-brand-cyan" : "bg-brand-purple"
+                  }`} />
                 </div>
 
-                <span className="text-xs font-mono text-brand-cyan bg-brand-cyan/10 border border-brand-cyan/20 px-2 py-0.5 rounded">
+                <span className={`text-xs font-mono border px-2 py-0.5 rounded ${
+                  activeTab === "founder" 
+                    ? "text-brand-cyan bg-brand-cyan/10 border-brand-cyan/20" 
+                    : "text-brand-purple bg-brand-purple/10 border-brand-purple/20"
+                }`}>
                   {item.date}
                 </span>
 
