@@ -28,6 +28,7 @@ export default function Navbar() {
     { name: "AI Solutions", path: "/ai-solutions" },
     { name: "Projects", path: "/projects" },
     { name: "Case Studies", path: "/case-studies" },
+    { name: "Profile", path: "/profile" },
     { name: "About", path: "/about" },
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },

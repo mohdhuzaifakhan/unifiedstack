@@ -16,7 +16,7 @@ export default function WhatsAppCta() {
       href={whatsappUrl}
       target="_blank"
       rel="noreferrer"
-      className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-tr from-green-500 to-emerald-400 text-white shadow-xl shadow-green-500/20 transition-all hover:scale-110 hover:shadow-green-500/40"
+      className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-tr from-green-500 to-emerald-400 text-white shadow-xl shadow-green-500/20 transition-all hover:scale-110 hover:shadow-green-500/40 no-print whatsapp-cta"
       aria-label="Chat on WhatsApp"
     >
       {/* Dynamic Pulsing Rings */}

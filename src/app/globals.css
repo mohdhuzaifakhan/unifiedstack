@@ -174,3 +174,62 @@ body {
     background-size: 30px 30px;
   }
 }
+
+/* ==========================================
+   PRINT STYLES (PDF GENERATION)
+   ========================================== */
+@media print {
+  /* Hide interactive, non-print items */
+  header,
+  footer,
+  .no-print,
+  .whatsapp-cta,
+  iframe[src*="whatsapp"],
+  iframe[src*="calendly"] {
+    display: none !important;
+  }
+
+  /* Reset layout margins for browser printing */
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #030303 !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  main {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Target exact A4 sizes for page chunks */
+  .print-page {
+    page-break-inside: avoid !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    width: 210mm !important;
+    height: 296mm !important; /* Slight buffer to avoid accidental blank pages */
+    margin: 0 !important;
+    padding: 20mm !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    position: relative !important;
+    background-color: #030303 !important;
+    color: #ffffff !important;
+  }
+
+  /* Light mode/Ink-saver override when applied */
+  body.ink-saver,
+  body.ink-saver .print-page {
+    background: #ffffff !important;
+    color: #030303 !important;
+  }
+
+  body.ink-saver .print-page {
+    border: 1px solid #e5e7eb !important;
+  }
+}
+

@@ -68,7 +68,7 @@ export default function CursorEffect() {
           borderColor: hovered ? "#06B6D4" : "rgba(139, 92, 246, 0.4)",
           backgroundColor: hovered ? "rgba(6, 182, 212, 0.05)" : "transparent",
         }}
-        className="pointer-events-none fixed top-0 left-0 z-50 h-8 w-8 rounded-full border border-brand-purple/40 transition-transform duration-200 cubic-bezier(0.1, 0.8, 0.25, 1)"
+        className="pointer-events-none fixed top-0 left-0 z-50 h-8 w-8 rounded-full border border-brand-purple/40 transition-transform duration-200 cubic-bezier(0.1, 0.8, 0.25, 1) no-print"
       />
 
       {/* Inner Core Dot */}
@@ -77,7 +77,7 @@ export default function CursorEffect() {
           transform: `translate3d(${position.x}px, ${position.y}px, 0) translate(-50%, -50%)`,
           backgroundColor: hovered ? "#06B6D4" : "#8B5CF6",
         }}
-        className="pointer-events-none fixed top-0 left-0 z-50 h-1.5 w-1.5 rounded-full bg-brand-purple shadow-[0_0_10px_rgba(139,92,246,0.8)] transition-all duration-75"
+        className="pointer-events-none fixed top-0 left-0 z-50 h-1.5 w-1.5 rounded-full bg-brand-purple shadow-[0_0_10px_rgba(139,92,246,0.8)] transition-all duration-75 no-print"
       />
     </>
   );

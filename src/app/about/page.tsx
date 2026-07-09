@@ -69,23 +69,21 @@ export default function AboutPage() {
           <div className="inline-flex rounded-full border border-white/5 bg-white/[0.02] p-1.5 backdrop-blur-md">
             <button
               onClick={() => setActiveTab("founder")}
-              className={`rounded-full px-8 py-3 text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
-                activeTab === "founder"
-                  ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-xl shadow-brand-purple/20"
-                  : "text-white/50 hover:text-white"
-              }`}
+              className={`rounded-full px-8 py-3 text-xs font-bold uppercase tracking-wider transition-all duration-300 ${activeTab === "founder"
+                ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-xl shadow-brand-purple/20"
+                : "text-white/50 hover:text-white"
+                }`}
             >
-              {founderName} (Founder)
+              Founder
             </button>
             <button
               onClick={() => setActiveTab("cofounder")}
-              className={`rounded-full px-8 py-3 text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
-                activeTab === "cofounder"
-                  ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-xl shadow-brand-purple/20"
-                  : "text-white/50 hover:text-white"
-              }`}
+              className={`rounded-full px-8 py-3 text-xs font-bold uppercase tracking-wider transition-all duration-300 ${activeTab === "cofounder"
+                ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-xl shadow-brand-purple/20"
+                : "text-white/50 hover:text-white"
+                }`}
             >
-              {coFounderName} (Co-Founder)
+              Co-Founder
             </button>
           </div>
         </div>
@@ -244,19 +242,16 @@ export default function AboutPage() {
             {(activeTab === "founder" ? journeyTimeline : coFounderJourneyTimeline).map((item, idx) => (
               <div key={idx} className="relative">
                 {/* Node pointer */}
-                <div className={`absolute -left-[31px] sm:-left-[47px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-bg-black border-2 ${
-                  activeTab === "founder" ? "border-brand-purple" : "border-brand-cyan"
-                }`}>
-                  <span className={`h-1.5 w-1.5 rounded-full ${
-                    activeTab === "founder" ? "bg-brand-cyan" : "bg-brand-purple"
-                  }`} />
+                <div className={`absolute -left-[31px] sm:-left-[47px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-bg-black border-2 ${activeTab === "founder" ? "border-brand-purple" : "border-brand-cyan"
+                  }`}>
+                  <span className={`h-1.5 w-1.5 rounded-full ${activeTab === "founder" ? "bg-brand-cyan" : "bg-brand-purple"
+                    }`} />
                 </div>
 
-                <span className={`text-xs font-mono border px-2 py-0.5 rounded ${
-                  activeTab === "founder" 
-                    ? "text-brand-cyan bg-brand-cyan/10 border-brand-cyan/20" 
-                    : "text-brand-purple bg-brand-purple/10 border-brand-purple/20"
-                }`}>
+                <span className={`text-xs font-mono border px-2 py-0.5 rounded ${activeTab === "founder"
+                  ? "text-brand-cyan bg-brand-cyan/10 border-brand-cyan/20"
+                  : "text-brand-purple bg-brand-purple/10 border-brand-purple/20"
+                  }`}>
                   {item.date}
                 </span>
 
