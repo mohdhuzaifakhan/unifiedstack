@@ -391,235 +391,120 @@ export const MOCK_TESTIMONIALS: Testimonial[] = [
 
 export const MOCK_SERVICES: Service[] = [
   {
-    id: "ai-agents",
-    category: "ai",
-    iconName: "Bot",
-    title: "AI Agent Development",
-    description: "Stateful, autonomous multi-agent cognitive networks designed to execute complex business routines through cyclic loop workflows.",
+    id: "web-development",
+    category: "fullstack",
+    iconName: "Globe",
+    title: "Web Development",
+    description: "We design and engineer bespoke web applications and digital platforms using Next.js, React, and TypeScript. We focus on high responsiveness, intuitive user journeys, and clean component architectures built to support your core business operations.",
     pricing: {
-      in: "Starting at ₹55,000",
-      intl: "Starting at $5,000"
+      in: "Starting at ₹40,000",
+      intl: "Starting at $1,200"
     },
-    delivery: "3-5 Weeks",
-    tech: ["LangGraph", "Python", "FastAPI", "Redis"],
+    delivery: "2-4 Weeks",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "PostgreSQL"],
     benefits: [
-      "Recursive self-backtracking execution model",
-      "Reduction of human operational labor by up to 85%",
-      "Direct integration with enterprise CRM and SQL schemas"
+      "Fast, responsive interfaces optimized across desktop, tablet, and mobile devices",
+      "Custom administrative portals, role-based workflows, and intuitive dashboards",
+      "Modular, well-documented TypeScript codebase designed for long-term scalability"
     ],
-    useCase: "Self-healing customer service coordinators and autonomous billing reconcilers that execute complex loops.",
+    useCase: "Custom operational portals, SaaS platforms, client management tools, and corporate digital applications.",
     order: 1
   },
   {
-    id: "generative-ai",
-    category: "ai",
-    iconName: "Brain",
-    title: "Generative AI Solutions",
-    description: "Custom integrations of highly advanced LLMs tailored to commercial workflows, delivering high-speed structured text processing.",
-    pricing: {
-      in: "Starting at ₹50,000",
-      intl: "Starting at $4,500"
-    },
-    delivery: "2-4 Weeks",
-    tech: ["GPT-4o", "Claude 3.5 Sonnet", "Gemini Pro", "Pydantic"],
-    benefits: [
-      "Absolute output structure via typed JSON schemas",
-      "Custom context instructions to reduce prompt drift",
-      "Seamless API fallback failover pipelines"
-    ],
-    useCase: "Dynamic enterprise content generation, automated medical intake records parsing, and legal brief analysis engines.",
-    order: 2
-  },
-  {
-    id: "rag-pipelines",
-    category: "ai",
-    iconName: "Binary",
-    title: "RAG Pipelines",
-    description: "Optimized retrieval-augmented databases using custom semantic indexers to search massive internal folders securely.",
-    pricing: {
-      in: "Starting at ₹52,000",
-      intl: "Starting at $4,800"
-    },
-    delivery: "3-4 Weeks",
-    tech: ["Pinecone", "ChromaDB", "LlamaIndex", "Text Embedding Models"],
-    benefits: [
-      "Semantic matching beyond simple matching keywords",
-      "Hierarchical chunk algorithms to preserve tables",
-      "Complete enterprise local data container containment"
-    ],
-    useCase: "Internal HR search agents, legal document discovery swarms, and corporate financial report analyzers.",
-    order: 3
-  },
-  {
-    id: "llm-finetuning",
-    category: "ai",
-    iconName: "Layers",
-    title: "LLM Fine-tuning",
-    description: "Training open-source models on private hardware datasets to teach proprietary formatting styles and secure local hosting.",
-    pricing: {
-      in: "Starting at ₹60,000",
-      intl: "Starting at $6,000"
-    },
-    delivery: "4-6 Weeks",
-    tech: ["Llama 3", "Mistral 7B", "HuggingFace", "PyTorch"],
-    benefits: [
-      "Slash API per-token usage cost overhead by up to 70%",
-      "100% locally deployable in internal secure private clouds",
-      "Highly optimized performance speeds for specialized actions"
-    ],
-    useCase: "Medical terminology generators and customized legal draft compilers trained on local cases.",
-    order: 4
-  },
-  {
-    id: "ai-automation",
-    category: "ai",
-    iconName: "Zap",
-    title: "AI Automation",
-    description: "End-to-end background processes that chain models and database structures, triggering automated customer engagements.",
-    pricing: {
-      in: "Starting at ₹50,000",
-      intl: "Starting at $4,000"
-    },
-    delivery: "2-3 Weeks",
-    tech: ["n8n", "Make", "Custom Cron Node.js", "Webhooks"],
-    benefits: [
-      "Fully automated data sync across separate apps",
-      "Instant text parsing from inbound customer tickets",
-      "Elimination of manual entry and human transcription errors"
-    ],
-    useCase: "Email lead auto-reply triggers and internal Slack database updates fueled by vision model parsers.",
-    order: 5
-  },
-  {
-    id: "web-dev",
-    category: "fullstack",
-    iconName: "Code2",
-    title: "SaaS Development",
-    description: "Premium, responsive modular Next.js web applications, containing detailed client portals, Stripe billing, and secure API cores.",
-    pricing: {
-      in: "Starting at ₹58,000",
-      intl: "Starting at $5,500"
-    },
-    delivery: "4-8 Weeks",
-    tech: ["Next.js 15", "TypeScript", "Tailwind CSS", "PostgreSQL"],
-    benefits: [
-      "Optimized layout speeds with Server Component rendering",
-      "Stripe integration with complex multi-tier billing",
-      "Robust path permission security protection layers"
-    ],
-    useCase: "Enterprise business management cockpits, subscription-based customer platforms, and dynamic content sites.",
-    order: 6
-  },
-  {
-    id: "mobile-apps",
+    id: "mobile-app-development",
     category: "fullstack",
     iconName: "Smartphone",
     title: "Mobile App Development",
-    description: "Sub-100ms real-time React Native mobile apps built for geolocated dispatch, community feeds, and offline caching systems.",
-    pricing: {
-      in: "Starting at ₹70,000",
-      intl: "Starting at $6,500"
-    },
-    delivery: "5-9 Weeks",
-    tech: ["React Native", "Expo", "WebSocket", "Redux Toolkit"],
-    benefits: [
-      "Simultaneous launch on Apple App Store & Google Play",
-      "Instant geolocation mapping calculations",
-      "Ultra-clean local sqlite caching for offline accessibility"
-    ],
-    useCase: "Hyperlocal parcel tracking, community networking hubs, and field inspection logger apps.",
-    order: 7
-  },
-  {
-    id: "api-dev",
-    category: "fullstack",
-    iconName: "Server",
-    title: "API Development & Backend",
-    description: "Ultra-fast RESTful and gRPC web routing layers built on NestJS and FastAPI, with robust validation and security layers.",
-    pricing: {
-      in: "Starting at ₹52,000",
-      intl: "Starting at $4,000"
-    },
-    delivery: "3-5 Weeks",
-    tech: ["NestJS", "FastAPI", "Prisma ORM", "Redis Cache"],
-    benefits: [
-      "Highly organized module codebase structure",
-      "Strict automatic parameter schema typechecks",
-      "Sub-30ms execution timings for simple reads"
-    ],
-    useCase: "External third-party API hooks, fast mobile app backends, and multi-tenant data orchestrations.",
-    order: 8
-  },
-  {
-    id: "devops",
-    category: "fullstack",
-    iconName: "CloudLightning",
-    title: "DevOps & Cloud Systems",
-    description: "Deploying secure Docker setups, CI/CD automated test integrations, and load balancers on AWS and GCP.",
+    description: "We engineer cross-platform Android and iOS applications using React Native. We deliver native-grade fluid performance, responsive touch interactions, reliable offline data caching, and background push notification systems from a single maintainable codebase.",
     pricing: {
       in: "Starting at ₹50,000",
-      intl: "Starting at $3,500"
+      intl: "Starting at $1,600"
     },
-    delivery: "2-4 Weeks",
-    tech: ["AWS", "Docker", "GitHub Actions", "Terraform"],
+    delivery: "3-6 Weeks",
+    tech: ["React Native", "Expo", "TypeScript", "Redux Toolkit", "Node.js"],
     benefits: [
-      "Fully automated compilation verification testing on commit",
-      "Self-scaling containers to handle user traffic spikes",
-      "Secure VPC environments keeping databases closed"
+      "Single codebase deployed and published to both Google Play Store and Apple App Store",
+      "Smooth 60fps animations, optimized battery usage, and offline data synchronization",
+      "Deep mobile OS integration including push notifications, camera, and geolocation"
     ],
-    useCase: "Zero-downtime deployment pipelines and staging environment replicators.",
-    order: 9
+    useCase: "Enterprise mobile tools, field operations applications, customer engagement platforms, and workflow utilities.",
+    order: 2
   },
   {
-    id: "ai-testing",
+    id: "ai-development",
     category: "ai",
-    iconName: "Cpu",
-    title: "AI Testing & Evaluation Systems",
-    description: "Adversarial evaluation frameworks designed to test LLM swarms for factual consistency, drift, and toxic inputs.",
+    iconName: "Bot",
+    title: "AI Development",
+    description: "We design and deploy production-grade artificial intelligence systems including Agentic AI workflows, deterministic RAG retrieval pipelines, custom model fine-tuning, intelligent workflow automations, and 24/7 conversational assistants. Every system is built with rigorous evaluation guardrails to ensure reliable, factual, and secure operational performance.",
     pricing: {
-      in: "Starting at ₹54,000",
-      intl: "Starting at $5,000"
+      in: "Starting at ₹50,000",
+      intl: "Starting at $1,500"
     },
-    delivery: "3-5 Weeks",
-    tech: ["LangSmith", "Phoenix", "DeepEval", "Python"],
+    delivery: "2-5 Weeks",
+    tech: ["LangGraph", "LlamaIndex", "OpenAI & Claude", "FastAPI", "Pinecone", "Python"],
     benefits: [
-      "Discover conversation bypass risks before launch",
-      "Validate answer accuracies against custom datasets",
-      "Centralized logs monitoring operational drift"
+      "Autonomous Agentic AI workflows that plan, reason, and execute multi-step business objectives",
+      "Deterministic RAG pipelines delivering accurate, grounded search across your company files with source citations",
+      "Domain-specific model fine-tuning and intelligent process automations with complete data privacy"
     ],
-    useCase: "Compliance auditing portals for chatbot solutions operating in financial or clinical setups.",
-    order: 10
+    useCase: "Agentic task orchestration, enterprise document search, fine-tuned domain models, process automation, and intelligent conversational assistants.",
+    order: 3
+  },
+  {
+    id: "backend-development",
+    category: "fullstack",
+    iconName: "Server",
+    title: "Backend Development",
+    description: "We architect and build scalable server-side systems, high-throughput REST and asynchronous APIs, and relational or document database infrastructures using Python, FastAPI, Node.js, and PostgreSQL. Engineered for high concurrency, low latency, and robust data integrity.",
+    pricing: {
+      in: "Starting at ₹35,000",
+      intl: "Starting at $1,000"
+    },
+    delivery: "2-4 Weeks",
+    tech: ["FastAPI", "Python", "Node.js", "PostgreSQL", "MongoDB", "Redis"],
+    benefits: [
+      "High-throughput API endpoints with sub-50ms query execution times",
+      "Role-based access control, secure authentication, and encrypted communications",
+      "Reliable relational and vector database schemas with automated migration and backup pipelines"
+    ],
+    useCase: "Scalable application backends, internal business logic engines, distributed data processing, and platform APIs.",
+    order: 4
   }
 ];
 
 export const MOCK_GLOBALS: Globals = {
   hero: {
-    badge: "Empowering Enterprise Workflows",
-    title: "Building Intelligent Software & AI Systems",
-    subtitle: "We engineer high-performance multi-agent cognitive platforms, deterministic RAG document systems, robust full stack SaaS, and premium mobile applications."
+    badge: "Custom Software & AI Agency • India & Global",
+    title: "We Build Web, Mobile & AI Apps That Grow Your Business",
+    subtitle: "Got a software idea or a manual workflow slowing your business down? We design, engineer, and deploy high-converting web platforms, mobile apps, and production AI systems tailored to your exact business goals. Fast delivery, clean code, zero technical stress."
   },
   trustMetrics: [
-    { value: "2+", label: "Years Professional Experience" },
-    { value: "99.8%", label: "System Uptime Delivered" },
-    { value: "100%", label: "Production-Grade AI Architecture" },
-    { value: "12x", label: "Workflow Latency Reductions" },
-    { value: "India", label: "Sole Proprietorship Certified" }
+    { value: "15+ Apps", label: "Shipped Successfully" },
+    { value: "100%", label: "On-Time Milestone Delivery" },
+    { value: "< 1s", label: "Sub-Second App Speed" },
+    { value: "Direct", label: "Work Directly With Founders" },
+    { value: "100%", label: "Source Code & IP Ownership" }
   ],
   specializations: [
     {
-      iconName: "GitBranch",
-      title: "LangGraph Orchestration",
-      description: "Going beyond linear chains. We build robust, state-synchronized agent swarms with custom conditional edge routers."
+      iconName: "Globe",
+      title: "Web Development",
+      description: "Custom web applications and digital platforms built with Next.js, React, and TypeScript with clean architectures and fast load times."
     },
     {
-      iconName: "Database",
-      title: "Vector Database Setup",
-      description: "Implementing semantic indices with Pinecone, ChromaDB, and Milvus. Custom chunking layouts preserve document hierarchies."
+      iconName: "Smartphone",
+      title: "Mobile App Development",
+      description: "Cross-platform Android and iOS applications built with React Native for fluid performance, offline support, and native device capabilities."
     },
     {
-      iconName: "Activity",
-      title: "Observability & Evaluation",
-      description: "Adversarial red-teaming frameworks to verify chatbots for factual hallucinations, toxic leakage, and strict pedagogy compliance."
+      iconName: "Bot",
+      title: "AI Development",
+      description: "Agentic AI workflows, deterministic RAG document pipelines, custom model fine-tuning, process automations, and intelligent assistants."
+    },
+    {
+      iconName: "Server",
+      title: "Backend Development",
+      description: "Scalable server architectures, high-throughput APIs, and secure database infrastructures built with Python, FastAPI, and Node.js."
     }
   ],
   techStack: {
@@ -633,158 +518,158 @@ export const MOCK_GLOBALS: Globals = {
     ],
     backend: [
       { name: "Node.js", icon: "🟢" },
-      { name: "NestJS", icon: "🦁" },
       { name: "FastAPI", icon: "⚡" },
       { name: "Python", icon: "🐍" },
+      { name: "NestJS", icon: "🦁" },
       { name: "Express", icon: "🚂" },
       { name: "PostgreSQL", icon: "🐘" }
     ],
     ai: [
+      { name: "OpenAI & Claude", icon: "🧠" },
       { name: "LangChain", icon: "🦜" },
       { name: "LangGraph", icon: "🕸️" },
-      { name: "LlamaIndex", icon: "🗂️" },
-      { name: "OpenAI / Claude", icon: "🧠" },
-      { name: "Gemini APIs", icon: "♊" },
-      { name: "Pinecone / Chroma", icon: "🌲" }
+      { name: "Gemini AI", icon: "♊" },
+      { name: "Pinecone Vector DB", icon: "🌲" },
+      { name: "LlamaIndex", icon: "🗂️" }
     ],
     cloud: [
-      { name: "AWS Services", icon: "☁️" },
+      { name: "AWS Cloud", icon: "☁️" },
       { name: "Docker", icon: "🐳" },
-      { name: "CI/CD Pipelines", icon: "🔄" },
+      { name: "GitHub Actions", icon: "🔄" },
       { name: "Firebase", icon: "🔥" },
-      { name: "Vercel Hosting", icon: "▲" },
-      { name: "Redis Caching", icon: "🔴" }
+      { name: "Vercel", icon: "▲" },
+      { name: "Redis Cache", icon: "🔴" }
     ]
   },
   processFlow: [
-    { step: "01", name: "Discovery", desc: "Analyzing your structural data bottlenecks and mapping AI opportunities." },
-    { step: "02", name: "Planning", desc: "Designing detailed cyclic agent architectures and system interfaces." },
-    { step: "03", name: "Development", desc: "Implementing stateful codebases with Next.js, FastAPI, and robust libraries." },
-    { step: "04", name: "AI Integration", desc: "Injecting LangGraph models, semantic RAG nodes, and security checkers." },
-    { step: "05", name: "Testing", desc: "Red-teaming evaluation scripts to verify zero factual hallucinations." },
-    { step: "06", name: "Deployment", desc: "Seamless launch to Vercel/AWS with Docker and instant CI/CD tracking." }
+    { step: "01", name: "Free Scoping Call", desc: "We discuss your project vision, business goals, and budget to understand exactly what you need." },
+    { step: "02", name: "Clear Proposal & Roadmap", desc: "You receive a fixed-price proposal with transparent milestones, deliverables, and timelines—no surprise fees." },
+    { step: "03", name: "Interactive Figma Designs", desc: "We design and share clean UI screens so you see and approve every detail before we write code." },
+    { step: "04", name: "Fast Weekly Sprints", desc: "We build in agile 1-2 week sprints, providing live staging links so you can test progress as we build." },
+    { step: "05", name: "Rigorous Testing & QA", desc: "We test every checkout, button, and mobile screen to guarantee a rock-solid, bug-free launch." },
+    { step: "06", name: "Production Launch & 30-Day Warranty", desc: "We deploy your app to live cloud servers and stay by your side with 30 days of free bug-fix warranty." }
   ],
   about: {
     founderName: "Mohd Huzaifa",
-    founderTitle: "Full Stack Software Engineer & AI Architect",
-    founderSubtitle: "Full Stack Software Engineer & AI Architect",
+    founderTitle: "Founder & Full Stack AI Engineer",
+    founderSubtitle: "Full Stack Software Engineer & AI Specialist",
     bio: [
-      "I am an elite, full-stack engineer and AI developer specialized in building autonomous agentic systems and high-scale software infrastructures. Over the past several years, I have helped clients scale dynamic operations, replace slow processes with autonomous workflows, and design robust platforms.",
-      "At Sofyrus Technologies, I worked on complex projects ranging from React Native geofenced transport dispatchers to LangGraph swarms that audit patient databases under tight regulatory requirements."
+      "I am Mohd Huzaifa, a full stack software engineer and AI developer based in India. I specialize in building custom web applications, Android & iOS mobile apps, and practical AI automation tools that help businesses grow.",
+      "Over the past several years, I have built and shipped production systems for startups and enterprises, including real-time mobile apps, smart AI chatbots, and high-speed web platforms. My goal is simple: deliver clean, reliable code on time, without complicated technical headaches."
     ],
     coFounderName: "Mohd Suhail",
-    coFounderTitle: "Co-Founder",
-    coFounderSubtitle: "Business Operations, Finance, & Client Management",
+    coFounderTitle: "Co-Founder & Head of Operations",
+    coFounderSubtitle: "Business Operations, Finance & Client Coordination",
     coFounderBio: [
-      "Mohd Suhail is the Co-Founder of UnifiedStack, where he leads Business Operations, Finance, and Client Management. With a Bachelor's degree in English and extensive professional experience in taxation and financial compliance, he plays a key role in ensuring the company's operational excellence and sustainable growth.",
-      "Before co-founding UnifiedStack, Mohd Suhail built hands-on expertise in GST compliance, Income Tax Return (ITR) filing, taxation, accounting, and financial management, working closely with businesses across various industries. His strong understanding of financial processes and regulatory compliance enables him to streamline operations and support clients with practical business solutions.",
-      "At UnifiedStack, he oversees business operations, financial planning, strategic partnerships, and client relationships, ensuring projects are delivered efficiently while maintaining the highest standards of professionalism. By combining his financial expertise with a business-first approach, he helps bridge the gap between technology and real-world business needs."
+      "Mohd Suhail is the Co-Founder of UnifiedStack, where he manages business operations, client coordination, and financial planning.",
+      "With hands-on background in business management, GST compliance, and corporate communication, he ensures that projects stay on schedule, client communication is transparent, and every partnership is handled with complete professionalism.",
+      "Together at UnifiedStack, our focus is to bring top-tier software and AI engineering to growing businesses with friendly, honest, and reliable service."
     ],
     philosophies: [
       {
-        title: "Deterministic Execution",
-        desc: "Generative LLMs are highly fluid. We build strict, graph-based deterministic barriers using LangGraph to guarantee zero toxic leaks or random hallucinations, making AI enterprise-safe."
+        title: "Clean, Reliable Code",
+        desc: "We write clean, well-tested code that works properly from day one, so you don't face random bugs, crashes, or maintenance nightmares."
       },
       {
-        title: "Stateful Modular Codebases",
-        desc: "Premature microservices split engineering focus. We design modular monolith structures with strict interface domains, giving early startups rapid velocity with clean architectural clarity."
+        title: "Clear & Honest Communication",
+        desc: "No confusing technical jargon. We talk in simple English, give you realistic timelines, and keep you updated every step of the way."
       },
       {
-        title: "Zero Operational Overhead",
-        desc: "Every database connection, API call, and container deployment is engineered to minimize latency and token counts. Efficiency drives production-grade scalability."
+        title: "Focus on Business Value",
+        desc: "We don't build software just for the sake of it. Everything we create is focused on saving your team time, attracting customers, and growing your revenue."
       }
     ],
     skillCategories: [
       {
-        title: "AI & Cognitive Core",
-        skills: ["LangGraph & LangChain", "RAG Pipeline Orchestration", "Vector Databases (Pinecone, Chroma)", "Adversarial Red-Teaming", "Open-Source Models (Llama, Mistral)", "Structured Output Schemas"]
+        title: "AI & Smart Automation",
+        skills: ["AI Chatbots & Virtual Assistants", "Document Search (RAG)", "OpenAI, Claude & Gemini APIs", "Workflow Automation (n8n/Make)", "WhatsApp Business Automation", "Prompt Engineering"]
       },
       {
-        title: "Full Stack & Web Core",
-        skills: ["Next.js 15 & React 19", "TypeScript / ESNext", "React Native (Mobile)", "FastAPI / NestJS", "PostgreSQL / MongoDB", "RESTful / gRPC APIs"]
+        title: "Full Stack Web & Mobile",
+        skills: ["Next.js 15 & React 19", "React Native (Android & iOS)", "TypeScript & Node.js", "Python & FastAPI", "PostgreSQL & MongoDB", "Payment Gateway (Razorpay/Stripe)"]
       },
       {
-        title: "DevOps & Cloud Orchestration",
-        skills: ["AWS Cloud Infra", "Docker Containerization", "Firebase Ecosystem", "GitHub Actions CI/CD", "Redis In-Memory Cache", "State persistence layers"]
+        title: "Cloud & DevOps",
+        skills: ["AWS Cloud Hosting", "Docker Containers", "Firebase Database", "GitHub CI/CD Automation", "SSL & Domain Setup", "24/7 Server Monitoring"]
       }
     ],
     journeyTimeline: [
       {
-        date: "Jan 2026 - Present",
-        title: "CEO & Founder",
+        date: "2026 - Present",
+        title: "Founder & Lead Engineer",
         company: "UnifiedStack",
-        desc: "Leading overall corporate strategy, product vision, and technical architecture, building robust enterprise AI systems and software infrastructure."
+        desc: "Building custom software, mobile apps, and AI solutions for startups, businesses, and global clients."
       },
       {
-        date: "Aug 2024 - 2026",
+        date: "2024 - 2026",
         title: "Full Stack Software Engineer & AI Architect",
         company: "Sofyrus Technologies",
-        desc: "Engineered autonomous multi-agent cognitive platforms, real-time React Native mobile applications, and secure modular SaaS engines for global enterprise clients."
+        desc: "Engineered multi-agent AI systems, real-time React Native mobile applications, and high-performance SaaS backends."
       },
       {
         date: "2020 - 2024",
         title: "B.Tech in Computer Science",
-        company: "Aligarh Muslim University",
-        desc: "Acquired deep foundations in software development, algorithm design, system architecture, and modern full-stack web technologies."
+        company: "Aligarh Muslim University (AMU)",
+        desc: "Completed Bachelor of Technology in Computer Science, building deep foundations in algorithms, software engineering, and modern web architectures."
       }
     ],
     coFounderJourneyTimeline: [
       {
         date: "2026 - Present",
-        title: "Co-Founder & Head of Business Operations",
+        title: "Co-Founder & Head of Operations",
         company: "UnifiedStack",
-        desc: "Oversees business operations, financial planning, strategic partnerships, and client relationships, bridging tech with real-world compliance needs."
+        desc: "Oversees business operations, client partnerships, project delivery schedules, and financial planning."
       },
       {
-        date: "Start 2026 - Present",
-        title: "Taxation Specialist",
-        company: "Independent Consultancy",
-        desc: "Built expertise in GST compliance, Income Tax Return (ITR) filing, taxation, accounting, and financial management for cross-industry businesses."
+        date: "2024 - 2026",
+        title: "Business & Financial Compliance Consultant",
+        company: "Independent Practice",
+        desc: "Assisted Indian businesses with GST compliance, taxation, client agreements, and operational management."
       },
       {
         date: "2023 - 2026",
-        title: "B.A. in English",
+        title: "Bachelor's Degree",
         company: "MJP Rohilkhand University",
-        desc: "Completed Bachelor's degree, developing communication skills, structural thinking, and high-standard professional correspondence."
+        desc: "Focused on professional communication, business writing, and client management."
       }
     ]
   },
   aiSolutions: {
     agents: {
-      title: "Multi-Agent System Orchestration",
-      tagline: "Stateful, Cyclic Business Swarms",
-      desc: "We build advanced cognitive networks that split massive business workloads across specialized agent nodes. Unlike basic chains, our swarms back-track, self-evaluate, and cross-reconcile state variables securely.",
-      frameworks: ["LangGraph", "LangChain", "Autogen", "Python stateful dicts"],
+      title: "AI Chatbots & Intelligent Assistants",
+      tagline: "Automate Customer Support & Sales",
+      desc: "We build smart AI assistants that handle customer questions on WhatsApp and your website, qualify new leads, and schedule appointments around the clock without human delay.",
+      frameworks: ["OpenAI", "Claude", "LangGraph", "Python", "WhatsApp Business API"],
       steps: [
-        { label: "Role Separation", desc: "Dividing workflows into specific agent nodes (Auditor, Searcher, Executioner) with dedicated tools." },
-        { label: "Cyclic Memory State", desc: "Configuring state-sharing tables that persist variables across conversational feedback loops." },
-        { label: "Observability Audits", desc: "Attaching LangSmith monitors to observe token velocities and trace tool calls dynamically." }
+        { label: "1. Define Workflow", desc: "We map out exactly how your assistant should answer questions, qualify leads, and handle bookings." },
+        { label: "2. Connect Your Data", desc: "We connect your product catalog, FAQs, and business rules so the AI gives accurate answers every time." },
+        { label: "3. Launch & Test", desc: "We test the bot thoroughly and launch it on your website and WhatsApp with full analytics." }
       ],
-      metrics: ["88% Workflow Automation", "Zero drift loops", "99.8% Deterministic execution"]
+      metrics: ["24/7 Instant Responses", "Cuts Support Work by 80%", "Zero Missed Leads"]
     },
     rag: {
-      title: "Enterprise RAG Pipeline Indexing",
-      tagline: "Semantic Retrieval-Augmented Generation",
-      desc: "Our search architectures bypass keyword limitations. We map documents to high-dimensional coordinate spaces, letting LLMs retrieve exact contextual paragraphs from millions of private files.",
-      frameworks: ["Pinecone", "ChromaDB", "LlamaIndex", "SentenceTransformers"],
+      title: "Document Search & Knowledge AI (RAG)",
+      tagline: "Search Company Files in Seconds",
+      desc: "Stop wasting hours searching through heavy PDF manuals, policy files, or product catalogs. Our system lets your team and customers ask questions and receive instant, exact answers with citations.",
+      frameworks: ["Pinecone", "ChromaDB", "LlamaIndex", "Python"],
       steps: [
-        { label: "Semantic Chunking", desc: "Dividing PDFs, tables, and spreadsheets intelligently to preserve document structural integrity." },
-        { label: "Embeddings Mapping", desc: "Converting chunks into multi-dimensional vectors using modern embedding models." },
-        { label: "Reranking Filters", desc: "Running retrieved chunks through Cohere/Cross-Encoder filters to eliminate irrelevant data." }
+        { label: "1. Upload Documents", desc: "Upload your PDFs, Word documents, policy handbooks, or product spreadsheets." },
+        { label: "2. Smart Indexing", desc: "Our system indexes all text, tables, and sections for instant semantic retrieval." },
+        { label: "3. Instant Accurate Answers", desc: "Ask any question in plain English and get an exact, grounded answer with page numbers." }
       ],
-      metrics: ["Sub-1.2s search latency", "0.0% Hallucination rates", "99.9% Contextually grounded answers"]
+      metrics: ["Instant Answers under 1s", "100% Accurate with Source Citations", "Complete Data Privacy"]
     },
     finetuning: {
-      title: "LLM Fine-Tuning & Local Hosting",
-      tagline: "Proprietary Tone and Format Alignment",
-      desc: "We adapt lightweight open-source base models on private hardware datasets, training them to mirror proprietary communication styles, write complex code formats, and keep data offline.",
-      frameworks: ["HuggingFace", "PyTorch", "LoRA / QLoRA", "vLLM Inference Core"],
+      title: "Custom AI Models & Workflow Automation",
+      tagline: "Tailored to Your Specific Business",
+      desc: "We adapt AI models to understand your company's unique vocabulary, tone, and formatting requirements, automating complex reports and documentation effortlessly.",
+      frameworks: ["HuggingFace", "Python", "Llama 3", "PyTorch"],
       steps: [
-        { label: "Dataset Scoping", desc: "Synthesizing, filtering, and structuring private corporate data into instruction pairs." },
-        { label: "LoRA Training", desc: "Adjusting a fractional set of weights to align behaviors while keeping base architecture untouched." },
-        { label: "vLLM Hosting Core", desc: "Deploying the aligned model using high-throughput inference engines to minimize token cost." }
+        { label: "1. Review Your Data", desc: "We collect your past reports, contracts, or customer interactions to train the model." },
+        { label: "2. Custom Training", desc: "We tune the model so it writes exactly in your company's preferred style and format." },
+        { label: "3. Secure Private Hosting", desc: "We deploy the model securely on private servers so your data never leaves your control." }
       ],
-      metrics: ["72% Token price reductions", "100% On-prem secure hosting", "Up to 5x latency speedups"]
+      metrics: ["Matches Your Brand Voice", "Reduces Manual Drafting Time by 75%", "Runs Privately & Securely"]
     }
   }
 };

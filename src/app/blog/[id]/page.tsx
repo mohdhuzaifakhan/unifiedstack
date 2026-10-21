@@ -68,7 +68,7 @@ function parseInline(text: string): React.ReactNode[] {
       const endIdx = remaining.indexOf("**");
       if (endIdx !== -1) {
         parts.push(
-          <strong key={key++} className="font-bold text-white">
+          <strong key={key++} className="font-bold text-slate-900">
             {remaining.substring(0, endIdx)}
           </strong>
         );
@@ -81,7 +81,7 @@ function parseInline(text: string): React.ReactNode[] {
       const endIdx = remaining.indexOf("*");
       if (endIdx !== -1) {
         parts.push(
-          <em key={key++} className="italic text-white/95">
+          <em key={key++} className="italic text-slate-800">
             {remaining.substring(0, endIdx)}
           </em>
         );
@@ -94,7 +94,7 @@ function parseInline(text: string): React.ReactNode[] {
       const endIdx = remaining.indexOf("`");
       if (endIdx !== -1) {
         parts.push(
-          <code key={key++} className="px-1.5 py-0.5 rounded bg-white/10 text-brand-cyan text-xs font-mono font-bold">
+          <code key={key++} className="px-1.5 py-0.5 rounded bg-slate-100 text-blue-700 text-xs font-mono font-semibold border border-slate-200">
             {remaining.substring(0, endIdx)}
           </code>
         );
@@ -116,7 +116,7 @@ function parseInline(text: string): React.ReactNode[] {
               <a
                 key={key++}
                 href={url}
-                className="text-brand-cyan hover:text-brand-purple hover:underline transition-colors font-medium"
+                className="text-blue-600 hover:text-blue-800 hover:underline transition-colors font-medium"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -291,13 +291,13 @@ function CodeBlock({ codeText }: { codeText: string }) {
       <div className="absolute right-3 top-3 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity z-10">
         <button
           onClick={handleCopy}
-          className="rounded-lg bg-white/5 border border-white/10 p-2 text-[10px] sm:text-xs text-white/60 hover:text-white hover:bg-white/10 flex items-center gap-1.5 backdrop-blur-sm transition-all cursor-pointer"
+          className="rounded-lg bg-slate-800 border border-slate-700 px-2.5 py-1 text-xs text-slate-300 hover:text-white hover:bg-slate-700 flex items-center gap-1.5 transition-all cursor-pointer"
           title="Copy code"
         >
           {copied ? (
             <>
-              <Check className="h-3.5 w-3.5 text-green-400" />
-              <span className="text-green-400 font-medium">Copied!</span>
+              <Check className="h-3.5 w-3.5 text-emerald-400" />
+              <span className="text-emerald-400 font-medium">Copied!</span>
             </>
           ) : (
             <>
@@ -307,7 +307,7 @@ function CodeBlock({ codeText }: { codeText: string }) {
           )}
         </button>
       </div>
-      <pre className="rounded-xl border border-white/5 bg-black/60 p-5 font-mono text-xs sm:text-sm text-brand-cyan/85 overflow-x-auto shadow-inner leading-relaxed">
+      <pre className="rounded-xl border border-slate-800 bg-slate-900 p-5 font-mono text-xs sm:text-sm text-blue-200 overflow-x-auto leading-relaxed">
         <code>{codeText}</code>
       </pre>
     </div>
@@ -359,8 +359,8 @@ export default function BlogPostPage({ params }: PageProps) {
 
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center text-white/60 font-mono text-xs">
-        <Loader2 className="h-6 w-6 animate-spin text-brand-purple mr-2" />
+      <div className="flex h-screen items-center justify-center text-slate-500 font-mono text-xs">
+        <Loader2 className="h-6 w-6 animate-spin text-blue-600 mr-2" />
         Formatting dynamic publication...
       </div>
     );
@@ -369,13 +369,13 @@ export default function BlogPostPage({ params }: PageProps) {
   if (!blog) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[70vh] text-center px-4">
-        <h2 className="text-xl font-bold text-white tracking-tight">Publication Not Found</h2>
-        <p className="mt-2 text-xs text-white/40 max-w-sm">
-          The requested article may have been archived or unpublished by the system editor.
+        <h2 className="text-xl font-bold text-slate-900 tracking-tight">Publication Not Found</h2>
+        <p className="mt-2 text-xs text-slate-500 max-w-sm">
+          The requested article may have been archived or unpublished.
         </p>
         <Link
           href="/blog"
-          className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-5 py-2.5 text-xs text-white hover:bg-white/10"
+          className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-white border border-slate-200 px-5 py-2.5 text-xs text-slate-700 hover:bg-slate-50"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Publications
@@ -387,63 +387,60 @@ export default function BlogPostPage({ params }: PageProps) {
   const blocks = parseBlocks(blog.content);
 
   return (
-    <article className="relative py-12 md:py-20 px-4 min-h-screen">
+    <article className="relative py-12 md:py-20 px-4 min-h-screen bg-white text-slate-900">
       {/* Scroll Progress Bar */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-white/5 z-50">
+      <div className="fixed top-0 left-0 w-full h-1 bg-slate-100 z-50">
         <div
-          className="h-full bg-gradient-to-r from-brand-purple via-brand-cyan to-brand-blue transition-all duration-75"
+          className="h-full bg-gradient-to-r from-blue-600 to-indigo-600 transition-all duration-75"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
-
-      {/* Background visual elements */}
-      <div className="pointer-events-none absolute top-20 left-1/2 -translate-x-1/2 h-[400px] w-[600px] rounded-full bg-brand-purple/5 blur-[120px]" />
 
       <div className="mx-auto max-w-3xl relative z-10">
         {/* Navigation back anchor */}
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-cyan hover:text-brand-purple transition-colors mb-10"
+          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 hover:text-blue-800 transition-colors mb-10"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Insights
         </Link>
 
         {/* Heading information */}
-        <header className="border-b border-white/5 pb-8 mb-10">
-          <span className="rounded bg-brand-purple/20 border border-brand-purple/35 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-brand-cyan">
+        <header className="border-b border-slate-100 pb-8 mb-10">
+          <span className="rounded-full bg-blue-50 border border-blue-100 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-blue-700">
             {blog.category}
           </span>
           
-          <h1 className="mt-6 text-3xl font-extrabold text-white sm:text-4xl md:text-5xl leading-tight tracking-tight">
+          <h1 className="mt-6 text-3xl font-extrabold text-slate-900 sm:text-4xl md:text-5xl leading-tight tracking-tight">
             {blog.title}
           </h1>
 
-          <div className="mt-6 flex flex-wrap items-center gap-6 text-xs text-white/40">
+          <div className="mt-6 flex flex-wrap items-center gap-6 text-xs text-slate-500">
             <span className="flex items-center gap-1.5">
-              <User className="h-4 w-4 text-brand-purple" />
+              <User className="h-4 w-4 text-blue-600" />
               By {blog.author}
             </span>
             <span className="flex items-center gap-1.5">
-              <Calendar className="h-4 w-4 text-brand-purple" />
+              <Calendar className="h-4 w-4 text-blue-600" />
               Published: {blog.publishedAt}
             </span>
             <span className="flex items-center gap-1.5">
-              <Clock className="h-4 w-4 text-brand-purple" />
+              <Clock className="h-4 w-4 text-blue-600" />
               {blog.readTime}
             </span>
             <button
               onClick={handleShare}
-              className="flex items-center gap-1.5 cursor-pointer hover:text-white text-white/45 transition-colors font-medium border border-white/5 rounded px-2 py-0.5 bg-white/[0.01]"
+              className="flex items-center gap-1.5 cursor-pointer hover:text-slate-900 text-slate-600 transition-colors font-medium border border-slate-200 rounded-lg px-2.5 py-1 bg-white"
             >
               {shareCopied ? (
                 <>
-                  <Check className="h-3.5 w-3.5 text-green-400" />
-                  <span className="text-green-400 font-medium">Link copied!</span>
+                  <Check className="h-3.5 w-3.5 text-emerald-600" />
+                  <span className="text-emerald-700 font-medium">Link copied!</span>
                 </>
               ) : (
                 <>
-                  <Share2 className="h-3.5 w-3.5 text-brand-purple" />
+                  <Share2 className="h-3.5 w-3.5 text-blue-600" />
                   Share
                 </>
               )}
@@ -452,16 +449,16 @@ export default function BlogPostPage({ params }: PageProps) {
         </header>
 
         {/* Article image cover */}
-        <div className="rounded-2xl border border-white/5 bg-white/5 overflow-hidden aspect-video mb-12 shadow-2xl">
+        <div className="rounded-2xl border border-slate-200 overflow-hidden aspect-video mb-12 bg-slate-100">
           <img
             src={blog.image}
             alt={blog.title}
-            className="w-full h-full object-cover grayscale brightness-90 contrast-125 hover:grayscale-0 transition-all duration-700"
+            className="w-full h-full object-cover"
           />
         </div>
 
         {/* Dynamic Rich Article Content */}
-        <div className="prose prose-invert max-w-none text-white/70 leading-relaxed text-sm sm:text-base space-y-6">
+        <div className="max-w-none text-slate-700 leading-relaxed text-sm sm:text-base space-y-6">
           {blocks.map((block, idx) => {
             switch (block.type) {
               case "heading": {
@@ -469,19 +466,19 @@ export default function BlogPostPage({ params }: PageProps) {
                 const children = parseInline(text);
                 if (block.level === 1) {
                   return (
-                    <h1 key={idx} className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-12 mb-6 leading-tight">
+                    <h1 key={idx} className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mt-12 mb-6 leading-tight">
                       {children}
                     </h1>
                   );
                 } else if (block.level === 2) {
                   return (
-                    <h2 key={idx} className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight mt-10 mb-5 border-l-3 border-brand-purple pl-4 leading-tight">
+                    <h2 key={idx} className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-10 mb-4 border-l-4 border-blue-600 pl-4 leading-tight">
                       {children}
                     </h2>
                   );
                 } else {
                   return (
-                    <h3 key={idx} className="text-lg sm:text-xl font-bold text-white tracking-tight mt-8 mb-4">
+                    <h3 key={idx} className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight mt-8 mb-3">
                       {children}
                     </h3>
                   );
@@ -489,7 +486,6 @@ export default function BlogPostPage({ params }: PageProps) {
               }
               case "code": {
                 const codeLines = block.content.slice(1);
-                // Remove trailing backticks line if it exists
                 if (codeLines.length > 0 && codeLines[codeLines.length - 1].trim() === "```") {
                   codeLines.pop();
                 }
@@ -499,38 +495,38 @@ export default function BlogPostPage({ params }: PageProps) {
               case "blockquote": {
                 const text = block.content.join(" ");
                 return (
-                  <blockquote key={idx} className="border-l-4 border-brand-cyan bg-white/[0.02] p-5 my-8 rounded-r-xl italic text-white/80 text-sm sm:text-base leading-relaxed">
+                  <blockquote key={idx} className="border-l-4 border-blue-600 bg-blue-50/50 p-5 my-8 rounded-r-xl italic text-slate-700 text-sm sm:text-base leading-relaxed">
                     {parseInline(text)}
                   </blockquote>
                 );
               }
               case "list": {
                 const items = block.content.map((itemText, itemIdx) => (
-                  <li key={itemIdx} className="text-sm sm:text-base text-white/70 leading-relaxed pl-1">
+                  <li key={itemIdx} className="text-sm sm:text-base text-slate-700 leading-relaxed pl-1">
                     {parseInline(itemText)}
                   </li>
                 ));
                 if (block.ordered) {
                   return (
-                    <ol key={idx} className="list-decimal pl-6 space-y-3 my-6">
+                    <ol key={idx} className="list-decimal pl-6 space-y-2.5 my-6 text-slate-700">
                       {items}
                     </ol>
                   );
                 } else {
                   return (
-                    <ul key={idx} className="list-disc pl-6 space-y-3 my-6 text-brand-purple">
+                    <ul key={idx} className="list-disc pl-6 space-y-2.5 my-6 text-blue-600">
                       {items}
                     </ul>
                   );
                 }
               }
               case "hr": {
-                return <hr key={idx} className="my-10 border-white/10" />;
+                return <hr key={idx} className="my-10 border-slate-200" />;
               }
               case "paragraph": {
                 const text = block.content.join(" ");
                 return (
-                  <p key={idx} className="leading-relaxed text-sm sm:text-base text-white/80 my-5">
+                  <p key={idx} className="leading-relaxed text-sm sm:text-base text-slate-700 my-5">
                     {parseInline(text)}
                   </p>
                 );
@@ -541,17 +537,17 @@ export default function BlogPostPage({ params }: PageProps) {
           })}
         </div>
 
-        {/* Scoping Intake Scroller */}
-        <div className="mt-16 rounded-2xl border border-white/5 bg-gradient-to-tr from-bg-black to-brand-purple/10 p-8 text-center backdrop-blur-md">
-          <h3 className="text-xl font-bold text-white">Have a similar project space in mind?</h3>
-          <p className="mt-2 text-xs text-white/40 leading-relaxed max-w-sm mx-auto">
-            Book an engineering consultation directly with founder Mohd Huzaifa to scope potential system builds.
+        {/* Scoping Intake Box */}
+        <div className="mt-16 rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50/70 to-white p-8 text-center">
+          <h3 className="text-xl font-bold text-slate-900">Have a similar project in mind?</h3>
+          <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm mx-auto">
+            Book an engineering consultation directly with founder Mohd Huzaifa to evaluate system blueprints.
           </p>
           <Link
             href="/contact"
-            className="mt-6 neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-6 py-3 text-xs font-bold uppercase tracking-wider text-white"
+            className="mt-6 neon-btn inline-flex items-center gap-1.5 rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white"
           >
-            Start project scoping
+            Start Project Scoping
           </Link>
         </div>
       </div>

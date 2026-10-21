@@ -1,19 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import WhatsAppCta from "@/components/whatsapp-cta";
-import CursorEffect from "@/components/ui/cursor-effect";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -37,7 +33,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://unifiedstack.com",
-    title: "UnifiedStack - Building Intelligent Software & AI Systems for the Future",
+    title: "UnifiedStack - Building Intelligent Software & AI Systems",
     description:
       "Enterprise-grade custom software architectures, LangGraph multi-agent orchestration, scalable SaaS development, and RAG search indexing solutions.",
     siteName: "UnifiedStack",
@@ -60,7 +56,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#030303",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -74,23 +70,20 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${poppins.variable} font-sans h-full antialiased`}
       data-scroll-behavior="smooth"
     >
-      <body className="bg-bg-black text-foreground min-h-full flex flex-col antialiased selection:bg-brand-purple/35 selection:text-white">
-        {/* Sleek Custom Desktop Cursor */}
-        <CursorEffect />
-
-        {/* Global Floating Glass Navbar */}
+      <body className="bg-white text-slate-900 min-h-full flex flex-col antialiased selection:bg-blue-100 selection:text-blue-900">
+        {/* Global Clean Sticky Glass Navbar */}
         <Navbar />
 
         {/* Main Content Area */}
         <main className="flex-grow pt-20">{children}</main>
 
-        {/* Dynamic Glowing Footer */}
+        {/* Professional Light Footer */}
         <Footer />
 
-        {/* Persistent Floating WhatsApp quick conversion */}
+        {/* Floating WhatsApp contact helper */}
         <WhatsAppCta />
       </body>
     </html>

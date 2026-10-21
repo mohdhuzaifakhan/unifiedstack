@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Search, Calendar, User, Clock, ArrowRight, Loader2 } from "lucide-react";
+import { Search, Clock, ArrowRight, Loader2 } from "lucide-react";
 import GlowingCard from "@/components/ui/glowing-card";
 import { getBlogs, Blog } from "@/lib/firebase";
 
@@ -43,22 +43,22 @@ export default function BlogPage() {
   });
 
   return (
-    <div className="relative py-12 md:py-20 px-4">
+    <div className="relative py-12 md:py-20 px-3.5 sm:px-6 lg:px-8 bg-white text-slate-900">
       {/* Background visual glows */}
-      <div className="pointer-events-none absolute top-40 right-10 h-[300px] w-[500px] rounded-full bg-brand-purple/5 blur-[120px]" />
-      <div className="pointer-events-none absolute bottom-40 left-10 h-[350px] w-[600px] rounded-full bg-brand-cyan/5 blur-[120px]" />
+      <div className="pointer-events-none absolute top-40 right-10 h-[300px] w-[500px] rounded-full bg-blue-50/70 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-40 left-10 h-[350px] w-[600px] rounded-full bg-indigo-50/60 blur-[120px]" />
 
       <div className="mx-auto max-w-6xl relative z-10">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-cyan">
-            Our Insights
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <span className="text-xs font-bold uppercase tracking-widest text-blue-600">
+            Insights & Guides
           </span>
-          <h1 className="mt-3 text-4xl font-extrabold text-white sm:text-5xl">
-            UnifiedStack Publications
+          <h1 className="mt-2.5 sm:mt-3 text-3xl font-extrabold text-slate-900 sm:text-5xl tracking-tight break-words">
+            Engineering Blog & Guides
           </h1>
-          <p className="mt-4 text-sm text-white/50 leading-relaxed">
-            In-depth analysis, system architectural guidelines, and structural breakdowns of cognitive AI research.
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-600 leading-relaxed">
+            Articles, technical blueprints, and practical guides on building custom software, mobile apps, and smart AI systems.
           </p>
         </div>
 
@@ -70,10 +70,10 @@ export default function BlogPage() {
               <button
                 key={cat.key}
                 onClick={() => setActiveCategory(cat.key)}
-                className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all ${
+                className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                   activeCategory === cat.key
-                    ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
-                    : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
+                    ? "bg-blue-600 text-white"
+                    : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
                 {cat.label}
@@ -83,25 +83,25 @@ export default function BlogPage() {
 
           {/* Search box */}
           <div className="relative w-full md:w-72 order-1 md:order-2">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
             <input
               type="text"
               placeholder="Search articles..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white/[0.02] border border-white/5 rounded-full pl-10 pr-4 py-2.5 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40"
+              className="w-full bg-white border border-slate-200 rounded-full pl-10 pr-4 py-2 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
             />
           </div>
         </div>
 
         {/* Post Grid */}
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-20 text-white/60 font-mono text-xs">
-            <Loader2 className="h-6 w-6 animate-spin text-brand-purple mb-2" />
+          <div className="flex flex-col items-center justify-center py-20 text-slate-400 font-mono text-xs">
+            <Loader2 className="h-6 w-6 animate-spin text-blue-600 mb-2" />
             Retrieving blog database...
           </div>
         ) : filteredBlogs.length === 0 ? (
-          <div className="text-center py-20 text-white/40 text-sm italic border border-white/5 rounded-2xl bg-white/[0.01]">
+          <div className="text-center py-20 text-slate-400 text-sm italic border border-slate-200 rounded-2xl bg-slate-50">
             No publications found matching your search.
           </div>
         ) : (
@@ -109,45 +109,44 @@ export default function BlogPage() {
             {filteredBlogs.map((blog) => (
               <GlowingCard key={blog.id} className="flex flex-col justify-between overflow-hidden group">
                 <div>
-                  <div className="relative h-48 w-full overflow-hidden bg-white/5">
+                  <div className="relative h-48 w-full overflow-hidden bg-slate-100 border-b border-slate-100">
                     <img
                       src={blog.image}
                       alt={blog.title}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-bg-black to-transparent" />
                   </div>
 
                   <div className="p-6">
-                    <div className="flex items-center gap-3 text-[10px] font-mono text-white/40">
-                      <span className="rounded bg-brand-purple/20 border border-brand-purple/35 px-2 py-0.5 font-bold uppercase text-brand-cyan">
+                    <div className="flex items-center gap-3 text-xs text-slate-500">
+                      <span className="rounded-full bg-blue-50 border border-blue-100 px-2.5 py-0.5 font-bold uppercase tracking-wider text-blue-700 text-[10px]">
                         {blog.category}
                       </span>
                       <span>{blog.publishedAt}</span>
                     </div>
 
-                    <h2 className="mt-4 text-lg font-bold text-white tracking-tight leading-snug group-hover:text-brand-purple transition-colors line-clamp-2">
+                    <h2 className="mt-3.5 text-lg font-bold text-slate-900 tracking-tight leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">
                       {blog.title}
                     </h2>
                     
-                    <p className="mt-3 text-xs leading-relaxed text-white/50 line-clamp-3">
+                    <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600 line-clamp-3">
                       {blog.excerpt}
                     </p>
                   </div>
                 </div>
 
-                <div className="border-t border-white/5 px-6 py-4 flex items-center justify-between text-xs text-white/40">
-                  <div className="flex items-center gap-1.5">
-                    <Clock className="h-3.5 w-3.5" />
+                <div className="border-t border-slate-100 px-6 py-4 flex items-center justify-between text-xs text-slate-500 bg-slate-50/50">
+                  <div className="flex items-center gap-1.5 font-medium">
+                    <Clock className="h-3.5 w-3.5 text-slate-400" />
                     {blog.readTime}
                   </div>
                   
                   <Link
                     href={`/blog/${blog.id}`}
-                    className="flex items-center gap-1 font-bold text-brand-cyan hover:text-brand-purple transition-colors"
+                    className="flex items-center gap-1 font-bold text-blue-600 hover:text-blue-800 transition-colors"
                   >
                     Read Article
-                    <ArrowRight className="h-3 w-3" />
+                    <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>
               </GlowingCard>

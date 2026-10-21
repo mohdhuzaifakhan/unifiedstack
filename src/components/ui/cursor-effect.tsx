@@ -77,7 +77,7 @@ export default function CursorEffect() {
           transform: `translate3d(${position.x}px, ${position.y}px, 0) translate(-50%, -50%)`,
           backgroundColor: hovered ? "#06B6D4" : "#8B5CF6",
         }}
-        className="pointer-events-none fixed top-0 left-0 z-50 h-1.5 w-1.5 rounded-full bg-brand-purple shadow-[0_0_10px_rgba(139,92,246,0.8)] transition-all duration-75 no-print"
+        className="pointer-events-none fixed top-0 left-0 z-50 h-1.5 w-1.5 rounded-full bg-brand-purple transition-all duration-75 no-print"
       />
     </>
   );

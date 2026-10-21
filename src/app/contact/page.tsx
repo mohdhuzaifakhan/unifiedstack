@@ -10,7 +10,8 @@ import {
   Linkedin,
   Loader2,
   MessageSquare,
-  Send
+  Send,
+  X
 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
@@ -22,8 +23,8 @@ function ContactPageContent() {
     name: "",
     email: "",
     company: "",
-    service: "AI Agent Development",
-    budget: "₹50,000 - ₹60,000",
+    service: "Smart AI Chatbots (WhatsApp & Web)",
+    budget: "₹25,000 - ₹50,000",
     message: "",
   });
   const [submitting, setSubmitting] = useState(false);
@@ -50,33 +51,30 @@ function ContactPageContent() {
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
-      budget: clientLocation === "in" ? "₹50,000 - ₹60,000" : "$5,000 - $10,000"
+      budget: clientLocation === "in" ? "₹25,000 - ₹50,000" : "$1,000 - $3,000"
     }));
   }, [clientLocation]);
 
   const servicesList = [
-    "AI Agent Development",
-    "Generative AI Applications",
-    "RAG Vector Databases",
-    "LLM Fine-Tuning",
-    "SaaS Platform Development",
-    "Mobile App Development",
-    "API & Backend Engineering",
-    "Observability & Evaluation"
+    "Web Development (Next.js, React, Full Stack)",
+    "Mobile App Development (React Native, iOS & Android)",
+    "AI Development (RAG, Agentic AI, Fine-tuning, Automations)",
+    "Backend Development (APIs, Python, Node.js, Databases)",
+    "Other Custom Software"
   ];
 
   const budgetTiersIn = [
-    "Under ₹20,000",
-    "₹20,000 - ₹50,000",
-    "₹50,000 - ₹60,000",
-    "₹60,000+"
+    "Under ₹25,000",
+    "₹25,000 - ₹50,000",
+    "₹50,000 - ₹1,00,000",
+    "₹1,00,000+"
   ];
 
   const budgetTiersIntl = [
-    "Under $3,000",
+    "Under $1,000",
+    "$1,000 - $3,000",
     "$3,000 - $5,000",
-    "$5,000 - $10,000",
-    "$10,000+"
+    "$5,000+"
   ];
 
   const budgetTiers = clientLocation === "in" ? budgetTiersIn : budgetTiersIntl;
@@ -104,8 +102,8 @@ function ContactPageContent() {
           name: "",
           email: "",
           company: "",
-          service: "AI Agent Development",
-          budget: clientLocation === "in" ? "₹50,000 - ₹60,000" : "$5,000 - $10,000",
+          service: "Smart AI Chatbots (WhatsApp & Web)",
+          budget: clientLocation === "in" ? "₹25,000 - ₹50,000" : "$1,000 - $3,000",
           message: "",
         });
       }
@@ -117,73 +115,89 @@ function ContactPageContent() {
   };
 
   return (
-    <div className="relative py-12 md:py-20 px-4">
-      {/* Background gradients */}
-      <div className="pointer-events-none absolute top-40 right-10 h-[300px] w-[500px] rounded-full bg-brand-purple/5 blur-[120px]" />
-      <div className="pointer-events-none absolute bottom-40 left-10 h-[350px] w-[600px] rounded-full bg-brand-cyan/5 blur-[120px]" />
+    <div className="relative py-12 md:py-20 px-4 bg-white text-slate-900">
+      {/* Background soft ambient glows */}
+      <div className="pointer-events-none absolute top-40 right-10 h-[300px] w-[500px] rounded-full bg-blue-50/60 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-40 left-10 h-[350px] w-[600px] rounded-full bg-indigo-50/50 blur-[120px]" />
 
       <div className="mx-auto max-w-6xl relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
           {/* Column 1: Info and scheduling links */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-10">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-brand-cyan">
-                Contact Scoping
+              <span className="text-xs font-bold uppercase tracking-widest text-blue-600">
+                Contact Us
               </span>
-              <h1 className="mt-3 text-4xl font-extrabold text-white sm:text-5xl">
-                Let's scope your next product
+              <h1 className="mt-3 text-4xl font-extrabold text-slate-900 sm:text-5xl tracking-tight">
+                Let's Discuss Your Project
               </h1>
-              <p className="mt-4 text-sm text-white/50 leading-relaxed">
-                Submit an inquiry or schedule a direct consultation with founder Mohd Huzaifa to evaluate timeline complexities.
+              <p className="mt-4 text-base text-slate-600 leading-relaxed">
+                Send us a message or connect directly with founder Mohd Huzaifa to discuss your requirements, timeline, and budget.
               </p>
             </div>
 
-            {/* Quick action buttons */}
+            {/* Quick action cards */}
             <div className="space-y-4">
               {/* Calendly intake selector */}
               <button
                 onClick={() => setShowCalendly(true)}
-                className="w-full flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.01] hover:border-brand-purple/40 hover:bg-white/[0.02] p-5 text-left transition-all"
+                className="w-full flex items-center justify-between rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/40 p-5 text-left transition-all shadow-2xs cursor-pointer"
               >
                 <div className="flex gap-4 items-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-purple/10 border border-brand-purple/20 text-brand-purple shrink-0">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 border border-blue-100 text-blue-600 shrink-0">
                     <Calendar className="h-5 w-5" />
                   </div>
                   <div>
-                    <span className="block text-sm font-bold text-white">Book Scoping Call</span>
-                    <span className="block text-[10px] text-white/40">Embedded Calendly booking</span>
+                    <span className="block text-sm font-bold text-slate-900">Schedule a Free Call</span>
+                    <span className="block text-xs text-slate-500">Pick a convenient time on Calendly</span>
                   </div>
                 </div>
-                <ArrowRight className="h-4 w-4 text-white/40" />
+                <ArrowRight className="h-4 w-4 text-slate-400" />
               </button>
 
               {/* WhatsApp direct chat link */}
               <a
-                href="https://wa.me/918433043426?text=Hi%20Mohd%20Huzaifa,%20I'd%20like%20to%20discuss%20an%20AI%20project."
+                href="https://wa.me/918433043426?text=Hi%20Mohd%20Huzaifa,%20I'd%20like%20to%20discuss%20a%20software%20or%20AI%20project."
                 target="_blank"
                 rel="noreferrer"
-                className="w-full flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.01] hover:border-green-500/40 hover:bg-white/[0.02] p-5 text-left transition-all"
+                className="w-full flex items-center justify-between rounded-2xl border border-slate-200 bg-white hover:border-emerald-300 hover:bg-emerald-50/40 p-5 text-left transition-all shadow-2xs"
               >
                 <div className="flex gap-4 items-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 shrink-0">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-600 shrink-0">
                     <MessageSquare className="h-5 w-5" />
                   </div>
                   <div>
-                    <span className="block text-sm font-bold text-white">Chat on WhatsApp</span>
-                    <span className="block text-[10px] text-green-400 font-medium">Average reply: 15 mins</span>
+                    <span className="block text-sm font-bold text-slate-900">Chat on WhatsApp</span>
+                    <span className="block text-xs text-emerald-600 font-medium">+91 84330 43426 (Direct Founder)</span>
                   </div>
                 </div>
-                <ArrowRight className="h-4 w-4 text-white/40" />
+                <ArrowRight className="h-4 w-4 text-slate-400" />
               </a>
             </div>
 
             {/* Social profiles and address info */}
-            <div className="border-t border-white/5 pt-8 text-xs text-white/40">
-              <span className="block font-bold text-white">UnifiedStack India</span>
-              <span className="block mt-1">Sole Proprietorship Registry, India.</span>
-              <div className="mt-4 flex items-center gap-4">
-                <a href="https://www.linkedin.com/in/mohd-huzaifa-1796b9234" target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Linkedin className="h-4.5 w-4.5" /></a>
-                <a href="https://github.com" className="hover:text-white transition-colors"><Github className="h-4.5 w-4.5" /></a>
+            <div className="border-t border-slate-200 pt-8 text-xs text-slate-500">
+              <span className="block font-bold text-slate-800">UnifiedStack</span>
+              <span className="block mt-1">Registered Software & AI Studio in India.</span>
+              <div className="mt-4 flex items-center gap-3">
+                <a
+                  href="https://www.linkedin.com/in/mohd-huzaifa-1796b9234"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-blue-600 hover:border-slate-300 transition-colors shadow-2xs"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="h-4 w-4" />
+                </a>
+                <a
+                  href="https://github.com/mohdhuzaifakhan"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-slate-900 hover:border-slate-300 transition-colors shadow-2xs"
+                  aria-label="GitHub"
+                >
+                  <Github className="h-4 w-4" />
+                </a>
               </div>
             </div>
           </div>
@@ -193,45 +207,49 @@ function ContactPageContent() {
             <GlowingCard className="p-6 sm:p-8 relative h-full">
               {submitted ? (
                 <div className="flex flex-col items-center justify-center h-full text-center py-16">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-500/10 border border-green-500/20 text-green-400 mb-6">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 mb-6 shadow-2xs">
                     <CheckCircle2 className="h-8 w-8" />
                   </div>
-                  <h3 className="text-xl font-bold text-white tracking-tight">Inquiry Shipped Successfully</h3>
-                  <p className="mt-3 text-xs leading-relaxed text-white/50 max-w-sm">
-                    Thank you. Your scoping request was securely registered. Mohd Huzaifa will evaluate the details and reply within 12 hours.
+                  <h3 className="text-xl font-bold text-slate-900 tracking-tight">Message Received Successfully!</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600 max-w-sm">
+                    Thank you! We have received your project details. Mohd Huzaifa will review them and get back to you within a few hours.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="mt-8 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-white hover:bg-white/10"
+                    className="mt-8 rounded-full border border-slate-200 bg-white px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-slate-700 shadow-2xs hover:bg-slate-50 hover:border-slate-300 transition-all cursor-pointer"
                   >
-                    Submit Another Inquiry
+                    Send Another Message
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Location Selector */}
                   <div>
-                    <span className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2.5">Your Location</span>
-                    <div className="flex rounded-lg border border-white/5 bg-white/[0.02] p-1 w-full sm:w-fit backdrop-blur-sm">
+                    <span className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2.5">
+                      Your Location & Currency
+                    </span>
+                    <div className="flex rounded-xl border border-slate-200 bg-slate-50 p-1 w-full sm:w-fit shadow-2xs">
                       <button
                         type="button"
                         onClick={() => setClientLocation("in")}
-                        className={`rounded-md px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${clientLocation === "in"
-                          ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-md"
-                          : "text-white/60 hover:text-white hover:bg-white/5"
-                          }`}
+                        className={`rounded-lg px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+                          clientLocation === "in"
+                            ? "bg-blue-600 text-white shadow-xs"
+                            : "text-slate-600 hover:text-slate-900 hover:bg-white"
+                        }`}
                       >
-                        Indian
+                        India (₹ INR)
                       </button>
                       <button
                         type="button"
                         onClick={() => setClientLocation("intl")}
-                        className={`rounded-md px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${clientLocation === "intl"
-                          ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-md"
-                          : "text-white/60 hover:text-white hover:bg-white/5"
-                          }`}
+                        className={`rounded-lg px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+                          clientLocation === "intl"
+                            ? "bg-blue-600 text-white shadow-xs"
+                            : "text-slate-600 hover:text-slate-900 hover:bg-white"
+                        }`}
                       >
-                        Internationals
+                        International ($ USD)
                       </button>
                     </div>
                   </div>
@@ -239,29 +257,33 @@ function ContactPageContent() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Name */}
                     <div>
-                      <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">Name</label>
+                      <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                        Your Name
+                      </label>
                       <input
                         type="text"
                         id="name"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40"
-                        placeholder="Your Name"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 shadow-2xs transition-all"
+                        placeholder="e.g. Rahul Sharma"
                         required
                       />
                     </div>
                     {/* Email */}
                     <div>
-                      <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">Email</label>
+                      <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                        Email Address
+                      </label>
                       <input
                         type="email"
                         id="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40"
-                        placeholder="company@gmail.com"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 shadow-2xs transition-all"
+                        placeholder="you@company.com"
                         required
                       />
                     </div>
@@ -270,27 +292,31 @@ function ContactPageContent() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Company */}
                     <div>
-                      <label htmlFor="company" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">Company</label>
+                      <label htmlFor="company" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                        Company or Project Name
+                      </label>
                       <input
                         type="text"
                         id="company"
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40"
-                        placeholder="UnifiedStack Labs"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 shadow-2xs transition-all"
+                        placeholder="e.g. My Business"
                         required
                       />
                     </div>
                     {/* Service Required */}
                     <div>
-                      <label htmlFor="service" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">Service Needed</label>
+                      <label htmlFor="service" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                        What Service Do You Need?
+                      </label>
                       <select
                         id="service"
                         name="service"
                         value={formData.service}
                         onChange={handleChange}
-                        className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 [&>option]:bg-bg-black"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 shadow-2xs transition-all"
                       >
                         {servicesList.map((service, idx) => (
                           <option key={idx} value={service}>{service}</option>
@@ -301,7 +327,9 @@ function ContactPageContent() {
 
                   {/* Budget Choice Tiers */}
                   <div>
-                    <span className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-3">Project Budget Tier</span>
+                    <span className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2.5">
+                      Your Estimated Budget Range
+                    </span>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {budgetTiers.map((tier) => {
                         const isSelected = formData.budget === tier;
@@ -310,10 +338,11 @@ function ContactPageContent() {
                             key={tier}
                             type="button"
                             onClick={() => handleBudgetSelect(tier)}
-                            className={`rounded-lg border py-3 text-center text-xs font-semibold transition-all ${isSelected
-                              ? "border-brand-purple bg-brand-purple/10 text-white"
-                              : "border-white/5 bg-white/[0.02] text-white/50 hover:bg-white/5"
-                              }`}
+                            className={`rounded-xl border py-2.5 sm:py-3 px-1 sm:px-2 text-center text-[11px] sm:text-xs font-semibold transition-all cursor-pointer ${
+                              isSelected
+                                ? "border-blue-600 bg-blue-50 text-blue-700 shadow-2xs"
+                                : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300"
+                            }`}
                           >
                             {tier}
                           </button>
@@ -322,17 +351,19 @@ function ContactPageContent() {
                     </div>
                   </div>
 
-                  {/* Message requirements */}
+                  {/* Message */}
                   <div>
-                    <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-white/60 mb-2">Project Brief & Details</label>
+                    <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                      Project Details / Message
+                    </label>
                     <textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       rows={4}
-                      className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40 resize-none"
-                      placeholder="Outline your database complexity, target LLM context size, or React interfaces needed..."
+                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 shadow-2xs resize-none transition-all"
+                      placeholder="Tell us a bit about what you want to build, any features you need, or your target launch date..."
                       required
                     />
                   </div>
@@ -341,17 +372,17 @@ function ContactPageContent() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full neon-btn inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-brand-purple to-brand-blue py-4 text-xs font-bold uppercase tracking-wider text-white"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 py-3.5 px-6 text-sm font-semibold text-white whitespace-nowrap shrink-0 transition-colors cursor-pointer"
                   >
                     {submitting ? (
                       <>
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        Scoping lead...
+                        <Loader2 className="h-4 w-4 animate-spin shrink-0" />
+                        <span className="whitespace-nowrap">Sending Message...</span>
                       </>
                     ) : (
                       <>
-                        <Send className="h-3.5 w-3.5" />
-                        Submit Scoping Inquiry
+                        <Send className="h-4 w-4 shrink-0" />
+                        <span className="whitespace-nowrap">Send Message & Project Details</span>
                       </>
                     )}
                   </button>
@@ -362,49 +393,52 @@ function ContactPageContent() {
         </div>
       </div>
 
-      {/* Calendly Booking Overlay Drawer */}
+      {/* Calendly Booking Overlay Modal */}
       {showCalendly && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
-          <div className="relative w-full max-w-4xl rounded-2xl border border-white/5 bg-bg-black overflow-hidden shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
+          <div className="relative w-full max-w-2xl rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-2xl">
             {/* Top drawer controls */}
-            <div className="flex items-center justify-between border-b border-white/5 px-6 py-4 bg-white/[0.01]">
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-brand-purple" />
-                <span className="text-xs font-bold uppercase tracking-widest text-white/70">Consultation Scoping Scheduler</span>
+            <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4 bg-slate-50/70">
+              <div className="flex items-center gap-2.5">
+                <Calendar className="h-4 w-4 text-blue-600" />
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                  Schedule Direct Call
+                </span>
               </div>
               <button
                 onClick={() => setShowCalendly(false)}
-                className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white hover:bg-white/10"
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900 cursor-pointer"
+                aria-label="Close"
               >
-                Close
+                <X className="h-4 w-4" />
               </button>
             </div>
 
-            {/* Calendly Inline Widget Mockup */}
-            <div className="p-4 sm:p-8 flex flex-col items-center justify-center min-h-[450px]">
-              <div className="rounded-xl border border-white/5 bg-white/[0.01] p-6 text-center max-w-md">
-                <Calendar className="h-10 w-10 text-brand-purple mx-auto mb-4 animate-bounce" />
-                <h3 className="text-base font-bold text-white">Direct Calendly Scoping call</h3>
-                <p className="mt-2 text-xs leading-relaxed text-white/40">
-                  We hook directly to Calendly booking schedules here. In production, this embeds your active scheduling page dynamically.
-                </p>
-                <div className="mt-6 flex flex-col gap-2">
-                  <a
-                    href="https://calendly.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="neon-btn inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-brand-purple to-brand-blue py-3 text-xs font-bold uppercase text-white"
-                  >
-                    Open Live Calendly Schedule
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </a>
-                  <button
-                    onClick={() => setShowCalendly(false)}
-                    className="rounded-lg border border-white/5 bg-white/[0.02] py-3 text-xs font-semibold text-white/60 hover:bg-white/5"
-                  >
-                    Back to Form
-                  </button>
-                </div>
+            {/* Calendly Booking Card */}
+            <div className="p-8 text-center">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 mb-4 shadow-2xs">
+                <Calendar className="h-7 w-7" />
+              </div>
+              <h3 className="text-lg font-bold text-slate-900">Direct Consultation with Mohd Huzaifa</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600 max-w-md mx-auto">
+                Schedule a 30-minute scoping video call to discuss your project requirements, tech stack recommendations, and timeline estimates.
+              </p>
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a
+                  href="https://calendly.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full sm:w-auto neon-btn inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-white shadow-md"
+                >
+                  Open Live Calendar
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </a>
+                <button
+                  onClick={() => setShowCalendly(false)}
+                  className="w-full sm:w-auto rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 cursor-pointer"
+                >
+                  Back to Form
+                </button>
               </div>
             </div>
           </div>
@@ -417,8 +451,8 @@ function ContactPageContent() {
 export default function ContactPage() {
   return (
     <Suspense fallback={
-      <div className="flex h-screen items-center justify-center text-white font-mono text-xs">
-        <Loader2 className="h-6 w-6 animate-spin text-brand-purple mr-2" /> Loading Scoping Dashboard...
+      <div className="flex h-screen items-center justify-center text-slate-600 font-mono text-xs">
+        <Loader2 className="h-6 w-6 animate-spin text-blue-600 mr-2" /> Loading Contact Form...
       </div>
     }>
       <ContactPageContent />

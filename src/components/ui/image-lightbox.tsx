@@ -132,7 +132,7 @@ export default function ImageLightbox({ src, alt, onClose }: ImageLightboxProps)
               transform: `scale(${scale}) rotate(${rotation}deg)`,
               transition: "transform 0.15s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
-            className="max-h-[75vh] max-w-[95vw] object-contain shadow-2xl rounded border border-white/5 select-none"
+            className="max-h-[75vh] max-w-[95vw] object-contain rounded border border-white/5 select-none"
             onClick={(e) => e.stopPropagation()}
           />
         </div>

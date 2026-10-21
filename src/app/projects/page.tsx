@@ -10,7 +10,8 @@ import {
   Cpu,
   ExternalLink,
   Layers,
-  ZoomIn
+  ZoomIn,
+  ArrowRight
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -23,11 +24,11 @@ export default function ProjectsPage() {
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt?: string } | null>(null);
 
   const categories = [
-    { key: "all", label: "All Cases" },
-    { key: "AI Agent Development", label: "AI Agents" },
-    { key: "AI Testing & Evaluation Systems", label: "AI Evaluators" },
-    { key: "Mobile App Development", label: "Mobile Apps" },
-    { key: "Generative AI Solutions", label: "Generative AI" }
+    { key: "all", label: "All Projects" },
+    { key: "AI Agent Development", label: "AI Chatbots & Agents" },
+    { key: "AI Testing & Evaluation Systems", label: "AI Testing Systems" },
+    { key: "Mobile App Development", label: "Mobile Apps (Android & iOS)" },
+    { key: "Generative AI Solutions", label: "Custom AI Tools" }
   ];
 
   useEffect(() => {
@@ -61,22 +62,22 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div className="relative py-12 md:py-20 px-4">
-      {/* Background radial glows */}
-      <div className="pointer-events-none absolute top-40 left-10 h-[350px] w-[500px] rounded-full bg-brand-purple/5 blur-[120px]" />
-      <div className="pointer-events-none absolute bottom-40 right-10 h-[300px] w-[500px] rounded-full bg-brand-cyan/5 blur-[120px]" />
+    <div className="relative py-12 md:py-20 px-3.5 sm:px-6 lg:px-8 bg-white text-slate-900">
+      {/* Background soft ambient glows */}
+      <div className="pointer-events-none absolute top-40 left-10 h-[350px] w-[500px] rounded-full bg-blue-50/70 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-40 right-10 h-[300px] w-[500px] rounded-full bg-indigo-50/60 blur-[120px]" />
 
       <div className="mx-auto max-w-6xl relative z-10">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-cyan">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <span className="text-xs font-bold uppercase tracking-widest text-blue-600">
             Our Work
           </span>
-          <h1 className="mt-3 text-4xl font-extrabold text-white sm:text-5xl">
-            Shipped Software & AI Architectures
+          <h1 className="mt-2.5 sm:mt-3 text-3xl font-extrabold text-slate-900 sm:text-5xl tracking-tight break-words">
+            Real Projects We Have Built & Shipped
           </h1>
-          <p className="mt-4 text-sm text-white/50 leading-relaxed">
-            Discover how we apply rigorous full stack architecture and autonomous agent swarms to solve high-impact operational friction.
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-600 leading-relaxed">
+            Take a look at some of the custom websites, mobile applications, and AI platforms we have engineered for clients.
           </p>
         </div>
 
@@ -86,10 +87,11 @@ export default function ProjectsPage() {
             <button
               key={cat.key}
               onClick={() => setActiveFilter(cat.key)}
-              className={`rounded-full px-4 py-1.5 sm:px-5 sm:py-2 text-[10px] sm:text-xs font-semibold uppercase tracking-wider transition-all ${activeFilter === cat.key
-                  ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg"
-                  : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
-                }`}
+              className={`rounded-full px-4 py-2 sm:px-5 sm:py-2 text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
+                activeFilter === cat.key
+                  ? "bg-blue-600 text-white"
+                  : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+              }`}
             >
               {cat.label}
             </button>
@@ -99,12 +101,12 @@ export default function ProjectsPage() {
         {/* Shipped cases list layout */}
         <div className="space-y-8">
           {loading ? (
-            <div className="text-center py-20 text-xs font-mono text-white/40">
-              Retrieving dynamic software case studies...
+            <div className="text-center py-20 text-xs font-mono text-slate-400">
+              Loading projects...
             </div>
           ) : filteredProjects.length === 0 ? (
-            <div className="text-center py-20 text-xs text-white/40 italic border border-white/5 rounded-2xl bg-white/[0.01]">
-              No case studies found matching this category.
+            <div className="text-center py-20 text-xs text-slate-400 italic border border-slate-200 rounded-2xl bg-slate-50">
+              No projects found in this category.
             </div>
           ) : (
             filteredProjects.map((project) => {
@@ -113,192 +115,191 @@ export default function ProjectsPage() {
                 <GlowingCard
                   key={project.id}
                   id={project.id}
-                  className="overflow-hidden border border-white/5 transition-all"
+                  className="overflow-hidden border border-slate-200/90 transition-all"
                 >
-                <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
-                  {/* Visual mockup block */}
-                  <div className="lg:col-span-4 relative min-h-[220px] bg-white/5 overflow-hidden group/img">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="h-full w-full object-cover transition-all duration-500 group-hover/img:scale-[1.03]"
-                    />
-                    {/* Hover zoom overlay */}
-                    <div 
-                      onClick={() => setSelectedImage({ src: project.image, alt: project.title })}
-                      className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer z-20"
-                    >
-                      <div className="bg-black/75 backdrop-blur-md border border-white/20 rounded-full p-2 text-brand-cyan flex items-center gap-1 shadow-lg transform translate-y-2 group-hover/img:translate-y-0 transition-all duration-300">
-                        <ZoomIn className="h-4 w-4" />
-                        <span className="text-[9px] font-bold uppercase tracking-widest pr-1">Click to expand</span>
-                      </div>
-                    </div>
-                    
-                    <div className="absolute inset-0 bg-gradient-to-tr from-bg-black/60 via-transparent to-transparent pointer-events-none" />
-
-                    {/* Floating badge */}
-                    <span className="absolute top-4 left-4 rounded-full bg-brand-purple/20 border border-brand-purple/30 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-brand-cyan glow-text-cyan z-10 pointer-events-none">
-                      {project.category}
-                    </span>
-                  </div>
-
-                  {/* Standard details block */}
-                  <div className="lg:col-span-8 p-6 sm:p-8 flex flex-col justify-between">
-                    <div>
-                      <h2 className="text-2xl font-extrabold text-white tracking-tight">
-                        {project.title}
-                      </h2>
-                      <p className="mt-3 text-sm text-white/60 leading-relaxed">
-                        {project.description}
-                      </p>
-
-                      {/* Tech Chips */}
-                      <div className="mt-4 flex flex-wrap gap-1.5">
-                        {project.techStack.map((tech, idx) => (
-                          <span
-                            key={idx}
-                            className="rounded bg-white/5 border border-white/10 px-2 py-0.5 text-[9px] font-mono text-white/50"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Dynamic Metrics */}
-                      <div className="mt-6 grid grid-cols-3 gap-4 border-t border-white/5 pt-4">
-                        {project.metrics.map((metric, idx) => (
-                          <div key={idx} className="text-left">
-                            <span className="block text-lg font-extrabold text-white sm:text-xl">
-                              {metric.value}
-                            </span>
-                            <span className="block text-[9px] uppercase tracking-widest text-white/40">
-                              {metric.label}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-white/5 pt-5">
-                      <button
-                        onClick={() => toggleExpand(project.id)}
-                        className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-brand-cyan hover:text-brand-purple transition-colors self-start"
+                  <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+                    {/* Visual mockup block */}
+                    <div className="lg:col-span-4 relative min-h-[220px] bg-slate-100 overflow-hidden group/img border-b lg:border-b-0 lg:border-r border-slate-100">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="h-full w-full object-cover transition-all duration-500 group-hover/img:scale-[1.03]"
+                      />
+                      {/* Hover zoom overlay */}
+                      <div 
+                        onClick={() => setSelectedImage({ src: project.image, alt: project.title })}
+                        className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer z-20"
                       >
-                        {isExpanded ? (
-                          <>
-                            Collapse Case Details
-                            <ChevronUp className="h-4 w-4" />
-                          </>
-                        ) : (
-                          <>
-                            Read Comprehensive Case Study
-                            <ChevronDown className="h-4 w-4" />
-                          </>
-                        )}
-                      </button>
-
-                      <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
-                        {project.playStoreLink && (
-                          <a
-                            href={project.playStoreLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex h-8 sm:h-9 px-3 sm:px-4 items-center justify-center rounded-full bg-brand-cyan/10 border border-brand-cyan/30 text-[10px] sm:text-xs font-semibold text-brand-cyan hover:bg-brand-cyan/20 hover:text-white transition-all gap-1.5"
-                            aria-label="Download from Google Play"
-                          >
-                            <span>Play Store</span>
-                            <ExternalLink className="h-3.5 w-3.5" />
-                          </a>
-                        )}
-                        {project.githubLink && (
-                          <a
-                            href={project.githubLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex h-8 sm:h-9 px-3 sm:px-4 items-center justify-center rounded-full bg-brand-purple/10 border border-brand-purple/30 text-[10px] sm:text-xs font-semibold text-brand-purple hover:bg-brand-purple/20 hover:text-white transition-all gap-1.5"
-                            aria-label="View Source on GitHub"
-                          >
-                            <span>GitHub</span>
-                            <ExternalLink className="h-3.5 w-3.5" />
-                          </a>
-                        )}
-                        <Link
-                          href={`/contact?project=${encodeURIComponent(project.title)}`}
-                          className="inline-flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white/5 border border-white/10 hover:border-brand-purple text-white/70 hover:text-white transition-colors"
-                          aria-label="Enquire about project"
-                        >
-                          <ExternalLink className="h-4 w-4" />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Collapsible deep dive details panel */}
-                {isExpanded && (
-                  <div className="border-t border-white/5 bg-white/[0.01] p-6 sm:p-8 space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs sm:text-sm">
-                      {/* Problem statement */}
-                      <div>
-                        <h4 className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-brand-purple mb-2">
-                          <Cpu className="h-4 w-4" />
-                          Problem Statement
-                        </h4>
-                        <p className="leading-relaxed text-white/60">
-                          {project.problem}
-                        </p>
+                        <div className="bg-white/95 backdrop-blur-md border border-slate-200 rounded-full px-3 py-1.5 text-slate-800 flex items-center gap-1.5 transform translate-y-2 group-hover/img:translate-y-0 transition-all duration-300">
+                          <ZoomIn className="h-4 w-4 text-blue-600" />
+                          <span className="text-[10px] font-bold uppercase tracking-wider">Click to view</span>
+                        </div>
                       </div>
 
-                      {/* Engineered solution */}
-                      <div>
-                        <h4 className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-brand-cyan mb-2">
-                          <Layers className="h-4 w-4" />
-                          Engineered Solution
-                        </h4>
-                        <p className="leading-relaxed text-white/60">
-                          {project.solution}
-                        </p>
-                      </div>
+                      {/* Floating badge */}
+                      <span className="absolute top-4 left-4 rounded-full bg-white/95 border border-slate-200/80 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-700 z-10 pointer-events-none">
+                        {project.category}
+                      </span>
                     </div>
 
-                    {/* Shipped outcomes */}
-                    <div className="border-t border-white/5 pt-6">
-                      <h4 className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-brand-blue mb-3">
-                        <Activity className="h-4 w-4" />
-                        Quantifiable Results & Shipped Value
-                      </h4>
-                      <ul className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        {project.results.map((res, idx) => (
-                          <li
-                            key={idx}
-                            className="rounded-lg bg-white/[0.02] border border-white/5 p-4 text-xs leading-relaxed text-white/50 relative"
-                          >
-                            <span className="absolute top-2 right-4 text-lg font-mono font-bold text-brand-purple/20">
-                              {idx + 1}
+                    {/* Standard details block */}
+                    <div className="lg:col-span-8 p-6 sm:p-8 flex flex-col justify-between">
+                      <div>
+                        <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+                          {project.title}
+                        </h2>
+                        <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+                          {project.description}
+                        </p>
+
+                        {/* Tech Chips */}
+                        <div className="mt-4 flex flex-wrap gap-1.5">
+                          {project.techStack.map((tech, idx) => (
+                            <span
+                              key={idx}
+                              className="rounded-md bg-slate-100 border border-slate-200 px-2.5 py-0.5 text-[10px] font-medium text-slate-700"
+                            >
+                              {tech}
                             </span>
-                            {res}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                          ))}
+                        </div>
 
-                    {/* Architecture diagram if exists */}
-                    {project.architecturalOverview && (
-                      <div className="border-t border-white/5 pt-6 rounded-lg bg-black/40 border border-white/5 p-5">
-                        <h4 className="text-xs font-bold uppercase tracking-widest text-brand-cyan mb-2">
-                          System Architectural Strategy
-                        </h4>
-                        <p className="text-xs leading-relaxed text-white/40 italic font-mono">
-                          {project.architecturalOverview}
-                        </p>
+                        {/* Dynamic Metrics */}
+                        <div className="mt-6 grid grid-cols-3 gap-4 border-t border-slate-100 pt-4">
+                          {project.metrics.map((metric, idx) => (
+                            <div key={idx} className="text-left">
+                              <span className="block text-lg font-extrabold text-slate-900 sm:text-xl">
+                                {metric.value}
+                              </span>
+                              <span className="block text-[10px] uppercase tracking-wider text-slate-500 font-medium">
+                                {metric.label}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    )}
+
+                      <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-slate-100 pt-5">
+                        <button
+                          onClick={() => toggleExpand(project.id)}
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors self-start cursor-pointer"
+                        >
+                          {isExpanded ? (
+                            <>
+                              Hide Details
+                              <ChevronUp className="h-4 w-4" />
+                            </>
+                          ) : (
+                            <>
+                              View Project Details & Results
+                              <ChevronDown className="h-4 w-4" />
+                            </>
+                          )}
+                        </button>
+
+                        <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+                          {project.playStoreLink && (
+                            <a
+                              href={project.playStoreLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex h-8 sm:h-9 px-3.5 sm:px-4 items-center justify-center rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-700 hover:bg-emerald-100 transition-all gap-1.5"
+                              aria-label="Download from Google Play"
+                            >
+                              <span>Play Store</span>
+                              <ExternalLink className="h-3.5 w-3.5" />
+                            </a>
+                          )}
+                          {project.githubLink && (
+                            <a
+                              href={project.githubLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex h-8 sm:h-9 px-3.5 sm:px-4 items-center justify-center rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700 hover:bg-blue-100 transition-all gap-1.5"
+                              aria-label="View Source on GitHub"
+                            >
+                              <span>GitHub</span>
+                              <ExternalLink className="h-3.5 w-3.5" />
+                            </a>
+                          )}
+                          <Link
+                            href={`/contact?project=${encodeURIComponent(project.title)}`}
+                            className="inline-flex h-8 sm:h-9 px-3.5 sm:px-4 items-center justify-center rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors gap-1.5"
+                            aria-label="Enquire about project"
+                          >
+                            <span>Start Similar Project</span>
+                            <ArrowRight className="h-3.5 w-3.5" />
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                )}
-              </GlowingCard>
-                );
-              })
-            )}
+
+                  {/* Collapsible deep dive details panel */}
+                  {isExpanded && (
+                    <div className="border-t border-slate-100 bg-slate-50/60 p-6 sm:p-8 space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs sm:text-sm">
+                        {/* Problem statement */}
+                        <div>
+                          <h4 className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-800 mb-2">
+                            <Cpu className="h-4 w-4 text-blue-600" />
+                            The Challenge
+                          </h4>
+                          <p className="leading-relaxed text-slate-600">
+                            {project.problem}
+                          </p>
+                        </div>
+
+                        {/* Engineered solution */}
+                        <div>
+                          <h4 className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-blue-700 mb-2">
+                            <Layers className="h-4 w-4 text-blue-600" />
+                            What We Built & How We Solved It
+                          </h4>
+                          <p className="leading-relaxed text-slate-600">
+                            {project.solution}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Shipped outcomes */}
+                      <div className="border-t border-slate-200/80 pt-6">
+                        <h4 className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-800 mb-3">
+                          <Activity className="h-4 w-4 text-emerald-600" />
+                          Key Results & Impact
+                        </h4>
+                        <ul className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                          {project.results.map((res, idx) => (
+                            <li
+                              key={idx}
+                              className="rounded-xl bg-white border border-slate-200 p-4 text-xs leading-relaxed text-slate-700 relative"
+                            >
+                              <span className="absolute top-2 right-3 text-lg font-mono font-bold text-slate-200">
+                                0{idx + 1}
+                              </span>
+                              {res}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Architecture overview */}
+                      {project.architecturalOverview && (
+                        <div className="border-t border-slate-200/80 pt-6 rounded-xl bg-white border border-slate-200 p-5">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-blue-700 mb-2">
+                            Technical Architecture
+                          </h4>
+                          <p className="text-xs leading-relaxed text-slate-600 italic">
+                            {project.architecturalOverview}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </GlowingCard>
+              );
+            })
+          )}
         </div>
       </div>
 

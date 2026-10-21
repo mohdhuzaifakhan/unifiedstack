@@ -50,7 +50,13 @@ import {
   Check,
   Eye,
   Plus,
-  Briefcase
+  Briefcase,
+  Layers,
+  Sparkles,
+  ExternalLink,
+  ShieldCheck,
+  Clock,
+  DollarSign
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
@@ -89,12 +95,12 @@ export default function AdminDashboardPage() {
     iconName: "Bot",
     title: "",
     description: "",
-    pricingIn: "",
-    pricingIntl: "",
-    delivery: "",
-    techRaw: "",
-    benefitsRaw: "",
-    useCase: "",
+    pricingIn: "Starting at ₹50,000",
+    pricingIntl: "Starting at $2,500",
+    delivery: "2-4 Weeks",
+    techRaw: "Python, FastAPI, LangGraph, OpenAI, Claude",
+    benefitsRaw: "Custom Agent Workflows\nEnterprise Security\nContinuous Optimization",
+    useCase: "Autonomous business workflows and intelligent data extraction...",
     order: 1
   });
   const [serviceSuccess, setServiceSuccess] = useState(false);
@@ -104,7 +110,7 @@ export default function AdminDashboardPage() {
   const [editingBlogId, setEditingBlogId] = useState<string | null>(null);
   const [blogForm, setBlogForm] = useState({
     title: "",
-    category: "Agentic AI",
+    category: "AI Development",
     excerpt: "",
     content: "",
     image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop",
@@ -119,19 +125,19 @@ export default function AdminDashboardPage() {
   const [projectForm, setProjectForm] = useState({
     id: "",
     title: "",
-    category: "AI Agent Development",
+    category: "AI Development",
     description: "",
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop",
     techStackRaw: "Next.js, TypeScript, LangGraph, FastAPI, PostgreSQL",
-    metric1Label: "Enterprise Scale",
-    metric1Value: "Production",
-    metric2Label: "Core Modules",
-    metric2Value: "11 Features",
-    metric3Label: "Lifecycle Stage",
-    metric3Value: "End-to-End",
+    metric1Label: "Performance Gain",
+    metric1Value: "4x Faster",
+    metric2Label: "Accuracy Rate",
+    metric2Value: "99.2%",
+    metric3Label: "Delivery Speed",
+    metric3Value: "3 Weeks",
     problem: "",
     solution: "",
-    resultsRaw: "Completed agent workflow builder\nEnsures zero operational overhead\nDelivers observed query pipelines",
+    resultsRaw: "Automated manual data processing\nReduced response time to under 2 seconds\nScaled reliably across client infrastructure",
     architecturalOverview: "",
     playStoreLink: "",
     githubLink: ""
@@ -147,7 +153,6 @@ export default function AdminDashboardPage() {
         } else {
           setIsAuthenticated(false);
           if (user && auth) {
-            // Sign out non-admins immediately
             fbSignOut(auth);
           }
         }
@@ -210,9 +215,9 @@ export default function AdminDashboardPage() {
       } catch (err: any) {
         console.error("Firebase Login Error: ", err);
         if (err.code === "auth/configuration-not-found" || (err.message && err.message.includes("configuration-not-found"))) {
-          setError("Setup Action Required: Email/Password sign-in provider is disabled in your Firebase project. Please open your Firebase Console, navigate to 'Authentication' > 'Sign-in method', and enable 'Email/Password'.");
+          setError("Setup Required: Email/Password sign-in provider is disabled in your Firebase console. Please enable Email/Password under Authentication.");
         } else if (err.code === "auth/user-not-found" || err.code === "auth/invalid-credential") {
-          setError("Credentials not found in Firebase. Please ensure you have enabled the 'Email/Password' provider AND added the user 'mohdhuzaifa8126195456@gmail.com' in the 'Users' tab of your Firebase Authentication Console.");
+          setError("Invalid credentials. Please verify your email and password.");
         } else {
           setError(err.message || "Invalid authentication credentials.");
         }
@@ -220,12 +225,11 @@ export default function AdminDashboardPage() {
         setLoginSubmitting(false);
       }
     } else {
-      // Mock Fallback Auth Checks
       if (password === adminPassword) {
         setIsAuthenticated(true);
         localStorage.setItem("unifiedstack_admin_auth", "true");
       } else {
-        setError("Invalid mock administrator password.");
+        setError("Invalid administrator password.");
       }
       setLoginSubmitting(false);
     }
@@ -285,13 +289,11 @@ export default function AdminDashboardPage() {
         setEditingBlogId(null);
       }, 1500);
 
-      // Re-fetch
       loadAdminData();
 
-      // Reset
       setBlogForm({
         title: "",
-        category: "Agentic AI",
+        category: "AI Development",
         excerpt: "",
         content: "",
         image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop",
@@ -318,12 +320,12 @@ export default function AdminDashboardPage() {
   };
 
   const handleDeleteBlog = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this publication?")) return;
+    if (!confirm("Are you sure you want to delete this article?")) return;
     try {
       await deleteBlog(id);
       loadAdminData();
     } catch (err) {
-      console.error("Failed to delete blog post:", err);
+      console.error("Failed to delete article:", err);
     }
   };
 
@@ -331,7 +333,6 @@ export default function AdminDashboardPage() {
   const handleProjectSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Check project ID validation
     const projId = editingProjectId || projectForm.id.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-");
     if (!projId) {
       alert("Invalid unique identifier.");
@@ -377,26 +378,24 @@ export default function AdminDashboardPage() {
         setEditingProjectId(null);
       }, 1500);
 
-      // Re-fetch
       loadAdminData();
 
-      // Reset
       setProjectForm({
         id: "",
         title: "",
-        category: "AI Agent Development",
+        category: "AI Development",
         description: "",
         image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop",
         techStackRaw: "Next.js, TypeScript, LangGraph, FastAPI, PostgreSQL",
-        metric1Label: "Enterprise Scale",
-        metric1Value: "Production",
-        metric2Label: "Core Modules",
-        metric2Value: "11 Features",
-        metric3Label: "Lifecycle Stage",
-        metric3Value: "End-to-End",
+        metric1Label: "Performance Gain",
+        metric1Value: "4x Faster",
+        metric2Label: "Accuracy Rate",
+        metric2Value: "99.2%",
+        metric3Label: "Delivery Speed",
+        metric3Value: "3 Weeks",
         problem: "",
         solution: "",
-        resultsRaw: "Completed agent workflow builder\nEnsures zero operational overhead\nDelivers observed query pipelines",
+        resultsRaw: "Automated manual data processing\nReduced response time to under 2 seconds\nScaled reliably across client infrastructure",
         architecturalOverview: "",
         playStoreLink: "",
         githubLink: ""
@@ -415,12 +414,12 @@ export default function AdminDashboardPage() {
       description: project.description,
       image: project.image,
       techStackRaw: project.techStack.join(", "),
-      metric1Label: project.metrics[0]?.label || "Enterprise Scale",
-      metric1Value: project.metrics[0]?.value || "Production",
-      metric2Label: project.metrics[1]?.label || "Core Modules",
-      metric2Value: project.metrics[1]?.value || "11 Features",
-      metric3Label: project.metrics[2]?.label || "Lifecycle Stage",
-      metric3Value: project.metrics[2]?.value || "End-to-End",
+      metric1Label: project.metrics[0]?.label || "Performance Gain",
+      metric1Value: project.metrics[0]?.value || "4x Faster",
+      metric2Label: project.metrics[1]?.label || "Accuracy Rate",
+      metric2Value: project.metrics[1]?.value || "99.2%",
+      metric3Label: project.metrics[2]?.label || "Delivery Speed",
+      metric3Value: project.metrics[2]?.value || "3 Weeks",
       problem: project.problem,
       solution: project.solution,
       resultsRaw: project.results.join("\n"),
@@ -432,7 +431,7 @@ export default function AdminDashboardPage() {
   };
 
   const handleDeleteProject = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this project study?")) return;
+    if (!confirm("Are you sure you want to delete this project?")) return;
     try {
       await deleteProject(id);
       loadAdminData();
@@ -504,7 +503,7 @@ export default function AdminDashboardPage() {
   };
 
   const handleDeleteService = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this service record?")) return;
+    if (!confirm("Are you sure you want to delete this service?")) return;
     try {
       await deleteService(id);
       loadAdminData();
@@ -538,7 +537,6 @@ export default function AdminDashboardPage() {
         setSeedingMessage(msg);
       });
       if (res.success) {
-        // Re-load the list counters
         await loadAdminData();
       } else {
         setSeedingMessage(`Error: ${res.error || "Unknown error"}`);
@@ -554,16 +552,15 @@ export default function AdminDashboardPage() {
   // Analytics Helpers
   const totalValue = inquiries.reduce((acc, inq) => {
     if (inq.budget.includes("₹")) {
-      // Convert INR budget approx to USD for visual uniformity
       if (inq.budget.includes("20,000 - ₹50,000")) return acc + 400;
       if (inq.budget.includes("50,000 - ₹60,000")) return acc + 650;
       if (inq.budget.includes("60,000+")) return acc + 1200;
-      return acc + 150; // under 20k
+      return acc + 150;
     }
     if (inq.budget.includes("$3,000 - $5,000")) return acc + 4000;
     if (inq.budget.includes("$5,000 - $10,000")) return acc + 7500;
     if (inq.budget.includes("$10,000+")) return acc + 15000;
-    return acc + 1500; // under 3k
+    return acc + 1500;
   }, 0);
 
   const budgetBreakdown = inquiries.reduce((acc: Record<string, number>, inq) => {
@@ -576,52 +573,50 @@ export default function AdminDashboardPage() {
     return acc;
   }, {});
 
-  // Auth Loading Overlay Spinner
+  // Loading Overlay
   if (authLoading) {
     return (
-      <div className="flex min-h-[80vh] flex-col items-center justify-center font-mono text-xs text-white/50">
-        <Loader2 className="h-8 w-8 animate-spin text-brand-purple mb-4" />
-        Synchronizing founder admin security session...
+      <div className="flex min-h-[80vh] flex-col items-center justify-center font-sans text-sm text-slate-500 bg-white">
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600 mb-3" />
+        Verifying administrator session...
       </div>
     );
   }
 
-  // 1. Secure administrator email/pass login panel
+  // 1. Secure administrator login screen
   if (!isAuthenticated) {
     return (
-      <div className="flex min-h-[85vh] items-center justify-center px-4 py-12 relative">
-        <div className="pointer-events-none absolute h-[300px] w-[300px] rounded-full bg-brand-purple/10 blur-[80px]" />
-        
-        <div className="w-full max-w-md rounded-2xl border border-white/5 bg-white/[0.01] p-8 shadow-2xl backdrop-blur-md relative z-10">
+      <div className="min-h-[85vh] flex items-center justify-center px-4 py-12 bg-slate-50/60 text-slate-900 font-sans">
+        <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8">
           <div className="flex flex-col items-center text-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-purple/10 border border-brand-purple/20 text-brand-purple mb-5">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 border border-blue-100 text-blue-600 mb-4">
               <Lock className="h-5 w-5" />
             </div>
-            <h2 className="text-xl font-bold text-white tracking-tight">Admin Console Gate</h2>
-            <p className="mt-2 text-xs text-white/40 max-w-xs leading-relaxed">
-              Verify credentials to access founder database management console.
+            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Admin Portal</h2>
+            <p className="mt-2 text-sm text-slate-500 max-w-xs leading-relaxed">
+              Sign in to manage client leads, projects, articles, and agency services.
             </p>
           </div>
 
-          <form onSubmit={handleLogin} className="mt-8 space-y-5">
+          <form onSubmit={handleLogin} className="mt-6 space-y-4">
             <div>
-              <label htmlFor="email" className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">
-                Administrator Email
+              <label htmlFor="email" className="block text-xs font-semibold text-slate-700 mb-1.5">
+                Admin Email
               </label>
               <input
                 type="email"
                 id="email"
-                placeholder="founder@unifiedstack.com"
+                placeholder="mohdhuzaifa8126195456@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:border-blue-600 focus:ring-1 focus:ring-blue-600 font-sans transition-colors"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="passcode" className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">
-                Verification Password
+              <label htmlFor="passcode" className="block text-xs font-semibold text-slate-700 mb-1.5">
+                Password
               </label>
               <input
                 type="password"
@@ -629,39 +624,39 @@ export default function AdminDashboardPage() {
                 placeholder="••••••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:border-blue-600 focus:ring-1 focus:ring-blue-600 font-sans transition-colors"
                 required
               />
             </div>
 
             {error && (
-              <div className="rounded border border-red-500/10 bg-red-500/5 p-3 flex items-start gap-2">
-                <AlertTriangle className="h-4 w-4 text-red-400 shrink-0 mt-0.5" />
-                <span className="text-[10px] text-red-400 font-medium leading-relaxed">{error}</span>
+              <div className="rounded-xl border border-red-200 bg-red-50 p-3 flex items-start gap-2.5">
+                <AlertTriangle className="h-4 w-4 text-red-600 shrink-0 mt-0.5" />
+                <span className="text-xs text-red-700 leading-relaxed font-sans">{error}</span>
               </div>
             )}
 
             <button
               type="submit"
               disabled={loginSubmitting}
-              className="w-full neon-btn inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-brand-purple to-brand-blue py-3.5 text-xs font-bold uppercase tracking-wider text-white disabled:opacity-50"
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 py-3.5 text-sm font-semibold text-white transition-colors disabled:opacity-50 cursor-pointer"
             >
               {loginSubmitting ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Verifying...
+                  Signing In...
                 </>
               ) : (
                 <>
-                  Verify Credentials
+                  Sign In to Dashboard
                   <ArrowRight className="h-4 w-4" />
                 </>
               )}
             </button>
 
-            <div className="border-t border-white/5 pt-4 text-center">
-              <span className="block text-[9px] text-white/30 leading-relaxed font-mono">
-                Running in {isFirebaseConfigured ? <span className="text-green-400 font-bold">Cloud Production</span> : <span className="text-brand-cyan font-bold">Local Mock Mode</span>}
+            <div className="border-t border-slate-100 pt-4 text-center">
+              <span className="block text-xs text-slate-500">
+                Database Status: {isFirebaseConfigured ? <span className="text-emerald-600 font-semibold">Firebase Connected</span> : <span className="text-blue-600 font-semibold">Local Storage Mode</span>}
               </span>
             </div>
           </form>
@@ -670,206 +665,205 @@ export default function AdminDashboardPage() {
     );
   }
 
-  // 2. Authenticated administrative board layout
+  // 2. Authenticated Dashboard Layout
   return (
-    <div className="relative py-12 px-4 md:px-8">
-      {/* Background neon coordinates */}
-      <div className="pointer-events-none absolute top-40 right-10 h-[400px] w-[600px] rounded-full bg-brand-purple/5 blur-[150px]" />
-      <div className="pointer-events-none absolute bottom-40 left-10 h-[300px] w-[500px] rounded-full bg-brand-cyan/5 blur-[120px]" />
-
-      <div className="mx-auto max-w-7xl relative z-10">
-        {/* Cockpit dashboard controls header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-white/5 pb-6 mb-8 gap-4">
+    <div className="min-h-screen py-10 px-4 md:px-8 bg-slate-50/40 text-slate-900 font-sans">
+      <div className="mx-auto max-w-7xl">
+        {/* Header bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-200 pb-6 mb-8 gap-4">
           <div>
-            <span className="text-xs font-mono text-brand-cyan uppercase tracking-wider">// Administration Portal</span>
-            <h1 className="mt-1 text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
-              <Briefcase className="h-7 w-7 text-brand-purple" />
-              UnifiedStack Cockpit
+            <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Agency Management</span>
+            <h1 className="mt-1 text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2.5">
+              <Briefcase className="h-7 w-7 text-blue-600" />
+              UnifiedStack Admin Dashboard
             </h1>
-            <span className="block text-xs text-white/40 mt-1">
-              Logged in as founder: <span className="text-white/70 font-mono">mohdhuzaifa8126195456@gmail.com</span>
+            <span className="block text-xs text-slate-500 mt-1">
+              Logged in as: <span className="text-slate-800 font-medium">mohdhuzaifa8126195456@gmail.com</span>
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <button
               onClick={loadAdminData}
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/5 bg-white/[0.02] hover:bg-white/5 hover:border-white/10 text-white/60 hover:text-white transition-colors"
-              title="Reload dynamic data"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
+              title="Refresh dashboard data"
             >
               <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
             </button>
 
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 rounded-lg border border-red-500/10 bg-red-500/5 px-4 py-2 text-xs font-bold uppercase tracking-wider text-red-400 hover:bg-red-500/10 transition-all hover:scale-105"
+              className="flex items-center gap-1.5 rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-xs font-semibold text-red-700 hover:bg-red-100 transition-colors cursor-pointer"
             >
               <LogOut className="h-4 w-4" />
-              Lock Console
+              Sign Out
             </button>
           </div>
         </div>
 
-        {/* Tab Selection */}
-        <div className="flex flex-wrap items-center gap-2 mb-8 border-b border-white/5 pb-4">
+        {/* Tab Navigation */}
+        <div className="flex flex-wrap items-center gap-2 mb-8 border-b border-slate-200 pb-4">
           <button
             onClick={() => { setActiveTab("leads"); setIsBlogFormOpen(false); setIsProjectFormOpen(false); setIsServiceFormOpen(false); }}
-            className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${
+            className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all cursor-pointer ${
               activeTab === "leads"
-                ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg shadow-brand-purple/20"
-                : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
+                ? "bg-blue-600 text-white"
+                : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
             }`}
           >
-            Leads Inbox ({inquiries.length})
+            Client Leads ({inquiries.length})
           </button>
 
           <button
             onClick={() => { setActiveTab("projects"); setIsBlogFormOpen(false); setIsProjectFormOpen(false); setIsServiceFormOpen(false); }}
-            className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${
+            className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all cursor-pointer ${
               activeTab === "projects"
-                ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg shadow-brand-purple/20"
-                : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
+                ? "bg-blue-600 text-white"
+                : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
             }`}
           >
-            Manage Case Studies ({projects.length})
+            Projects ({projects.length})
           </button>
 
           <button
             onClick={() => { setActiveTab("blogs"); setIsBlogFormOpen(false); setIsProjectFormOpen(false); setIsServiceFormOpen(false); }}
-            className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${
+            className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all cursor-pointer ${
               activeTab === "blogs"
-                ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg shadow-brand-purple/20"
-                : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
+                ? "bg-blue-600 text-white"
+                : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
             }`}
           >
-            Manage Insights ({blogs.length})
+            Articles ({blogs.length})
           </button>
 
           <button
             onClick={() => { setActiveTab("services"); setIsBlogFormOpen(false); setIsProjectFormOpen(false); setIsServiceFormOpen(false); }}
-            className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${
+            className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all cursor-pointer ${
               activeTab === "services"
-                ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg shadow-brand-purple/20"
-                : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
+                ? "bg-blue-600 text-white"
+                : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
             }`}
           >
-            Manage Services ({services.length})
+            Services ({services.length})
           </button>
 
           <button
             onClick={() => { setActiveTab("site"); setIsBlogFormOpen(false); setIsProjectFormOpen(false); setIsServiceFormOpen(false); }}
-            className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${
+            className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all cursor-pointer ${
               activeTab === "site"
-                ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg shadow-brand-purple/20"
-                : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
+                ? "bg-blue-600 text-white"
+                : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
             }`}
           >
-            Homepage Editor
+            Website Settings
           </button>
 
           <button
             onClick={() => { setActiveTab("analytics"); setIsBlogFormOpen(false); setIsProjectFormOpen(false); setIsServiceFormOpen(false); }}
-            className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${
+            className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all cursor-pointer ${
               activeTab === "analytics"
-                ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg shadow-brand-purple/20"
-                : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
+                ? "bg-blue-600 text-white"
+                : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
             }`}
           >
-            Pipeline Analytics
+            Analytics
           </button>
 
           <button
             onClick={() => { setActiveTab("settings"); setIsBlogFormOpen(false); setIsProjectFormOpen(false); setIsServiceFormOpen(false); }}
-            className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${
+            className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all cursor-pointer ${
               activeTab === "settings"
-                ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg shadow-brand-purple/20"
-                : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
+                ? "bg-blue-600 text-white"
+                : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
             }`}
           >
-            System Settings
+            Database & System
           </button>
         </div>
 
-        {/* Global Loading Dashboard State */}
+        {/* Global Loading State */}
         {loading && activeTab !== "settings" ? (
-          <div className="flex flex-col items-center justify-center py-32 text-white/40 font-mono text-xs">
-            <Loader2 className="h-6 w-6 animate-spin text-brand-cyan mb-2" />
-            Loading dynamic console catalog arrays...
+          <div className="flex flex-col items-center justify-center py-28 text-slate-500 font-sans text-sm">
+            <Loader2 className="h-6 w-6 animate-spin text-blue-600 mb-2" />
+            Loading dashboard data...
           </div>
         ) : (
           <div>
             {/* 1. LEADS INBOX */}
             {activeTab === "leads" && (
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {inquiries.length === 0 ? (
-                  <div className="text-center py-24 border border-white/5 rounded-2xl bg-white/[0.01] text-white/45 italic text-xs">
-                    No active scoping inquiries registered currently.
+                  <div className="text-center py-20 border border-slate-200 rounded-2xl bg-white text-slate-500 text-sm">
+                    No client inquiries received yet. When visitors submit contact forms, they will appear here.
                   </div>
                 ) : (
                   inquiries.map((inq) => (
-                    <GlowingCard key={inq.id} className="p-6 relative group/inq">
-                      <div className="absolute right-4 top-4 opacity-0 group-hover/inq:opacity-100 transition-opacity">
+                    <div key={inq.id} className="p-6 relative group rounded-2xl border border-slate-200 bg-white">
+                      <div className="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button
                           onClick={() => handleDeleteInquiry(inq.id || "")}
-                          className="flex h-8 w-8 items-center justify-center rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/25 transition-colors cursor-pointer"
+                          className="flex h-8 w-8 items-center justify-center rounded-lg bg-red-50 border border-red-200 text-red-600 hover:bg-red-100 transition-colors cursor-pointer"
                           title="Delete Lead record"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
                       </div>
 
-                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between border-b border-white/5 pb-4 mb-4 gap-4 pr-10">
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between border-b border-slate-100 pb-4 mb-4 gap-3 pr-10">
                         <div>
-                          <h3 className="text-base font-bold text-white tracking-tight">{inq.name}</h3>
-                          <span className="text-[11px] text-white/40 font-mono block mt-0.5">{inq.company || "Independent developer"}</span>
+                          <h3 className="text-base font-bold text-slate-900 tracking-tight">{inq.name}</h3>
+                          <span className="text-xs text-slate-500 font-sans block mt-0.5">{inq.company || "Independent client"}</span>
                         </div>
 
                         <div className="flex flex-wrap items-center gap-2 shrink-0">
-                          <span className="rounded bg-brand-purple/20 border border-brand-purple/35 px-2.5 py-0.5 text-[9px] font-mono text-brand-cyan">
+                          <span className="rounded-md bg-blue-50 border border-blue-100 px-2.5 py-1 text-xs font-medium text-blue-700">
                             {inq.service}
                           </span>
-                          <span className="rounded bg-brand-cyan/15 border border-brand-cyan/20 px-2.5 py-0.5 text-[9px] font-mono text-white/80">
+                          <span className="rounded-md bg-emerald-50 border border-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-700">
                             {inq.budget}
                           </span>
 
                           <select
                             value={inq.status}
                             onChange={(e) => handleStatusChange(inq.id || "", e.target.value as any)}
-                            className={`rounded border px-2 py-0.5 text-[10px] font-mono outline-none cursor-pointer bg-bg-black ${
-                              inq.status === "New" ? "border-red-500/50 text-red-400 bg-red-500/5" :
-                              inq.status === "In Discussion" ? "border-yellow-500/50 text-yellow-400 bg-yellow-500/5" :
-                              "border-green-500/50 text-green-400 bg-green-500/5"
+                            className={`rounded-lg border px-2.5 py-1 text-xs font-semibold outline-none cursor-pointer ${
+                              inq.status === "New" ? "border-amber-300 text-amber-800 bg-amber-50" :
+                              inq.status === "In Discussion" ? "border-blue-300 text-blue-800 bg-blue-50" :
+                              "border-emerald-300 text-emerald-800 bg-emerald-50"
                             }`}
                           >
-                            <option value="New" className="bg-bg-black text-red-400">New</option>
-                            <option value="In Discussion" className="bg-bg-black text-yellow-400">In Discussion</option>
-                            <option value="Closed" className="bg-bg-black text-green-400">Closed</option>
+                            <option value="New">New</option>
+                            <option value="In Discussion">In Discussion</option>
+                            <option value="Closed">Closed</option>
                           </select>
                         </div>
                       </div>
 
-                      <div className="text-xs sm:text-sm leading-relaxed text-white/60 whitespace-pre-wrap">
+                      <div className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap font-sans">
                         {inq.message}
                       </div>
 
-                      <div className="mt-4 pt-4 border-t border-white/5 flex flex-col sm:flex-row sm:items-center sm:justify-between text-[10px] text-white/35 font-mono gap-2">
+                      <div className="mt-4 pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs text-slate-500 gap-2">
                         <span className="flex items-center gap-1.5">
-                          <Mail className="h-3.5 w-3.5 text-brand-purple" />
-                          <a href={`mailto:${inq.email}`} className="hover:text-brand-cyan hover:underline">{inq.email}</a>
+                          <Mail className="h-3.5 w-3.5 text-blue-600" />
+                          <a href={`mailto:${inq.email}`} className="text-blue-600 hover:underline font-medium">{inq.email}</a>
                         </span>
-                        <span>Inbound: {inq.createdAt ? new Date(inq.createdAt).toLocaleString() : "Unknown"}</span>
+                        <span>Received: {inq.createdAt ? new Date(inq.createdAt).toLocaleString() : "Recently"}</span>
                       </div>
-                    </GlowingCard>
+                    </div>
                   ))
                 )}
               </div>
             )}
 
-            {/* 2. MANAGE CASE STUDIES */}
+            {/* 2. MANAGE PROJECTS */}
             {activeTab === "projects" && (
               <div className="space-y-6">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-base font-bold text-white tracking-wider font-mono">Case Studies Index</h2>
+                <div className="flex justify-between items-center mb-2">
+                  <div>
+                    <h2 className="text-lg font-bold text-slate-900 tracking-tight">Projects Portfolio</h2>
+                    <p className="text-xs text-slate-500">Showcase your agency's best work, case studies, and live deliverables.</p>
+                  </div>
                   
                   {!isProjectFormOpen && (
                     <button
@@ -878,42 +872,42 @@ export default function AdminDashboardPage() {
                         setProjectForm({
                           id: "",
                           title: "",
-                          category: "AI Agent Development",
+                          category: "AI Development",
                           description: "",
                           image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop",
                           techStackRaw: "Next.js, TypeScript, LangGraph, FastAPI, PostgreSQL",
-                          metric1Label: "Enterprise Scale",
-                          metric1Value: "Production",
-                          metric2Label: "Core Modules",
-                          metric2Value: "11 Features",
-                          metric3Label: "Lifecycle Stage",
-                          metric3Value: "End-to-End",
+                          metric1Label: "Performance Gain",
+                          metric1Value: "4x Faster",
+                          metric2Label: "Accuracy Rate",
+                          metric2Value: "99.2%",
+                          metric3Label: "Delivery Speed",
+                          metric3Value: "3 Weeks",
                           problem: "",
                           solution: "",
-                          resultsRaw: "Completed agent workflow builder\nEnsures zero operational overhead\nDelivers observed query pipelines",
+                          resultsRaw: "Automated manual data processing\nReduced response time to under 2 seconds\nScaled reliably across client infrastructure",
                           architecturalOverview: "",
                           playStoreLink: "",
                           githubLink: ""
                         });
                         setIsProjectFormOpen(true);
                       }}
-                      className="flex items-center gap-1.5 rounded-lg bg-brand-purple hover:bg-brand-violet text-white px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all hover:scale-105"
+                      className="flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 text-xs font-semibold transition-colors cursor-pointer"
                     >
                       <Plus className="h-4 w-4" />
-                      Add Case Study
+                      Add Project
                     </button>
                   )}
                 </div>
 
                 {isProjectFormOpen ? (
-                  <GlowingCard className="p-6 md:p-8">
-                    <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-6">
-                      <h3 className="text-base font-extrabold text-white">
-                        {editingProjectId ? `Edit Case Study: ${projectForm.title}` : "New Software Case Study"}
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
+                    <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+                      <h3 className="text-base font-bold text-slate-900">
+                        {editingProjectId ? `Edit Project: ${projectForm.title}` : "Add New Client Project"}
                       </h3>
                       <button
                         onClick={() => setIsProjectFormOpen(false)}
-                        className="text-xs text-white/50 hover:text-white font-mono hover:underline cursor-pointer"
+                        className="text-xs text-slate-500 hover:text-slate-900 hover:underline cursor-pointer"
                       >
                         Cancel
                       </button>
@@ -923,25 +917,25 @@ export default function AdminDashboardPage() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {!editingProjectId && (
                           <div>
-                            <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Unique ID (URL Slug)</label>
+                            <label className="block text-xs font-semibold text-slate-700 mb-1.5">Project ID (URL Slug)</label>
                             <input
                               type="text"
                               value={projectForm.id}
                               onChange={(e) => setProjectForm({ ...projectForm, id: e.target.value })}
-                              placeholder="e.g. conversational-chat-agent"
-                              className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40 font-mono"
+                              placeholder="e.g. enterprise-agentic-ai-platform"
+                              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:border-blue-600 focus:ring-1 focus:ring-blue-600 font-sans"
                               required
                             />
                           </div>
                         )}
                         <div className={editingProjectId ? "col-span-2" : ""}>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Project Title</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Project Title</label>
                           <input
                             type="text"
                             value={projectForm.title}
                             onChange={(e) => setProjectForm({ ...projectForm, title: e.target.value })}
-                            placeholder="e.g. Town Beat: Hyperlocal Social Network"
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40"
+                            placeholder="e.g. Enterprise RAG Pipeline & Multi-Agent Assistant"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:border-blue-600 focus:ring-1 focus:ring-blue-600 font-sans"
                             required
                           />
                         </div>
@@ -949,255 +943,259 @@ export default function AdminDashboardPage() {
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Category Tag</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Core Discipline Category</label>
                           <select
                             value={projectForm.category}
                             onChange={(e) => setProjectForm({ ...projectForm, category: e.target.value })}
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 [&>option]:bg-bg-black"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                           >
-                            <option value="AI Agent Development">AI Agent Development</option>
-                            <option value="AI Testing & Evaluation Systems">AI Testing & Evaluation Systems</option>
-                            <option value="Mobile App Development">Mobile App Development</option>
-                            <option value="Generative AI Solutions">Generative AI Solutions</option>
+                            <option value="AI Development">AI Development (Agentic AI, RAG, Fine-Tuning)</option>
+                            <option value="Web Development">Web Development (Full-Stack & Next.js)</option>
+                            <option value="Mobile App Development">Mobile App Development (React Native & Cross-Platform)</option>
+                            <option value="Backend Development">Backend Development (APIs & Microservices)</option>
                           </select>
                         </div>
 
                         <div>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Image URL Cover</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Cover Image URL</label>
                           <input
                             type="text"
                             value={projectForm.image}
                             onChange={(e) => setProjectForm({ ...projectForm, image: e.target.value })}
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono text-white/80"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                             required
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Short Description Summary</label>
+                        <label className="block text-xs font-semibold text-slate-700 mb-1.5">Short Overview Summary</label>
                         <textarea
                           rows={2}
                           value={projectForm.description}
                           onChange={(e) => setProjectForm({ ...projectForm, description: e.target.value })}
-                          placeholder="A hyper-local social networking platform connecting citizens in their specific city..."
-                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                          placeholder="A high-performance autonomous workflow assistant developed for client enterprise operations..."
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                           required
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Technology Stack (Comma Separated)</label>
+                        <label className="block text-xs font-semibold text-slate-700 mb-1.5">Technology Stack (Comma Separated)</label>
                         <input
                           type="text"
                           value={projectForm.techStackRaw}
                           onChange={(e) => setProjectForm({ ...projectForm, techStackRaw: e.target.value })}
-                          placeholder="React Native, Node.js, Express, MongoDB, Firebase"
-                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono"
+                          placeholder="React, TypeScript, FastAPI, PostgreSQL, LangGraph"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                           required
                         />
                       </div>
 
                       {/* Metrics Inputs */}
-                      <div className="border-t border-white/5 pt-4">
-                        <h4 className="text-[10px] font-bold uppercase tracking-wider text-white/60 mb-3">Key Quantifiable Metrics (Provide exactly 3)</h4>
+                      <div className="border-t border-slate-100 pt-5">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">Key Results & Metrics (3 Highlights)</h4>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          <div className="rounded-lg border border-white/5 bg-white/[0.01] p-3 space-y-3">
-                            <span className="text-[8px] font-bold font-mono tracking-widest text-brand-purple uppercase">Metric Unit #1</span>
+                          <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-3.5 space-y-2">
+                            <span className="text-[10px] font-bold tracking-wider text-blue-600 uppercase">Metric #1</span>
                             <input
                               type="text"
                               value={projectForm.metric1Value}
                               onChange={(e) => setProjectForm({ ...projectForm, metric1Value: e.target.value })}
-                              placeholder="e.g. 10 Mins / 98.4%"
-                              className="w-full bg-white/[0.02] border border-white/5 rounded px-2.5 py-1.5 text-xs text-white font-mono"
+                              placeholder="e.g. 4x Faster"
+                              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 font-medium"
                               required
                             />
                             <input
                               type="text"
                               value={projectForm.metric1Label}
                               onChange={(e) => setProjectForm({ ...projectForm, metric1Label: e.target.value })}
-                              placeholder="e.g. Pre-Prayer Alerts"
-                              className="w-full bg-white/[0.02] border border-white/5 rounded px-2.5 py-1.5 text-xs text-white"
+                              placeholder="e.g. Processing Speed"
+                              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700"
                               required
                             />
                           </div>
                           
-                          <div className="rounded-lg border border-white/5 bg-white/[0.01] p-3 space-y-3">
-                            <span className="text-[8px] font-bold font-mono tracking-widest text-brand-purple uppercase">Metric Unit #2</span>
+                          <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-3.5 space-y-2">
+                            <span className="text-[10px] font-bold tracking-wider text-blue-600 uppercase">Metric #2</span>
                             <input
                               type="text"
                               value={projectForm.metric2Value}
                               onChange={(e) => setProjectForm({ ...projectForm, metric2Value: e.target.value })}
-                              placeholder="e.g. Sub-10ms"
-                              className="w-full bg-white/[0.02] border border-white/5 rounded px-2.5 py-1.5 text-xs text-white font-mono"
+                              placeholder="e.g. 99.2%"
+                              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 font-medium"
                               required
                             />
                             <input
                               type="text"
                               value={projectForm.metric2Label}
                               onChange={(e) => setProjectForm({ ...projectForm, metric2Label: e.target.value })}
-                              placeholder="e.g. Offline Cache"
-                              className="w-full bg-white/[0.02] border border-white/5 rounded px-2.5 py-1.5 text-xs text-white"
+                              placeholder="e.g. Match Accuracy"
+                              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700"
                               required
                             />
                           </div>
 
-                          <div className="rounded-lg border border-white/5 bg-white/[0.01] p-3 space-y-3">
-                            <span className="text-[8px] font-bold font-mono tracking-widest text-brand-purple uppercase">Metric Unit #3</span>
+                          <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-3.5 space-y-2">
+                            <span className="text-[10px] font-bold tracking-wider text-blue-600 uppercase">Metric #3</span>
                             <input
                               type="text"
                               value={projectForm.metric3Value}
                               onChange={(e) => setProjectForm({ ...projectForm, metric3Value: e.target.value })}
-                              placeholder="e.g. Real-time"
-                              className="w-full bg-white/[0.02] border border-white/5 rounded px-2.5 py-1.5 text-xs text-white font-mono"
+                              placeholder="e.g. 3 Weeks"
+                              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 font-medium"
                               required
                             />
                             <input
                               type="text"
                               value={projectForm.metric3Label}
                               onChange={(e) => setProjectForm({ ...projectForm, metric3Label: e.target.value })}
-                              placeholder="e.g. Data Replication"
-                              className="w-full bg-white/[0.02] border border-white/5 rounded px-2.5 py-1.5 text-xs text-white"
+                              placeholder="e.g. Delivery Time"
+                              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700"
                               required
                             />
                           </div>
                         </div>
                       </div>
 
-                      {/* Collapsible deep dive blocks */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-white/5 pt-4">
+                      {/* Problem & Solution */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-slate-100 pt-5">
                         <div>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Problem Statement</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Client Problem & Challenge</label>
                           <textarea
                             rows={3}
                             value={projectForm.problem}
                             onChange={(e) => setProjectForm({ ...projectForm, problem: e.target.value })}
-                            placeholder="HR departments faced massive bottlenecks..."
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 resize-none"
+                            placeholder="The client was struggling with repetitive manual document classification..."
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                             required
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Engineered Solution</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Engineered Agency Solution</label>
                           <textarea
                             rows={3}
                             value={projectForm.solution}
                             onChange={(e) => setProjectForm({ ...projectForm, solution: e.target.value })}
-                            placeholder="Developed an advanced parsing engine using Claude 3.5..."
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 resize-none"
+                            placeholder="We designed and deployed an end-to-end RAG architecture with verification layers..."
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                             required
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Quantifiable Results (One Result per Line)</label>
+                        <label className="block text-xs font-semibold text-slate-700 mb-1.5">Delivered Results (One Result per Line)</label>
                         <textarea
                           rows={3}
                           value={projectForm.resultsRaw}
                           onChange={(e) => setProjectForm({ ...projectForm, resultsRaw: e.target.value })}
-                          placeholder="Saved recruitment teams 42 hours per vacancy.&#10;Anonymized candidate profiles.&#10;High-precision match rate."
-                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono"
+                          placeholder="Saved client team 30+ hours weekly&#10;Zero critical system failures&#10;Integrated seamless dashboard"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                           required
                         />
                       </div>
 
-                      <div className="border-t border-white/5 pt-4 space-y-4">
-                        <h4 className="text-[10px] font-bold uppercase tracking-wider text-white/60">Optional Metadata Link integrations</h4>
+                      <div className="border-t border-slate-100 pt-5 space-y-4">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">Optional Deliverable Links</h4>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           <div>
-                            <label className="block text-[8px] font-bold uppercase tracking-wider text-white/40 mb-2">Architectural Summary</label>
+                            <label className="block text-xs font-medium text-slate-600 mb-1.5">Architecture Summary</label>
                             <input
                               type="text"
                               value={projectForm.architecturalOverview}
                               onChange={(e) => setProjectForm({ ...projectForm, architecturalOverview: e.target.value })}
-                              placeholder="e.g. Built using React Native/Expo and Firestore..."
-                              className="w-full bg-white/[0.02] border border-white/5 rounded px-2.5 py-1.5 text-xs text-white"
+                              placeholder="e.g. Next.js App Router + FastAPI Microservices"
+                              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900"
                             />
                           </div>
 
                           <div>
-                            <label className="block text-[8px] font-bold uppercase tracking-wider text-white/40 mb-2">Play Store Link</label>
+                            <label className="block text-xs font-medium text-slate-600 mb-1.5">Play Store / App Store Link</label>
                             <input
                               type="text"
                               value={projectForm.playStoreLink}
                               onChange={(e) => setProjectForm({ ...projectForm, playStoreLink: e.target.value })}
                               placeholder="e.g. https://play.google.com/..."
-                              className="w-full bg-white/[0.02] border border-white/5 rounded px-2.5 py-1.5 text-xs text-white font-mono"
+                              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900"
                             />
                           </div>
 
                           <div>
-                            <label className="block text-[8px] font-bold uppercase tracking-wider text-white/40 mb-2">GitHub Repository</label>
+                            <label className="block text-xs font-medium text-slate-600 mb-1.5">GitHub Repository Link</label>
                             <input
                               type="text"
                               value={projectForm.githubLink}
                               onChange={(e) => setProjectForm({ ...projectForm, githubLink: e.target.value })}
                               placeholder="e.g. https://github.com/..."
-                              className="w-full bg-white/[0.02] border border-white/5 rounded px-2.5 py-1.5 text-xs text-white font-mono"
+                              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900"
                             />
                           </div>
                         </div>
                       </div>
 
                       {projectSuccess && (
-                        <div className="rounded border border-green-500/15 bg-green-500/5 p-3 text-center">
-                          <span className="text-xs text-green-400 font-semibold">Case study saved successfully!</span>
+                        <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-center">
+                          <span className="text-xs text-emerald-700 font-semibold">Project saved successfully!</span>
                         </div>
                       )}
 
                       <button
                         type="submit"
-                        className="w-full neon-btn inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-brand-purple to-brand-blue py-3.5 text-xs font-bold uppercase tracking-wider text-white"
+                        className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 py-3 text-sm font-semibold text-white transition-colors cursor-pointer"
                       >
                         <PlusCircle className="h-4 w-4" />
-                        {editingProjectId ? "Update Case Study" : "Publish Case Study"}
+                        {editingProjectId ? "Update Project" : "Publish Project"}
                       </button>
                     </form>
-                  </GlowingCard>
+                  </div>
                 ) : (
-                  <div className="grid grid-cols-1 gap-4">
+                  <div className="grid grid-cols-1 gap-3">
                     {projects.map((proj) => (
-                      <GlowingCard key={proj.id} className="p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                      <div key={proj.id} className="p-4 sm:p-5 rounded-2xl border border-slate-200 bg-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                         <div className="flex items-center gap-4">
-                          <div className="h-16 w-24 rounded border border-white/5 overflow-hidden bg-white/5 shrink-0 hidden sm:block">
-                            <img src={proj.image} alt={proj.title} className="h-full w-full object-cover grayscale" />
+                          <div className="h-16 w-24 rounded-lg border border-slate-200 overflow-hidden bg-slate-100 shrink-0 hidden sm:block">
+                            <img src={proj.image} alt={proj.title} className="h-full w-full object-cover" />
                           </div>
                           <div>
-                            <span className="text-[9px] font-bold font-mono uppercase text-brand-cyan tracking-wide">{proj.category}</span>
-                            <h3 className="text-base font-bold text-white tracking-tight">{proj.title}</h3>
-                            <span className="block text-[10px] text-white/40 font-mono mt-0.5">slug: /{proj.id}</span>
+                            <span className="text-[10px] font-semibold uppercase text-blue-600 tracking-wider">{proj.category}</span>
+                            <h3 className="text-base font-bold text-slate-900 tracking-tight">{proj.title}</h3>
+                            <span className="block text-xs text-slate-500 font-sans mt-0.5">slug: /{proj.id}</span>
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2 self-stretch md:self-auto justify-end border-t border-white/5 md:border-t-0 pt-3 md:pt-0">
+                        <div className="flex items-center gap-2 self-stretch md:self-auto justify-end border-t border-slate-100 md:border-t-0 pt-3 md:pt-0">
                           <button
                             onClick={() => handleEditProject(proj)}
-                            className="flex h-9 px-4 items-center justify-center rounded-lg border border-white/5 bg-white/[0.02] hover:bg-white/5 hover:border-white/10 text-xs font-bold text-white/70 hover:text-white transition-colors cursor-pointer gap-1.5"
+                            className="flex h-9 px-4 items-center justify-center rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 transition-colors cursor-pointer gap-1.5"
                           >
-                            <Edit3 className="h-4 w-4 text-brand-purple" />
+                            <Edit3 className="h-3.5 w-3.5 text-blue-600" />
                             Edit
                           </button>
                           
                           <button
                             onClick={() => handleDeleteProject(proj.id)}
-                            className="flex h-9 w-9 items-center justify-center rounded-lg border border-red-500/10 bg-red-500/5 hover:bg-red-500/15 text-red-400 transition-colors cursor-pointer"
+                            className="flex h-9 w-9 items-center justify-center rounded-xl border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 transition-colors cursor-pointer"
+                            title="Delete project"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
-                      </GlowingCard>
+                      </div>
                     ))}
                   </div>
                 )}
               </div>
             )}
 
-            {/* 3. MANAGE INSIGHTS / BLOGS */}
+            {/* 3. MANAGE BLOGS / ARTICLES */}
             {activeTab === "blogs" && (
               <div className="space-y-6">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-base font-bold text-white tracking-wider font-mono">Insight Publications Index</h2>
+                <div className="flex justify-between items-center mb-2">
+                  <div>
+                    <h2 className="text-lg font-bold text-slate-900 tracking-tight">Articles & Engineering Insights</h2>
+                    <p className="text-xs text-slate-500">Publish guides, case stories, and technical breakdowns to demonstrate expertise.</p>
+                  </div>
                   
                   {!isBlogFormOpen && (
                     <button
@@ -1205,7 +1203,7 @@ export default function AdminDashboardPage() {
                         setEditingBlogId(null);
                         setBlogForm({
                           title: "",
-                          category: "Agentic AI",
+                          category: "AI Development",
                           excerpt: "",
                           content: "",
                           image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop",
@@ -1214,23 +1212,23 @@ export default function AdminDashboardPage() {
                         });
                         setIsBlogFormOpen(true);
                       }}
-                      className="flex items-center gap-1.5 rounded-lg bg-brand-purple hover:bg-brand-violet text-white px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all hover:scale-105"
+                      className="flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 text-xs font-semibold transition-colors cursor-pointer"
                     >
                       <Plus className="h-4 w-4" />
-                      Add Insight Article
+                      Write Article
                     </button>
                   )}
                 </div>
 
                 {isBlogFormOpen ? (
-                  <GlowingCard className="p-6 md:p-8">
-                    <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-6">
-                      <h3 className="text-base font-extrabold text-white">
-                        {editingBlogId ? `Edit Publication: ${blogForm.title}` : "Publish Insight Publication"}
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
+                    <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+                      <h3 className="text-base font-bold text-slate-900">
+                        {editingBlogId ? `Edit Article: ${blogForm.title}` : "Write New Technical Article"}
                       </h3>
                       <button
                         onClick={() => setIsBlogFormOpen(false)}
-                        className="text-xs text-white/50 hover:text-white font-mono hover:underline cursor-pointer"
+                        className="text-xs text-slate-500 hover:text-slate-900 hover:underline cursor-pointer"
                       >
                         Cancel
                       </button>
@@ -1238,222 +1236,147 @@ export default function AdminDashboardPage() {
 
                     <form onSubmit={handleBlogSubmit} className="space-y-6">
                       <div>
-                        <label htmlFor="title" className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Article Title</label>
+                        <label htmlFor="title" className="block text-xs font-semibold text-slate-700 mb-1.5">Article Title</label>
                         <input
                           type="text"
                           id="title"
                           value={blogForm.title}
                           onChange={(e) => setBlogForm({ ...blogForm, title: e.target.value })}
-                          placeholder="e.g. Designing Multi-Agent Systems with LangGraph"
-                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                          placeholder="e.g. Building Production-Ready Agentic AI Systems in 2025"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                           required
                         />
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
-                          <label htmlFor="category" className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Category</label>
+                          <label htmlFor="category" className="block text-xs font-semibold text-slate-700 mb-1.5">Category</label>
                           <select
                             id="category"
                             value={blogForm.category}
                             onChange={(e) => setBlogForm({ ...blogForm, category: e.target.value })}
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 [&>option]:bg-bg-black"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                           >
-                            <option value="Agentic AI">Agentic AI</option>
-                            <option value="AI Engineering">AI Engineering</option>
-                            <option value="Software Architecture">Software Architecture</option>
-                            <option value="SaaS Development">SaaS Development</option>
+                            <option value="AI Development">AI Development</option>
+                            <option value="Agentic AI & RAG">Agentic AI & RAG</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Mobile Development">Mobile Development</option>
+                            <option value="Backend Engineering">Backend Engineering</option>
                           </select>
                         </div>
                         <div>
-                          <label htmlFor="readTime" className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Reading Time</label>
+                          <label htmlFor="readTime" className="block text-xs font-semibold text-slate-700 mb-1.5">Estimated Reading Time</label>
                           <input
                             type="text"
                             id="readTime"
                             value={blogForm.readTime}
                             onChange={(e) => setBlogForm({ ...blogForm, readTime: e.target.value })}
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                            placeholder="e.g. 5 min read"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                             required
                           />
                         </div>
                         <div>
-                          <label htmlFor="image" className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Image cover URL</label>
+                          <label htmlFor="image" className="block text-xs font-semibold text-slate-700 mb-1.5">Cover Image URL</label>
                           <input
                             type="text"
                             id="image"
                             value={blogForm.image}
                             onChange={(e) => setBlogForm({ ...blogForm, image: e.target.value })}
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                             required
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label htmlFor="excerpt" className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Excerpt Snippet</label>
+                        <label htmlFor="excerpt" className="block text-xs font-semibold text-slate-700 mb-1.5">Summary Excerpt</label>
                         <input
                           type="text"
                           id="excerpt"
                           value={blogForm.excerpt}
                           onChange={(e) => setBlogForm({ ...blogForm, excerpt: e.target.value })}
-                          placeholder="Short description snippet of the article content shown in grid catalog lists..."
-                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                          placeholder="Brief summary paragraph displayed on blog listing cards..."
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                           required
                         />
                       </div>
 
                       <div>
-                        <label htmlFor="content" className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Markdown Content Body</label>
+                        <label htmlFor="content" className="block text-xs font-semibold text-slate-700 mb-1.5">Markdown Content Body</label>
                         <textarea
                           id="content"
                           value={blogForm.content}
                           onChange={(e) => setBlogForm({ ...blogForm, content: e.target.value })}
                           rows={12}
-                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40 font-mono resize-none leading-relaxed"
-                          placeholder="# Main Header&#10;&#10;Article description paragraph. Use ## for headers, * for italics, ** for bold, and ```python for codes."
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans resize-none leading-relaxed"
+                          placeholder="# Main Heading&#10;&#10;Write your article here in standard Markdown format..."
                           required
                         />
                       </div>
 
                       {blogSuccess && (
-                        <div className="rounded border border-green-500/15 bg-green-500/5 p-3 text-center">
-                          <span className="text-xs text-green-400 font-semibold">Insight article saved successfully!</span>
+                        <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-center">
+                          <span className="text-xs text-emerald-700 font-semibold">Article published successfully!</span>
                         </div>
                       )}
 
                       <button
                         type="submit"
-                        className="w-full neon-btn inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-brand-purple to-brand-blue py-3.5 text-xs font-bold uppercase tracking-wider text-white"
+                        className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 py-3 text-sm font-semibold text-white transition-colors cursor-pointer"
                       >
                         <PlusCircle className="h-4 w-4" />
-                        {editingBlogId ? "Update Insight Article" : "Publish Insight Article"}
+                        {editingBlogId ? "Update Article" : "Publish Article"}
                       </button>
                     </form>
-                  </GlowingCard>
+                  </div>
                 ) : (
-                  <div className="grid grid-cols-1 gap-4">
+                  <div className="grid grid-cols-1 gap-3">
                     {blogs.map((blog) => (
-                      <GlowingCard key={blog.id} className="p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                      <div key={blog.id} className="p-4 sm:p-5 rounded-2xl border border-slate-200 bg-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                         <div className="flex items-center gap-4">
-                          <div className="h-16 w-24 rounded border border-white/5 overflow-hidden bg-white/5 shrink-0 hidden sm:block">
-                            <img src={blog.image} alt={blog.title} className="h-full w-full object-cover grayscale" />
+                          <div className="h-16 w-24 rounded-lg border border-slate-200 overflow-hidden bg-slate-100 shrink-0 hidden sm:block">
+                            <img src={blog.image} alt={blog.title} className="h-full w-full object-cover" />
                           </div>
                           <div>
-                            <span className="text-[9px] font-bold font-mono uppercase text-brand-purple tracking-wide">{blog.category}</span>
-                            <h3 className="text-base font-bold text-white tracking-tight">{blog.title}</h3>
-                            <span className="block text-[10px] text-white/40 font-mono mt-0.5">Published: {blog.publishedAt} | slug: /{blog.id}</span>
+                            <span className="text-[10px] font-semibold uppercase text-blue-600 tracking-wider">{blog.category}</span>
+                            <h3 className="text-base font-bold text-slate-900 tracking-tight">{blog.title}</h3>
+                            <span className="block text-xs text-slate-500 font-sans mt-0.5">Published: {blog.publishedAt} | {blog.readTime}</span>
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2 self-stretch md:self-auto justify-end border-t border-white/5 md:border-t-0 pt-3 md:pt-0">
+                        <div className="flex items-center gap-2 self-stretch md:self-auto justify-end border-t border-slate-100 md:border-t-0 pt-3 md:pt-0">
                           <button
                             onClick={() => handleEditBlog(blog)}
-                            className="flex h-9 px-4 items-center justify-center rounded-lg border border-white/5 bg-white/[0.02] hover:bg-white/5 hover:border-white/10 text-xs font-bold text-white/70 hover:text-white transition-colors cursor-pointer gap-1.5"
+                            className="flex h-9 px-4 items-center justify-center rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 transition-colors cursor-pointer gap-1.5"
                           >
-                            <Edit3 className="h-4 w-4 text-brand-purple" />
+                            <Edit3 className="h-3.5 w-3.5 text-blue-600" />
                             Edit
                           </button>
                           
                           <button
                             onClick={() => handleDeleteBlog(blog.id)}
-                            className="flex h-9 w-9 items-center justify-center rounded-lg border border-red-500/10 bg-red-500/5 hover:bg-red-500/15 text-red-400 transition-colors cursor-pointer"
+                            className="flex h-9 w-9 items-center justify-center rounded-xl border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 transition-colors cursor-pointer"
+                            title="Delete article"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
-                      </GlowingCard>
+                      </div>
                     ))}
                   </div>
                 )}
               </div>
             )}
 
-            {/* 4. PIPELINE ANALYTICS */}
-            {activeTab === "analytics" && (
-              <div className="space-y-8">
-                {/* KPI Metrics */}
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                  <GlowingCard className="p-6 text-center">
-                    <span className="text-xs uppercase font-bold tracking-widest text-white/40">Inbound Pipeline Value</span>
-                    <span className="block mt-2 text-3xl font-extrabold text-white sm:text-4xl">${totalValue.toLocaleString()}</span>
-                    <span className="block text-[9px] text-white/30 font-mono mt-1">* Approx based on selected currency tiers</span>
-                  </GlowingCard>
-
-                  <GlowingCard className="p-6 text-center">
-                    <span className="text-xs uppercase font-bold tracking-widest text-white/40">Scoping Lead Volume</span>
-                    <span className="block mt-2 text-3xl font-extrabold text-brand-purple sm:text-4xl">{inquiries.length} leads</span>
-                    <span className="block text-[9px] text-white/30 font-mono mt-1">Total scoping enquiries</span>
-                  </GlowingCard>
-
-                  <GlowingCard className="p-6 text-center">
-                    <span className="text-xs uppercase font-bold tracking-widest text-white/40">Article Velocity</span>
-                    <span className="block mt-2 text-3xl font-extrabold text-brand-cyan sm:text-4xl">{blogs.length} Insights</span>
-                    <span className="block text-[9px] text-white/30 font-mono mt-1">Active published documents</span>
-                  </GlowingCard>
-                </div>
-
-                {/* Distributions */}
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  <div className="rounded-xl border border-white/5 bg-white/[0.01] p-6 backdrop-blur-md">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-brand-cyan mb-5 pb-2 border-b border-white/5 font-mono">
-                      Requested service distribution
-                    </h3>
-                    <div className="space-y-4">
-                      {Object.entries(serviceBreakdown).length === 0 ? (
-                        <span className="text-xs text-white/40 italic">No inquiry allocations processed yet.</span>
-                      ) : (
-                        Object.entries(serviceBreakdown).map(([service, count]) => {
-                          const percentage = Math.round((count / inquiries.length) * 100);
-                          return (
-                            <div key={service} className="space-y-1">
-                              <div className="flex items-center justify-between text-xs text-white/70">
-                                <span>{service}</span>
-                                <span className="font-mono">{count} ({percentage}%)</span>
-                              </div>
-                              <div className="h-1.5 w-full rounded bg-white/5 overflow-hidden">
-                                <div style={{ width: `${percentage}%` }} className="h-full rounded bg-brand-purple" />
-                              </div>
-                            </div>
-                          );
-                        })
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="rounded-xl border border-white/5 bg-white/[0.01] p-6 backdrop-blur-md">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-brand-purple mb-5 pb-2 border-b border-white/5 font-mono">
-                      Budget Allocations distribution
-                    </h3>
-                    <div className="space-y-4">
-                      {Object.entries(budgetBreakdown).length === 0 ? (
-                        <span className="text-xs text-white/40 italic">No budget distribution arrays calculated.</span>
-                      ) : (
-                        Object.entries(budgetBreakdown).map(([budget, count]) => {
-                          const percentage = Math.round((count / inquiries.length) * 100);
-                          return (
-                            <div key={budget} className="space-y-1">
-                              <div className="flex items-center justify-between text-xs text-white/70">
-                                <span>{budget}</span>
-                                <span className="font-mono">{count} ({percentage}%)</span>
-                              </div>
-                              <div className="h-1.5 w-full rounded bg-white/5 overflow-hidden">
-                                <div style={{ width: `${percentage}%` }} className="h-full rounded bg-brand-cyan" />
-                              </div>
-                            </div>
-                          );
-                        })
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* 6. MANAGE SERVICES */}
+            {/* 4. MANAGE SERVICES */}
             {activeTab === "services" && (
               <div className="space-y-6">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-base font-bold text-white tracking-wider font-mono">Services Portfolio Index</h2>
+                <div className="flex justify-between items-center mb-2">
+                  <div>
+                    <h2 className="text-lg font-bold text-slate-900 tracking-tight">Agency Services</h2>
+                    <p className="text-xs text-slate-500">Manage the 4 core disciplines: Web, Mobile, AI, and Backend Development.</p>
+                  </div>
                   
                   {!isServiceFormOpen && (
                     <button
@@ -1466,16 +1389,16 @@ export default function AdminDashboardPage() {
                           title: "",
                           description: "",
                           pricingIn: "Starting at ₹50,000",
-                          pricingIntl: "Starting at $4,500",
-                          delivery: "3-4 Weeks",
-                          techRaw: "React, TypeScript, Tailwind",
-                          benefitsRaw: "Benefit 1\nBenefit 2\nBenefit 3",
-                          useCase: "Describe target use case...",
+                          pricingIntl: "Starting at $2,500",
+                          delivery: "2-4 Weeks",
+                          techRaw: "Python, FastAPI, LangGraph, OpenAI, Claude",
+                          benefitsRaw: "Custom Agent Workflows\nEnterprise Security\nContinuous Optimization",
+                          useCase: "Autonomous business workflows and intelligent data extraction...",
                           order: services.length + 1
                         });
                         setIsServiceFormOpen(true);
                       }}
-                      className="flex items-center gap-1.5 rounded-lg bg-brand-purple hover:bg-brand-violet text-white px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all hover:scale-105"
+                      className="flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 text-xs font-semibold transition-colors cursor-pointer"
                     >
                       <Plus className="h-4 w-4" />
                       Add Service
@@ -1484,14 +1407,14 @@ export default function AdminDashboardPage() {
                 </div>
 
                 {isServiceFormOpen ? (
-                  <GlowingCard className="p-6 md:p-8">
-                    <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-6">
-                      <h3 className="text-base font-extrabold text-white">
-                        {editingServiceId ? `Edit Service: ${serviceForm.title}` : "Create Service Record"}
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
+                    <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+                      <h3 className="text-base font-bold text-slate-900">
+                        {editingServiceId ? `Edit Service: ${serviceForm.title}` : "Create Agency Service"}
                       </h3>
                       <button
                         onClick={() => setIsServiceFormOpen(false)}
-                        className="text-xs text-white/50 hover:text-white font-mono hover:underline cursor-pointer"
+                        className="text-xs text-slate-500 hover:text-slate-900 hover:underline cursor-pointer"
                       >
                         Cancel
                       </button>
@@ -1501,25 +1424,25 @@ export default function AdminDashboardPage() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {!editingServiceId && (
                           <div>
-                            <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Unique ID (Slug)</label>
+                            <label className="block text-xs font-semibold text-slate-700 mb-1.5">Service ID (URL Slug)</label>
                             <input
                               type="text"
                               value={serviceForm.id}
                               onChange={(e) => setServiceForm({ ...serviceForm, id: e.target.value })}
-                              placeholder="e.g. multi-agent-systems"
-                              className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40 font-mono"
+                              placeholder="e.g. ai-development"
+                              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                               required
                             />
                           </div>
                         )}
                         <div className={editingServiceId ? "col-span-2" : ""}>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Service Title</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Service Title</label>
                           <input
                             type="text"
                             value={serviceForm.title}
                             onChange={(e) => setServiceForm({ ...serviceForm, title: e.target.value })}
-                            placeholder="e.g. AI Agent Development"
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white placeholder-white/20 outline-none focus:border-brand-purple/40"
+                            placeholder="e.g. AI Development"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                             required
                           />
                         </div>
@@ -1527,36 +1450,38 @@ export default function AdminDashboardPage() {
 
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Category</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Discipline Category</label>
                           <select
                             value={serviceForm.category}
                             onChange={(e) => setServiceForm({ ...serviceForm, category: e.target.value })}
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 [&>option]:bg-bg-black"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                           >
-                            <option value="ai">AI Specialty (ai)</option>
-                            <option value="fullstack">Full Stack Engineering (fullstack)</option>
+                            <option value="ai">AI Development (Agentic AI, RAG, Fine-tuning)</option>
+                            <option value="web">Web Development (Full-Stack Next.js)</option>
+                            <option value="mobile">Mobile App Development (React Native & Mobile)</option>
+                            <option value="backend">Backend Development (APIs & Microservices)</option>
                           </select>
                         </div>
 
                         <div>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Lucide Icon Name</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Icon Name (Bot, Globe, Smartphone, Server)</label>
                           <input
                             type="text"
                             value={serviceForm.iconName}
                             onChange={(e) => setServiceForm({ ...serviceForm, iconName: e.target.value })}
-                            placeholder="e.g. Bot, Brain, Server, Zap"
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono"
+                            placeholder="e.g. Bot"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                             required
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Display Order Weight</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Display Order Position</label>
                           <input
                             type="number"
                             value={serviceForm.order}
                             onChange={(e) => setServiceForm({ ...serviceForm, order: Number(e.target.value) })}
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                             required
                           />
                         </div>
@@ -1564,160 +1489,161 @@ export default function AdminDashboardPage() {
 
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Indian Price (₹)</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Indian Price Tier (₹)</label>
                           <input
                             type="text"
                             value={serviceForm.pricingIn}
                             onChange={(e) => setServiceForm({ ...serviceForm, pricingIn: e.target.value })}
                             placeholder="Starting at ₹50,000"
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                             required
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">International Price ($)</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">International Price Tier ($)</label>
                           <input
                             type="text"
                             value={serviceForm.pricingIntl}
                             onChange={(e) => setServiceForm({ ...serviceForm, pricingIntl: e.target.value })}
-                            placeholder="Starting at $4,500"
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono"
+                            placeholder="Starting at $2,500"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                             required
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Delivery Timeframe</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Delivery Timeframe</label>
                           <input
                             type="text"
                             value={serviceForm.delivery}
                             onChange={(e) => setServiceForm({ ...serviceForm, delivery: e.target.value })}
-                            placeholder="e.g. 3-4 Weeks"
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                            placeholder="e.g. 2-4 Weeks"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                             required
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Brief Summary Description</label>
+                        <label className="block text-xs font-semibold text-slate-700 mb-1.5">Summary Description</label>
                         <textarea
                           rows={2}
                           value={serviceForm.description}
                           onChange={(e) => setServiceForm({ ...serviceForm, description: e.target.value })}
-                          placeholder="Brief tagline description for mapping blocks..."
-                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                          placeholder="Autonomous agent workflows, enterprise RAG pipelines, model fine-tuning, and automated tool integrations..."
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                           required
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Technology Keywords (Comma Separated)</label>
+                        <label className="block text-xs font-semibold text-slate-700 mb-1.5">Technologies Used (Comma Separated)</label>
                         <input
                           type="text"
                           value={serviceForm.techRaw}
                           onChange={(e) => setServiceForm({ ...serviceForm, techRaw: e.target.value })}
-                          placeholder="LangGraph, FastApi, Python, Redis"
-                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono"
+                          placeholder="Python, FastAPI, LangGraph, OpenAI, Claude, Vector DBs"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                           required
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Benefits List Checklist (One benefit per line)</label>
+                        <label className="block text-xs font-semibold text-slate-700 mb-1.5">Key Deliverable Highlights (One per line)</label>
                         <textarea
                           rows={3}
                           value={serviceForm.benefitsRaw}
                           onChange={(e) => setServiceForm({ ...serviceForm, benefitsRaw: e.target.value })}
-                          placeholder="Benefit item #1&#10;Benefit item #2&#10;Benefit item #3"
-                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono"
+                          placeholder="Autonomous multi-step agent reasoning&#10;Private RAG vector database indexing&#10;Enterprise guardrails and hallucination checks"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                           required
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Primary target Use Case example</label>
+                        <label className="block text-xs font-semibold text-slate-700 mb-1.5">Real-World Client Application</label>
                         <textarea
                           rows={2}
                           value={serviceForm.useCase}
                           onChange={(e) => setServiceForm({ ...serviceForm, useCase: e.target.value })}
-                          placeholder="e.g. Self-healing reconcilers that audit pipelines..."
-                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                          placeholder="Custom customer support copilots, research document synthesizers, automated ticket resolution..."
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                           required
                         />
                       </div>
 
                       {serviceSuccess && (
-                        <div className="rounded border border-green-500/15 bg-green-500/5 p-3 text-center">
-                          <span className="text-xs text-green-400 font-semibold">Service portfolio record saved!</span>
+                        <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-center">
+                          <span className="text-xs text-emerald-700 font-semibold">Service saved successfully!</span>
                         </div>
                       )}
 
                       <button
                         type="submit"
-                        className="w-full neon-btn inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-brand-purple to-brand-blue py-3.5 text-xs font-bold uppercase tracking-wider text-white cursor-pointer"
+                        className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 py-3 text-sm font-semibold text-white transition-colors cursor-pointer"
                       >
                         <PlusCircle className="h-4 w-4" />
-                        {editingServiceId ? "Update Service Card" : "Publish Service Card"}
+                        {editingServiceId ? "Update Service" : "Publish Service"}
                       </button>
                     </form>
-                  </GlowingCard>
+                  </div>
                 ) : (
-                  <div className="grid grid-cols-1 gap-4">
+                  <div className="grid grid-cols-1 gap-3">
                     {services.map((service) => (
-                      <GlowingCard key={service.id} className="p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                      <div key={service.id} className="p-4 sm:p-5 rounded-2xl border border-slate-200 bg-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="text-[9px] font-bold font-mono uppercase text-brand-purple tracking-wide">{service.category}</span>
-                            <span className="text-[9px] font-bold font-mono uppercase text-brand-cyan tracking-wide">order: {service.order}</span>
+                            <span className="text-[10px] font-semibold uppercase text-blue-600 tracking-wider">{service.category}</span>
+                            <span className="text-[10px] font-semibold uppercase text-slate-400">Order: {service.order}</span>
                           </div>
-                          <h3 className="text-base font-bold text-white tracking-tight flex items-center gap-2 mt-1">
-                            <span className="font-mono text-xs text-white/40">[{service.iconName}]</span>
+                          <h3 className="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2 mt-1">
+                            <span className="text-xs text-slate-400 font-medium">[{service.iconName}]</span>
                             {service.title}
                           </h3>
-                          <span className="block text-[10px] text-white/40 font-mono mt-0.5">slug: /{service.id}</span>
+                          <span className="block text-xs text-slate-500 font-sans mt-0.5">
+                            {service.pricing.in} / {service.pricing.intl} • Delivery: {service.delivery}
+                          </span>
                         </div>
 
-                        <div className="flex items-center gap-2 self-stretch md:self-auto justify-end border-t border-white/5 md:border-t-0 pt-3 md:pt-0">
+                        <div className="flex items-center gap-2 self-stretch md:self-auto justify-end border-t border-slate-100 md:border-t-0 pt-3 md:pt-0">
                           <button
                             onClick={() => handleEditService(service)}
-                            className="flex h-9 px-4 items-center justify-center rounded-lg border border-white/5 bg-white/[0.02] hover:bg-white/5 hover:border-white/10 text-xs font-bold text-white/70 hover:text-white transition-colors cursor-pointer gap-1.5"
+                            className="flex h-9 px-4 items-center justify-center rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 transition-colors cursor-pointer gap-1.5"
                           >
-                            <Edit3 className="h-4 w-4 text-brand-purple" />
+                            <Edit3 className="h-3.5 w-3.5 text-blue-600" />
                             Edit
                           </button>
                           
                           <button
                             onClick={() => handleDeleteService(service.id)}
-                            className="flex h-9 w-9 items-center justify-center rounded-lg border border-red-500/10 bg-red-500/5 hover:bg-red-500/15 text-red-400 transition-colors cursor-pointer"
+                            className="flex h-9 w-9 items-center justify-center rounded-xl border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 transition-colors cursor-pointer"
+                            title="Delete service"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
-                      </GlowingCard>
+                      </div>
                     ))}
                   </div>
                 )}
               </div>
             )}
 
-            {/* 7. HOMEPAGE & GLOBALS SITE EDITOR */}
+            {/* 5. HOMEPAGE & GLOBALS SITE EDITOR */}
             {activeTab === "site" && globalsForm && (
               <div className="space-y-6">
-                <div className="flex justify-between items-center border-b border-white/5 pb-4 mb-4">
-                  <div>
-                    <h2 className="text-base font-bold text-white tracking-wider font-mono">Dynamic Portal Content Editor</h2>
-                    <p className="text-xs text-white/40 mt-1">Manage global texts, founder bios, and specializations stored in Firestore globals.</p>
-                  </div>
+                <div className="border-b border-slate-200 pb-4 mb-4">
+                  <h2 className="text-lg font-bold text-slate-900 tracking-tight">Website Settings & Content</h2>
+                  <p className="text-xs text-slate-500 mt-0.5">Update homepage headlines, founder & leadership bios, trust metrics, and featured specializations.</p>
                 </div>
 
-                <form onSubmit={handleSaveGlobals} className="space-y-8">
+                <form onSubmit={handleSaveGlobals} className="space-y-6">
                   {/* Hero Config */}
-                  <GlowingCard className="p-6 space-y-4">
-                    <h3 className="text-sm font-bold text-brand-cyan uppercase tracking-wider font-mono border-b border-white/5 pb-2">// Hero Config</h3>
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4">
+                    <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2">Hero Section Settings</h3>
                     <div>
-                      <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Hero Badge Tagline</label>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1.5">Hero Pill Badge</label>
                       <input
                         type="text"
                         value={globalsForm.hero.badge}
@@ -1725,12 +1651,12 @@ export default function AdminDashboardPage() {
                           ...globalsForm,
                           hero: { ...globalsForm.hero, badge: e.target.value }
                         })}
-                        className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Hero Headline Title (HTML tag support)</label>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1.5">Hero Headline Title (HTML markup allowed)</label>
                       <input
                         type="text"
                         value={globalsForm.hero.title}
@@ -1738,12 +1664,12 @@ export default function AdminDashboardPage() {
                           ...globalsForm,
                           hero: { ...globalsForm.hero, title: e.target.value }
                         })}
-                        className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono text-brand-cyan"
+                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Hero Subtitle Paragraph</label>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1.5">Hero Subtitle Paragraph</label>
                       <textarea
                         rows={3}
                         value={globalsForm.hero.subtitle}
@@ -1751,22 +1677,22 @@ export default function AdminDashboardPage() {
                           ...globalsForm,
                           hero: { ...globalsForm.hero, subtitle: e.target.value }
                         })}
-                        className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans leading-relaxed"
                         required
                       />
                     </div>
-                  </GlowingCard>
+                  </div>
 
-                  {/* Leadership Config */}
-                  <GlowingCard className="p-6 space-y-6">
-                    <h3 className="text-sm font-bold text-brand-purple uppercase tracking-wider font-mono border-b border-white/5 pb-2">// Leadership Profiles</h3>
+                  {/* Leadership Profiles */}
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-6">
+                    <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2">Agency Leadership Profiles</h3>
                     
                     {/* Founder Profile */}
-                    <div className="space-y-4 border-b border-white/5 pb-6">
-                      <span className="text-xs font-bold text-brand-cyan tracking-wider font-mono uppercase">1. Founder Profile</span>
+                    <div className="space-y-4 border-b border-slate-100 pb-6">
+                      <span className="text-xs font-bold text-blue-600 tracking-wider uppercase">1. Founder Profile</span>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Founder Name</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Founder Name</label>
                           <input
                             type="text"
                             value={globalsForm.about.founderName}
@@ -1774,12 +1700,12 @@ export default function AdminDashboardPage() {
                               ...globalsForm,
                               about: { ...globalsForm.about, founderName: e.target.value }
                             })}
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                             required
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Founder Title Role</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Founder Title</label>
                           <input
                             type="text"
                             value={globalsForm.about.founderTitle}
@@ -1787,13 +1713,13 @@ export default function AdminDashboardPage() {
                               ...globalsForm,
                               about: { ...globalsForm.about, founderTitle: e.target.value }
                             })}
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                             required
                           />
                         </div>
                       </div>
                       <div>
-                        <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Founder Biography Paragraphs (Double New-lines separate paragraphs)</label>
+                        <label className="block text-xs font-semibold text-slate-700 mb-1.5">Founder Biography (Double line breaks separate paragraphs)</label>
                         <textarea
                           rows={4}
                           value={globalsForm.about.bio.join("\n\n")}
@@ -1804,7 +1730,7 @@ export default function AdminDashboardPage() {
                               bio: e.target.value.split("\n\n").map((p) => p.trim()).filter((p) => p.length > 0)
                             }
                           })}
-                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono leading-relaxed"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans leading-relaxed"
                           required
                         />
                       </div>
@@ -1812,10 +1738,10 @@ export default function AdminDashboardPage() {
 
                     {/* Co-Founder Profile */}
                     <div className="space-y-4">
-                      <span className="text-xs font-bold text-brand-cyan tracking-wider font-mono uppercase">2. Co-Founder Profile</span>
+                      <span className="text-xs font-bold text-blue-600 tracking-wider uppercase">2. Co-Founder Profile</span>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Co-Founder Name</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Co-Founder Name</label>
                           <input
                             type="text"
                             value={globalsForm.about.coFounderName || ""}
@@ -1823,11 +1749,11 @@ export default function AdminDashboardPage() {
                               ...globalsForm,
                               about: { ...globalsForm.about, coFounderName: e.target.value }
                             })}
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Co-Founder Title Role</label>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Co-Founder Title</label>
                           <input
                             type="text"
                             value={globalsForm.about.coFounderTitle || ""}
@@ -1835,12 +1761,12 @@ export default function AdminDashboardPage() {
                               ...globalsForm,
                               about: { ...globalsForm.about, coFounderTitle: e.target.value }
                             })}
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans"
                           />
                         </div>
                       </div>
                       <div>
-                        <label className="block text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Co-Founder Biography Paragraphs (Double New-lines separate paragraphs)</label>
+                        <label className="block text-xs font-semibold text-slate-700 mb-1.5">Co-Founder Biography (Double line breaks separate paragraphs)</label>
                         <textarea
                           rows={4}
                           value={(globalsForm.about.coFounderBio || []).join("\n\n")}
@@ -1851,19 +1777,19 @@ export default function AdminDashboardPage() {
                               coFounderBio: e.target.value.split("\n\n").map((p) => p.trim()).filter((p) => p.length > 0)
                             }
                           })}
-                          className="w-full bg-white/[0.02] border border-white/5 rounded-lg px-4 py-3 text-xs text-white outline-none focus:border-brand-purple/40 font-mono leading-relaxed"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:border-blue-600 font-sans leading-relaxed"
                         />
                       </div>
                     </div>
-                  </GlowingCard>
+                  </div>
 
                   {/* Trust Metrics */}
-                  <GlowingCard className="p-6 space-y-4">
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wider font-mono border-b border-white/5 pb-2">// Trust KPI Statistics</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4">
+                    <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2">Trust Metrics (Displayed on Homepage)</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
                       {globalsForm.trustMetrics.map((metric, idx) => (
-                        <div key={idx} className="rounded-lg border border-white/5 bg-white/[0.01] p-3 space-y-2">
-                          <span className="text-[8px] font-bold font-mono tracking-widest text-brand-cyan uppercase">Metric #{idx+1}</span>
+                        <div key={idx} className="rounded-xl border border-slate-200 bg-slate-50/60 p-3 space-y-2">
+                          <span className="text-[10px] font-bold tracking-wider text-blue-600 uppercase">Metric #{idx+1}</span>
                           <input
                             type="text"
                             value={metric.value}
@@ -1873,7 +1799,7 @@ export default function AdminDashboardPage() {
                               setGlobalsForm({ ...globalsForm, trustMetrics: list });
                             }}
                             placeholder="Value"
-                            className="w-full bg-white/[0.02] border border-white/5 rounded px-2.5 py-1.5 text-xs text-white font-mono"
+                            className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 font-bold"
                             required
                           />
                           <input
@@ -1884,24 +1810,24 @@ export default function AdminDashboardPage() {
                               list[idx].label = e.target.value;
                               setGlobalsForm({ ...globalsForm, trustMetrics: list });
                             }}
-                            placeholder="Label text"
-                            className="w-full bg-white/[0.02] border border-white/5 rounded px-2.5 py-1.5 text-xs text-white"
+                            placeholder="Label"
+                            className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700"
                             required
                           />
                         </div>
                       ))}
                     </div>
-                  </GlowingCard>
+                  </div>
 
                   {/* Specializations */}
-                  <GlowingCard className="p-6 space-y-4">
-                    <h3 className="text-sm font-bold text-brand-cyan uppercase tracking-wider font-mono border-b border-white/5 pb-2">// Specializations (Homepage)</h3>
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4">
+                    <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2">Core Specializations (Homepage Grid)</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       {globalsForm.specializations.map((spec, idx) => (
-                        <div key={idx} className="rounded-lg border border-white/5 bg-white/[0.01] p-4 space-y-3">
-                          <span className="text-[8px] font-bold font-mono tracking-widest text-brand-purple uppercase">Spec #{idx+1}</span>
+                        <div key={idx} className="rounded-xl border border-slate-200 bg-slate-50/60 p-4 space-y-3">
+                          <span className="text-[10px] font-bold tracking-wider text-blue-600 uppercase">Feature #{idx+1}</span>
                           <div>
-                            <label className="block text-[8px] uppercase tracking-wider text-white/40 mb-1">Lucide Icon Name</label>
+                            <label className="block text-[10px] font-semibold uppercase text-slate-600 mb-1">Icon Name</label>
                             <input
                               type="text"
                               value={spec.iconName}
@@ -1910,12 +1836,12 @@ export default function AdminDashboardPage() {
                                 list[idx].iconName = e.target.value;
                                 setGlobalsForm({ ...globalsForm, specializations: list });
                               }}
-                              className="w-full bg-white/[0.02] border border-white/5 rounded px-2.5 py-1.5 text-xs text-white font-mono"
+                              className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-900"
                               required
                             />
                           </div>
                           <div>
-                            <label className="block text-[8px] uppercase tracking-wider text-white/40 mb-1">Title</label>
+                            <label className="block text-[10px] font-semibold uppercase text-slate-600 mb-1">Title</label>
                             <input
                               type="text"
                               value={spec.title}
@@ -1924,12 +1850,12 @@ export default function AdminDashboardPage() {
                                 list[idx].title = e.target.value;
                                 setGlobalsForm({ ...globalsForm, specializations: list });
                               }}
-                              className="w-full bg-white/[0.02] border border-white/5 rounded px-2.5 py-1.5 text-xs text-white"
+                              className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 font-semibold"
                               required
                             />
                           </div>
                           <div>
-                            <label className="block text-[8px] uppercase tracking-wider text-white/40 mb-1">Description</label>
+                            <label className="block text-[10px] font-semibold uppercase text-slate-600 mb-1">Description</label>
                             <textarea
                               rows={3}
                               value={spec.description}
@@ -1938,35 +1864,35 @@ export default function AdminDashboardPage() {
                                 list[idx].description = e.target.value;
                                 setGlobalsForm({ ...globalsForm, specializations: list });
                               }}
-                              className="w-full bg-white/[0.02] border border-white/5 rounded px-2.5 py-1.5 text-xs text-white resize-none"
+                              className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 resize-none leading-relaxed"
                               required
                             />
                           </div>
                         </div>
                       ))}
                     </div>
-                  </GlowingCard>
+                  </div>
 
                   {siteSuccess && (
-                    <div className="rounded border border-green-500/15 bg-green-500/5 p-3.5 text-center">
-                      <span className="text-xs text-green-400 font-semibold">Global portal site configurations saved successfully!</span>
+                    <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-center">
+                      <span className="text-xs text-emerald-700 font-semibold">Website configurations saved successfully!</span>
                     </div>
                   )}
 
                   <button
                     type="submit"
                     disabled={siteSaving}
-                    className="w-full neon-btn inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-brand-purple to-brand-blue py-3.5 text-xs font-bold uppercase tracking-wider text-white disabled:opacity-50 cursor-pointer"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 py-3.5 text-sm font-semibold text-white transition-colors disabled:opacity-50 cursor-pointer"
                   >
                     {siteSaving ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        Saving configurations...
+                        Saving Configurations...
                       </>
                     ) : (
                       <>
                         <Check className="h-4 w-4" />
-                        Publish Site Configurations
+                        Save Website Settings
                       </>
                     )}
                   </button>
@@ -1974,47 +1900,132 @@ export default function AdminDashboardPage() {
               </div>
             )}
 
-            {/* 5. SYSTEM SETTINGS / SEEDING */}
-            {activeTab === "settings" && (
-              <div className="max-w-2xl mx-auto space-y-6">
-                <GlowingCard className="p-6 md:p-8">
-                  <h3 className="text-lg font-bold text-white tracking-tight mb-2 flex items-center gap-2">
-                    <Database className="h-5 w-5 text-brand-purple" />
-                    Firestore Seeding & Setup
-                  </h3>
-                  <p className="text-xs text-white/50 leading-relaxed mb-6">
-                    Connects a freshly configured Firestore database to seed default agency templates. If your Firestore database is empty, clicking the seeding trigger will insert the default mock data, preventing empty page displays.
-                  </p>
+            {/* 6. ANALYTICS */}
+            {activeTab === "analytics" && (
+              <div className="space-y-6">
+                {/* Metric Cards */}
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">Pipeline Value</span>
+                    <span className="block mt-2 text-3xl font-extrabold text-slate-900">${totalValue.toLocaleString()}</span>
+                    <span className="block text-xs text-slate-400 mt-1">Estimated from selected client budgets</span>
+                  </div>
 
-                  <div className="border border-white/5 rounded-xl bg-white/[0.01] p-4 mb-2 space-y-3 font-mono text-[11px] text-white/60">
-                    <div className="flex justify-between">
-                      <span>Firebase Mode:</span>
-                      <span>{isFirebaseConfigured ? <span className="text-green-400 font-bold">Cloud Production</span> : <span className="text-brand-cyan font-bold">Mock Local Fallback</span>}</span>
-                    </div>
-                    <div className="flex justify-between border-t border-white/5 pt-2">
-                      <span>Firestore Collection (projects):</span>
-                      <span>{projects.length} docs loaded</span>
-                    </div>
-                    <div className="flex justify-between border-t border-white/5 pt-2">
-                      <span>Firestore Collection (blogs):</span>
-                      <span>{blogs.length} docs loaded</span>
-                    </div>
-                    <div className="flex justify-between border-t border-white/5 pt-2">
-                      <span>Firestore Collection (inquiries):</span>
-                      <span>{inquiries.length} docs loaded</span>
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">Inbound Leads</span>
+                    <span className="block mt-2 text-3xl font-extrabold text-blue-600">{inquiries.length}</span>
+                    <span className="block text-xs text-slate-400 mt-1">Total inquiries received</span>
+                  </div>
+
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">Published Content</span>
+                    <span className="block mt-2 text-3xl font-extrabold text-emerald-600">{blogs.length}</span>
+                    <span className="block text-xs text-slate-400 mt-1">Active published articles</span>
+                  </div>
+                </div>
+
+                {/* Distributions */}
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6">
+                    <h3 className="text-sm font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100">
+                      Inquiries by Requested Service
+                    </h3>
+                    <div className="space-y-4">
+                      {Object.entries(serviceBreakdown).length === 0 ? (
+                        <span className="text-xs text-slate-400 italic">No inquiries received yet.</span>
+                      ) : (
+                        Object.entries(serviceBreakdown).map(([service, count]) => {
+                          const percentage = Math.round((count / inquiries.length) * 100);
+                          return (
+                            <div key={service} className="space-y-1.5">
+                              <div className="flex items-center justify-between text-xs text-slate-700">
+                                <span className="font-medium">{service}</span>
+                                <span className="font-semibold text-slate-900">{count} ({percentage}%)</span>
+                              </div>
+                              <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
+                                <div style={{ width: `${percentage}%` }} className="h-full rounded-full bg-blue-600" />
+                              </div>
+                            </div>
+                          );
+                        })
+                      )}
                     </div>
                   </div>
 
-                  <div className="mt-6 border-t border-white/5 pt-6 flex flex-col gap-4">
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6">
+                    <h3 className="text-sm font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100">
+                      Inquiries by Budget Tier
+                    </h3>
+                    <div className="space-y-4">
+                      {Object.entries(budgetBreakdown).length === 0 ? (
+                        <span className="text-xs text-slate-400 italic">No budget information available yet.</span>
+                      ) : (
+                        Object.entries(budgetBreakdown).map(([budget, count]) => {
+                          const percentage = Math.round((count / inquiries.length) * 100);
+                          return (
+                            <div key={budget} className="space-y-1.5">
+                              <div className="flex items-center justify-between text-xs text-slate-700">
+                                <span className="font-medium">{budget}</span>
+                                <span className="font-semibold text-slate-900">{count} ({percentage}%)</span>
+                              </div>
+                              <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
+                                <div style={{ width: `${percentage}%` }} className="h-full rounded-full bg-emerald-600" />
+                              </div>
+                            </div>
+                          );
+                        })
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* 7. DATABASE & SYSTEM SETTINGS */}
+            {activeTab === "settings" && (
+              <div className="max-w-2xl mx-auto space-y-6">
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
+                  <h3 className="text-lg font-bold text-slate-900 tracking-tight mb-2 flex items-center gap-2">
+                    <Database className="h-5 w-5 text-blue-600" />
+                    Firestore Database & System
+                  </h3>
+                  <p className="text-xs text-slate-500 leading-relaxed mb-6">
+                    Manage your live cloud database connection. If your Firestore collections are empty or need default agency data, you can trigger database seeding from here.
+                  </p>
+
+                  <div className="border border-slate-200 rounded-xl bg-slate-50/60 p-4 mb-4 space-y-2.5 text-xs text-slate-700">
+                    <div className="flex justify-between">
+                      <span className="font-medium">Firebase Connection:</span>
+                      <span>{isFirebaseConfigured ? <span className="text-emerald-600 font-semibold">Live Cloud Production</span> : <span className="text-blue-600 font-semibold">Local Fallback</span>}</span>
+                    </div>
+                    <div className="flex justify-between border-t border-slate-200/80 pt-2">
+                      <span className="font-medium">Projects in Database:</span>
+                      <span className="font-semibold text-slate-900">{projects.length} documents</span>
+                    </div>
+                    <div className="flex justify-between border-t border-slate-200/80 pt-2">
+                      <span className="font-medium">Articles in Database:</span>
+                      <span className="font-semibold text-slate-900">{blogs.length} documents</span>
+                    </div>
+                    <div className="flex justify-between border-t border-slate-200/80 pt-2">
+                      <span className="font-medium">Services in Database:</span>
+                      <span className="font-semibold text-slate-900">{services.length} documents</span>
+                    </div>
+                    <div className="flex justify-between border-t border-slate-200/80 pt-2">
+                      <span className="font-medium">Client Inquiries:</span>
+                      <span className="font-semibold text-slate-900">{inquiries.length} inquiries</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 border-t border-slate-100 pt-6 flex flex-col gap-4">
                     <button
                       onClick={handleSeedDatabase}
                       disabled={seedingLoading}
-                      className="neon-btn w-fit inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-brand-purple to-brand-blue px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white disabled:opacity-50 transition-all hover:scale-[1.02] cursor-pointer"
+                      className="w-fit inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 px-5 py-2.5 text-xs font-semibold text-white transition-colors disabled:opacity-50 cursor-pointer"
                     >
                       {seedingLoading ? (
                         <>
                           <Loader2 className="h-4 w-4 animate-spin" />
-                          Seeding...
+                          Seeding Database...
                         </>
                       ) : (
                         <>
@@ -2025,18 +2036,18 @@ export default function AdminDashboardPage() {
                     </button>
 
                     {seedingMessage && (
-                      <div className={`rounded-lg border p-3.5 text-[11px] font-mono leading-relaxed transition-all ${
+                      <div className={`rounded-xl border p-3.5 text-xs leading-relaxed transition-all ${
                         seedingMessage.toLowerCase().includes("error") || seedingMessage.toLowerCase().includes("failed")
-                          ? "border-red-500/15 bg-red-500/5 text-red-400"
+                          ? "border-red-200 bg-red-50 text-red-700"
                           : seedingMessage.toLowerCase().includes("success")
-                          ? "border-green-500/15 bg-green-500/5 text-green-400"
-                          : "border-white/5 bg-white/[0.01] text-white/50"
+                          ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                          : "border-slate-200 bg-slate-50 text-slate-600"
                       }`}>
                         {seedingMessage}
                       </div>
                     )}
                   </div>
-                </GlowingCard>
+                </div>
               </div>
             )}
           </div>

@@ -1,56 +1,98 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-black: #030303;
-  --color-bg-dark: #080710;
-  --color-brand-purple: #8B5CF6;
-  --color-brand-cyan: #06B6D4;
-  --color-brand-blue: #3B82F6;
-  --color-brand-violet: #6D28D9;
-  
+  --font-sans: var(--font-poppins), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-poppins: var(--font-poppins), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --color-bg-black: #ffffff;
+  --color-bg-dark: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8fafc;
+  --color-surface-card: #ffffff;
+
+  --color-brand-blue: #2563eb;
+  --color-brand-indigo: #4f46e5;
+  --color-brand-purple: #4f46e5;
+  --color-brand-cyan: #0284c7;
+  --color-brand-violet: #4338ca;
+  --color-brand-emerald: #059669;
+
   --animate-float: float 6s ease-in-out infinite;
   --animate-float-delayed: float-delayed 8s ease-in-out infinite;
   --animate-pulse-slow: pulse-slow 8s ease-in-out infinite;
-  --animate-spin-slow: spin-slow 20s linear infinite;
-  --animate-grid-flow: grid-flow 20s linear infinite;
   --animate-fadeIn: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-15px) rotate(2deg); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 @keyframes float-delayed {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(-2deg); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes pulse-slow {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.05); }
-}
 
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+  0%,
+  100% {
+    opacity: 0.4;
+  }
 
-@keyframes grid-flow {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(40px); }
+  50% {
+    opacity: 0.8;
+  }
 }
 
 :root {
-  --background: #030303;
-  --foreground: #f5f5f7;
-  --accent-purple: 139, 92, 246;
-  --accent-cyan: 6, 182, 212;
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --muted-foreground: #64748b;
+  --accent-purple: 79, 70, 229;
+  --accent-cyan: 2, 132, 199;
+}
+
+/* ========================================================
+   COMPLETE REMOVAL OF SHADOWS (FLAT MINIMALIST AESTHETIC)
+   ======================================================== */
+*,
+*::before,
+*::after,
+[class*="shadow"] {
+  box-shadow: none !important;
+  --tw-shadow: 0 0 #0000 !important;
+  --tw-shadow-colored: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
 }
 
 * {
@@ -58,97 +100,107 @@
   scroll-behavior: smooth;
 }
 
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
-  overflow-x: hidden;
-  min-height: 100vh;
+html {
+  font-family: var(--font-poppins), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
 }
 
-/* Custom Scrollbar */
+body {
+  background-color: #ffffff;
+  color: #0f172a;
+  font-family: var(--font-poppins), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global text wrapping safeguard for mobile */
+p, h1, h2, h3, h4, span, div {
+  overflow-wrap: break-word;
+}
+
+/* Custom Clean Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #030303;
+  background: #f8fafc;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.25);
+  background: #cbd5e1;
   border-radius: 999px;
-  border: 2px solid #030303;
+  border: 2px solid #f8fafc;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.5);
+  background: #94a3b8;
 }
 
-/* Glassmorphism Styles */
+/* Modern Card & Glassmorphism Styles (Light / Flat White Theme) */
 .glass-panel {
-  background: rgba(10, 10, 18, 0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #e2e8f0;
+  box-shadow: none !important;
 }
 
 .glass-panel-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-panel-hover:hover {
-  background: rgba(15, 15, 30, 0.7);
-  border-color: rgba(139, 92, 246, 0.3);
-  box-shadow: 0 10px 40px -10px rgba(139, 92, 246, 0.2);
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: none !important;
+  transform: translateY(-2px);
 }
 
-/* Glowing Elements */
+/* Subtle typography helpers */
 .glow-text-purple {
-  text-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+  color: #4f46e5;
 }
 
 .glow-text-cyan {
-  text-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+  color: #0284c7;
 }
 
+/* Premium Primary Button (Smooth Flat Professional Finish) */
 .neon-btn {
   position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: none !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.neon-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: 0.5s;
+.neon-btn:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #4338ca 100%);
+  box-shadow: none !important;
+  transform: translateY(-1.5px);
 }
 
-.neon-btn:hover::before {
-  left: 100%;
-}
-
-/* Animated Grid Background */
+/* Architectural Clean Grid Background */
 .animated-grid-bg {
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+  background-size: 36px 36px;
   background-position: center;
 }
 
-/* Glow Borders for interactive cards */
+/* Dot Pattern Overlay */
+.subtle-dot-bg {
+  background-image: radial-gradient(rgba(148, 163, 184, 0.25) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Subtle card borders */
 .glowing-border {
   position: relative;
 }
@@ -157,21 +209,20 @@ body {
   content: '';
   position: absolute;
   inset: -1px;
-  background: linear-gradient(90deg, #8B5CF6, #06B6D4);
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
   border-radius: inherit;
   z-index: -1;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
 }
 
 .glowing-border:hover::after {
-  opacity: 1;
+  opacity: 0.6;
 }
 
-/* Responsive utilities */
 @media (max-width: 640px) {
   .animated-grid-bg {
-    background-size: 30px 30px;
+    background-size: 24px 24px;
   }
 }
 
@@ -179,7 +230,7 @@ body {
    PRINT STYLES (PDF GENERATION)
    ========================================== */
 @media print {
-  /* Hide interactive, non-print items */
+
   header,
   footer,
   .no-print,
@@ -189,15 +240,14 @@ body {
     display: none !important;
   }
 
-  /* Reset layout margins for browser printing */
-  html, body {
+  html,
+  body {
     margin: 0 !important;
     padding: 0 !important;
-    background: #030303 !important;
-    color: #ffffff !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-    color-adjust: exact !important;
   }
 
   main {
@@ -205,31 +255,140 @@ body {
     margin-top: 0 !important;
   }
 
-  /* Target exact A4 sizes for page chunks */
   .print-page {
     page-break-inside: avoid !important;
     page-break-after: always !important;
     break-after: page !important;
     width: 210mm !important;
-    height: 296mm !important; /* Slight buffer to avoid accidental blank pages */
+    height: 296mm !important;
     margin: 0 !important;
     padding: 20mm !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
     position: relative !important;
-    background-color: #030303 !important;
-    color: #ffffff !important;
-  }
-
-  /* Light mode/Ink-saver override when applied */
-  body.ink-saver,
-  body.ink-saver .print-page {
-    background: #ffffff !important;
-    color: #030303 !important;
-  }
-
-  body.ink-saver .print-page {
-    border: 1px solid #e5e7eb !important;
+    background-color: #ffffff !important;
+    color: #0f172a !important;
   }
 }
 
+.case-study-white-canvas,
+.profile-white-canvas,
+.admin-white-canvas {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* Headings */
+.case-study-white-canvas h1,
+.case-study-white-canvas h2,
+.case-study-white-canvas h3,
+.case-study-white-canvas h4,
+.profile-white-canvas h1,
+.profile-white-canvas h2,
+.profile-white-canvas h3,
+.profile-white-canvas h4 {
+  color: #0f172a !important;
+}
+
+/* Paragraphs & Text */
+.case-study-white-canvas p,
+.profile-white-canvas p {
+  color: #334155;
+}
+
+/* Map generic text-white on light canvases to dark slate */
+.case-study-white-canvas .text-white,
+.profile-white-canvas .text-white {
+  color: #0f172a;
+}
+
+.case-study-white-canvas .text-white\/90,
+.case-study-white-canvas .text-white\/80,
+.case-study-white-canvas .text-white\/70,
+.case-study-white-canvas .text-white\/60,
+.profile-white-canvas .text-white\/90,
+.profile-white-canvas .text-white\/80,
+.profile-white-canvas .text-white\/70,
+.profile-white-canvas .text-white\/60 {
+  color: #475569 !important;
+}
+
+.case-study-white-canvas .text-white\/50,
+.case-study-white-canvas .text-white\/40,
+.case-study-white-canvas .text-white\/30,
+.profile-white-canvas .text-white\/50,
+.profile-white-canvas .text-white\/40,
+.profile-white-canvas .text-white\/30 {
+  color: #64748b !important;
+}
+
+/* Keep white text on primary buttons, badges, and dark chips */
+.case-study-white-canvas .neon-btn,
+.profile-white-canvas .neon-btn,
+.case-study-white-canvas button[class*="bg-gradient"],
+.profile-white-canvas button[class*="bg-gradient"],
+.case-study-white-canvas a[class*="bg-gradient"],
+.profile-white-canvas a[class*="bg-gradient"],
+.case-study-white-canvas .bg-blue-600,
+.profile-white-canvas .bg-blue-600,
+.case-study-white-canvas .bg-slate-900,
+.profile-white-canvas .bg-slate-900,
+.case-study-white-canvas .bg-black,
+.profile-white-canvas .bg-black {
+  color: #ffffff !important;
+}
+
+.case-study-white-canvas .neon-btn *,
+.profile-white-canvas .neon-btn *,
+.case-study-white-canvas button[class*="bg-gradient"] *,
+.profile-white-canvas button[class*="bg-gradient"] * {
+  color: #ffffff !important;
+}
+
+/* Map dark card borders and backgrounds to pristine white cards */
+.case-study-white-canvas div[class*="border-white"],
+.profile-white-canvas div[class*="border-white"],
+.case-study-white-canvas section[class*="border-white"],
+.profile-white-canvas section[class*="border-white"] {
+  border-color: #e2e8f0 !important;
+  background-color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.case-study-white-canvas [class*="bg-white\/[0.01]"],
+.case-study-white-canvas [class*="bg-white\/[0.02]"],
+.case-study-white-canvas [class*="bg-white\/5"],
+.profile-white-canvas [class*="bg-white\/[0.01]"],
+.profile-white-canvas [class*="bg-white\/[0.02]"],
+.profile-white-canvas [class*="bg-white\/5"] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Subtle accent panels (like callouts or guarantee boxes) */
+.case-study-white-canvas [class*="bg-brand-purple\/5"],
+.case-study-white-canvas [class*="bg-brand-cyan\/5"],
+.profile-white-canvas [class*="bg-brand-purple\/5"],
+.profile-white-canvas [class*="bg-brand-cyan\/5"] {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Code blocks inside case studies & profile: preserve crisp dark code console */
+.case-study-white-canvas pre,
+.profile-white-canvas pre {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #e2e8f0 !important;
+}
+
+.case-study-white-canvas pre *,
+.profile-white-canvas pre * {
+  color: #e2e8f0 !important;
+}
+
+/* Case study image preview background */
+.case-study-white-canvas .group\/zoom,
+.case-study-white-canvas .group\/img {
+  background-color: #f8fafc !important;
+}

@@ -1,33 +1,27 @@
 "use client";
 
-import FloatingCode from "@/components/ui/floating-code";
+import DynamicIcon from "@/components/dynamic-icon";
 import GlowingCard from "@/components/ui/glowing-card";
-import ParticleBackground from "@/components/ui/particle-background";
 import { getGlobals, getProjects, getServices, getTestimonials, Globals, Project, Service, Testimonial } from "@/lib/firebase";
 import { MOCK_GLOBALS, MOCK_SERVICES } from "@/lib/seedData";
-import * as Lucide from "lucide-react";
 import {
+  Activity,
   ArrowRight,
   ArrowUpRight,
-  Cpu
+  Sparkles
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const DynamicIcon = ({ name, className }: { name: string; className?: string }) => {
-  const IconComponent = (Lucide as any)[name];
-  if (!IconComponent) return <Lucide.HelpCircle className={className} />;
-  return <IconComponent className={className} />;
-};
-
 export default function HomePage() {
-  const [activeTab, setActiveTab] = useState<"frontend" | "backend" | "ai" | "cloud">("ai");
+  const [activeTab, setActiveTab] = useState<"ai" | "frontend" | "backend" | "cloud">("ai");
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [projects, setProjects] = useState<Project[]>([]);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [services, setServices] = useState<Service[]>([]);
   const [globals, setGlobals] = useState<Globals | null>(null);
   const [loading, setLoading] = useState(true);
+  const [architectureTab, setArchitectureTab] = useState<"agents" | "fullstack">("agents");
 
   useEffect(() => {
     async function loadData() {
@@ -54,87 +48,275 @@ export default function HomePage() {
   const activeServices = services.length > 0 ? services : MOCK_SERVICES;
   const activeGlobals = globals || MOCK_GLOBALS;
 
-  const heroBadge = activeGlobals.hero?.badge || "Empowering Enterprise Workflows";
-  const heroTitle = activeGlobals.hero?.title || "Building Intelligent Software & AI Systems";
-  const heroSubtitle = activeGlobals.hero?.subtitle || "We engineer high-performance multi-agent cognitive platforms, deterministic RAG document systems, robust full stack SaaS, and premium mobile applications.";
+  const heroBadgeRaw = activeGlobals.hero?.badge || "Custom Software & AI Engineering Agency";
+  const heroBadge = heroBadgeRaw.replace(/•\s*India\s*&\s*Global/i, "").trim() || "Custom Software & AI Engineering Agency";
+  const heroTitle = activeGlobals.hero?.title || "We Build Web, Mobile & AI Apps That Grow Your Business";
+  const heroSubtitle = activeGlobals.hero?.subtitle || "Got a software idea or a manual workflow slowing your business down? We design, engineer, and deploy high-converting web platforms, mobile apps, and 24/7 AI chatbots tailored to your exact business goals. Fast delivery, clean code, zero technical stress.";
 
-  const trustMetrics = activeGlobals.trustMetrics || [];
+  const trustMetrics = (activeGlobals.trustMetrics && activeGlobals.trustMetrics.length > 0)
+    ? activeGlobals.trustMetrics
+    : [
+      { value: "15+ Apps", label: "Shipped Successfully" },
+      { value: "100%", label: "On-Time Milestone Delivery" },
+      { value: "< 1s", label: "Sub-Second App Speed" },
+      { value: "Direct", label: "Work Directly With Founders" },
+      { value: "100%", label: "Source Code & IP Ownership" }
+    ];
+
   const specializations = activeGlobals.specializations || [];
   const techStack = activeGlobals.techStack || { frontend: [], backend: [], ai: [], cloud: [] };
   const processFlow = activeGlobals.processFlow || [];
 
-  const trustMetricsList = trustMetrics.length > 0 ? trustMetrics : [
-    { value: "2+", label: "Years Professional Experience" },
-    { value: "99.8%", label: "System Uptime Delivered" },
-    { value: "100%", label: "Production-Grade AI Architecture" },
-    { value: "12x", label: "Workflow Latency Reductions" },
-    { value: "India", label: "Sole Proprietorship Certified" }
-  ];
-
   return (
-    <div className="relative overflow-hidden w-full">
+    <div className="relative overflow-hidden w-full bg-white text-slate-900">
       {/* 1. HERO SECTION */}
-      <section className="relative flex min-h-[90vh] flex-col items-center justify-center px-4 py-20 text-center overflow-hidden border-b border-white/5">
-        {/* Futuristic animated particle backdrop */}
-        <ParticleBackground />
+      <section className="relative flex min-h-[85vh] flex-col items-center justify-center px-3.5 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-16 sm:pb-24 text-center overflow-hidden border-b border-slate-200/80 bg-gradient-to-b from-slate-50/80 via-white to-white">
+        {/* Subtle geometric dot background */}
+        <div className="absolute inset-0 subtle-dot-bg opacity-60 pointer-events-none" />
 
-        {/* Floating gradient glow elements */}
-        <div className="pointer-events-none absolute -top-40 left-1/4 h-[400px] w-[400px] rounded-full bg-brand-purple/10 blur-[100px] animate-pulse-slow" />
-        <div className="pointer-events-none absolute top-40 right-1/4 h-[350px] w-[350px] rounded-full bg-brand-cyan/10 blur-[120px] animate-pulse-slow" />
+        {/* Ambient soft glow tints */}
+        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-[350px] sm:h-[450px] w-[500px] sm:w-[800px] rounded-full bg-blue-100/40 blur-[130px]" />
+        <div className="pointer-events-none absolute top-40 right-10 h-[250px] sm:h-[300px] w-[300px] sm:w-[400px] rounded-full bg-indigo-100/35 blur-[120px]" />
 
-        {/* Floating Code Snippets for Premium Agency Visual Vibe */}
-        <FloatingCode language="python" className="top-24 left-10 rotate-[-4deg]" delay={0.5} />
-        <FloatingCode language="typescript" className="bottom-24 left-16 rotate-[3deg]" delay={2.5} />
-        <FloatingCode language="rust" className="top-36 right-12 rotate-[6deg]" delay={1.5} />
-
-        <div className="relative z-10 mx-auto max-w-4xl px-4">
-          {/* Top Badge */}
-          <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-brand-purple/30 bg-brand-purple/10 px-4 py-1.5 text-xs font-semibold tracking-wider uppercase text-brand-cyan glow-text-cyan">
-            <Cpu className="h-3.5 w-3.5 animate-spin-slow" />
-            {heroBadge}
+        <div className="relative z-10 mx-auto max-w-4xl w-full">
+          {/* Top Pill Badge */}
+          <div className="mx-auto mb-4 sm:mb-5 inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-blue-50/80 px-4 py-1.5 text-xs font-semibold text-blue-700 max-w-full text-center">
+            <Sparkles className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+            <span className="whitespace-nowrap">{heroBadge}</span>
           </div>
 
-          {/* Large Title */}
+          {/* Clean, Human Headline with identical font size to services page */}
           <h1
-            className="text-4xl font-extrabold tracking-tight text-white sm:text-6xl md:text-7xl leading-none"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15] max-w-3xl mx-auto break-words"
             dangerouslySetInnerHTML={{ __html: heroTitle }}
           />
 
-          {/* Subtitle */}
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/60 sm:text-lg">
+          {/* Reassuring Subtitle */}
+          <p className="mt-4 text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
             {heroSubtitle}
           </p>
 
-          {/* CTAs */}
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          {/* Action CTAs */}
+          <div className="mt-7 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto">
             <Link
               href="/contact"
-              className="neon-btn w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-5 py-3 sm:px-8 sm:py-4 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 px-6 sm:px-7 py-3 sm:py-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white whitespace-nowrap shrink-0 transition-colors"
             >
-              Book a Consultation
-              <ArrowRight className="h-4 w-4" />
+              <span className="whitespace-nowrap">Book a Free Scoping Call</span>
+              <ArrowRight className="h-4 w-4 shrink-0" />
             </Link>
             <Link
               href="/projects"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-5 py-3 sm:px-8 sm:py-4 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white hover:bg-white/10 hover:border-white/20 transition-all hover:scale-105"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 sm:px-7 py-3 sm:py-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:border-slate-300 whitespace-nowrap shrink-0 transition-colors"
             >
-              View Projects
-              <ArrowUpRight className="h-4 w-4" />
+              <span className="whitespace-nowrap">View Our Work</span>
+              <ArrowUpRight className="h-4 w-4 shrink-0" />
             </Link>
+          </div>
+
+          {/* Live Product Console Preview (100% Mobile Responsive) */}
+          <div className="mt-10 sm:mt-14 w-full text-left rounded-2xl border border-slate-200/90 bg-white p-3.5 sm:p-6 backdrop-blur-md">
+            {/* Window Chrome Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3.5 sm:pb-4 border-b border-slate-100 gap-3">
+              {/* Dots + Title */}
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <span className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-rose-400" />
+                  <span className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-amber-400" />
+                  <span className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-emerald-400" />
+                </div>
+                <span className="ml-1 text-[11px] sm:text-xs font-semibold text-slate-700 truncate">
+                  How It Works <span className="text-slate-400 font-normal sm:inline hidden">•</span> <span className="text-slate-500 font-normal sm:inline hidden">Live Process Flow</span>
+                </span>
+              </div>
+
+              {/* Segmented Switcher (Full width on mobile, auto on desktop) */}
+              <div className="grid grid-cols-2 w-full sm:w-auto p-1 rounded-xl bg-slate-100/90 border border-slate-200/70 gap-1 shrink-0">
+                <button
+                  onClick={() => setArchitectureTab("agents")}
+                  className={`rounded-lg px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold transition-all text-center cursor-pointer ${architectureTab === "agents"
+                    ? "bg-white text-blue-700 font-bold"
+                    : "text-slate-600 hover:text-slate-900"
+                    }`}
+                >
+                  Agentic AI & RAG Pipeline
+                </button>
+                <button
+                  onClick={() => setArchitectureTab("fullstack")}
+                  className={`rounded-lg px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold transition-all text-center cursor-pointer ${architectureTab === "fullstack"
+                    ? "bg-white text-blue-700 font-bold"
+                    : "text-slate-600 hover:text-slate-900"
+                    }`}
+                >
+                  Full-Stack Architecture
+                </button>
+              </div>
+            </div>
+
+            {/* Step Sequence Grid (Mobile: 1-col, Tablet: 2-col, Desktop: 4-col) */}
+            {architectureTab === "agents" ? (
+              <div className="pt-4 sm:pt-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
+                  <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 sm:p-3.5 transition-all">
+                    <div className="flex items-center justify-between text-xs font-medium text-slate-500 mb-1.5 sm:mb-2">
+                      <span className="font-semibold text-blue-600 text-[10px] sm:text-xs uppercase tracking-wider">Step 01</span>
+                      <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+                    </div>
+                    <div className="text-xs sm:text-sm font-bold text-slate-800 tracking-tight">Objective Ingestion</div>
+                    <p className="text-[11px] sm:text-xs text-slate-600 mt-1 leading-normal break-words">
+                      Agent receives complex objective, user prompt, or workflow trigger
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-blue-200 bg-blue-50/60 p-3 sm:p-3.5 transition-all">
+                    <div className="flex items-center justify-between text-xs font-medium text-blue-600 mb-1.5 sm:mb-2">
+                      <span className="font-semibold text-blue-700 text-[10px] sm:text-xs uppercase tracking-wider">Step 02</span>
+                      <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse shrink-0" />
+                    </div>
+                    <div className="text-xs sm:text-sm font-bold text-blue-900 tracking-tight">RAG Context Search</div>
+                    <p className="text-[11px] sm:text-xs text-blue-700/80 mt-1 leading-normal break-words">
+                      Retrieves grounded context from vector database with source citations
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-indigo-200 bg-indigo-50/60 p-3 sm:p-3.5 transition-all">
+                    <div className="flex items-center justify-between text-xs font-medium text-indigo-600 mb-1.5 sm:mb-2">
+                      <span className="font-semibold text-indigo-700 text-[10px] sm:text-xs uppercase tracking-wider">Step 03</span>
+                      <span className="h-2 w-2 rounded-full bg-indigo-600 shrink-0" />
+                    </div>
+                    <div className="text-xs sm:text-sm font-bold text-indigo-900 tracking-tight">Agentic Reasoning</div>
+                    <p className="text-[11px] sm:text-xs text-indigo-700/80 mt-1 leading-normal break-words">
+                      Coordinates tools, fine-tuned models, and executes multi-step logic
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 sm:p-3.5 transition-all">
+                    <div className="flex items-center justify-between text-xs font-medium text-slate-500 mb-1.5 sm:mb-2">
+                      <span className="font-semibold text-emerald-600 text-[10px] sm:text-xs uppercase tracking-wider">Step 04</span>
+                      <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+                    </div>
+                    <div className="text-xs sm:text-sm font-bold text-slate-800 tracking-tight">Verified Execution</div>
+                    <p className="text-[11px] sm:text-xs text-slate-600 mt-1 leading-normal break-words">
+                      Delivers audited, hallucination-free output to your platform
+                    </p>
+                  </div>
+                </div>
+
+                {/* Telemetry Grid (Clean 2x2 grid on mobile, 4-col on desktop) */}
+                <div className="mt-3.5 sm:mt-4 pt-3 sm:pt-3.5 border-t border-slate-100 grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 text-xs text-slate-600">
+                  <div className="rounded-lg bg-slate-50 border border-slate-100 p-2 sm:p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 flex items-center gap-1">
+                      <Activity className="h-3 w-3 text-emerald-600 shrink-0" />
+                      Execution
+                    </span>
+                    <strong className="text-slate-800 text-[11px] sm:text-xs">Autonomous</strong>
+                  </div>
+
+                  <div className="rounded-lg bg-slate-50 border border-slate-100 p-2 sm:p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">RAG Accuracy</span>
+                    <strong className="text-slate-800 text-[11px] sm:text-xs">100% Grounded</strong>
+                  </div>
+
+                  <div className="rounded-lg bg-slate-50 border border-slate-100 p-2 sm:p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Models</span>
+                    <strong className="text-emerald-700 text-[11px] sm:text-xs">Fine-Tuned / LLMs</strong>
+                  </div>
+
+                  <div className="rounded-lg bg-slate-50 border border-slate-100 p-2 sm:p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Deployment</span>
+                    <strong className="text-blue-700 text-[11px] sm:text-xs truncate">Private Cloud & API</strong>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="pt-4 sm:pt-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
+                  <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 sm:p-3.5 transition-all">
+                    <div className="flex items-center justify-between text-xs font-medium text-slate-500 mb-1.5 sm:mb-2">
+                      <span className="font-semibold text-blue-600 text-[10px] sm:text-xs uppercase tracking-wider">Layer 01</span>
+                      <span className="h-2 w-2 rounded-full bg-blue-500 shrink-0" />
+                    </div>
+                    <div className="text-xs sm:text-sm font-bold text-slate-800 tracking-tight">Fast UI Design</div>
+                    <p className="text-[11px] sm:text-xs text-slate-600 mt-1 leading-normal break-words">
+                      Modern, responsive screens built with Next.js & React
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 sm:p-3.5 transition-all">
+                    <div className="flex items-center justify-between text-xs font-medium text-slate-500 mb-1.5 sm:mb-2">
+                      <span className="font-semibold text-emerald-600 text-[10px] sm:text-xs uppercase tracking-wider">Layer 02</span>
+                      <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+                    </div>
+                    <div className="text-xs sm:text-sm font-bold text-slate-800 tracking-tight">Secure Backend</div>
+                    <p className="text-[11px] sm:text-xs text-slate-600 mt-1 leading-normal break-words">
+                      Handles logins, notifications & transactions
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 sm:p-3.5 transition-all">
+                    <div className="flex items-center justify-between text-xs font-medium text-slate-500 mb-1.5 sm:mb-2">
+                      <span className="font-semibold text-indigo-600 text-[10px] sm:text-xs uppercase tracking-wider">Layer 03</span>
+                      <span className="h-2 w-2 rounded-full bg-indigo-500 shrink-0" />
+                    </div>
+                    <div className="text-xs sm:text-sm font-bold text-slate-800 tracking-tight">Safe Database</div>
+                    <p className="text-[11px] sm:text-xs text-slate-600 mt-1 leading-normal break-words">
+                      PostgreSQL & Firebase with daily cloud backups
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 sm:p-3.5 transition-all">
+                    <div className="flex items-center justify-between text-xs font-medium text-slate-500 mb-1.5 sm:mb-2">
+                      <span className="font-semibold text-amber-600 text-[10px] sm:text-xs uppercase tracking-wider">Layer 04</span>
+                      <span className="h-2 w-2 rounded-full bg-amber-500 shrink-0" />
+                    </div>
+                    <div className="text-xs sm:text-sm font-bold text-slate-800 tracking-tight">Cloud Hosting</div>
+                    <p className="text-[11px] sm:text-xs text-slate-600 mt-1 leading-normal break-words">
+                      Deployed on AWS & Vercel for 99.9% uptime
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-3.5 sm:mt-4 pt-3 sm:pt-3.5 border-t border-slate-100 grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 text-xs text-slate-600">
+                  <div className="rounded-lg bg-slate-50 border border-slate-100 p-2 sm:p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Uptime</span>
+                    <strong className="text-slate-800 text-[11px] sm:text-xs">99.9% Guaranteed</strong>
+                  </div>
+
+                  <div className="rounded-lg bg-slate-50 border border-slate-100 p-2 sm:p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Payments</span>
+                    <strong className="text-slate-800 text-[11px] sm:text-xs">UPI & Cards</strong>
+                  </div>
+
+                  <div className="rounded-lg bg-slate-50 border border-slate-100 p-2 sm:p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Backups</span>
+                    <strong className="text-slate-800 text-[11px] sm:text-xs">Daily Cloud</strong>
+                  </div>
+
+                  <div className="rounded-lg bg-slate-50 border border-slate-100 p-2 sm:p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Performance</span>
+                    <strong className="text-blue-700 text-[11px] sm:text-xs">Sub-second</strong>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* 2. TRUST SECTION */}
-      <section className="relative border-b border-white/5 bg-bg-black/50 py-12">
+      {/* 2. TRUST SECTION (Balanced on Mobile) */}
+      <section className="relative border-b border-slate-200/80 bg-slate-50/60 py-10 sm:py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-5 text-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 text-center">
             {trustMetrics.map((metric, idx) => (
-              <div key={idx} className="flex flex-col items-center">
-                <span className="text-3xl font-extrabold bg-gradient-to-r from-brand-purple to-brand-cyan bg-clip-text text-transparent glow-text-purple sm:text-4xl">
+              <div
+                key={idx}
+                className={`flex flex-col items-center justify-center ${idx === trustMetrics.length - 1 ? "col-span-2 sm:col-span-1 lg:col-span-1" : ""
+                  }`}
+              >
+                <span className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
                   {metric.value}
                 </span>
-                <span className="mt-2 text-xs font-medium uppercase tracking-wider text-white/40">
+                <span className="mt-1 sm:mt-1.5 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500 max-w-[140px] leading-tight">
                   {metric.label}
                 </span>
               </div>
@@ -144,39 +326,36 @@ export default function HomePage() {
       </section>
 
       {/* 3. SERVICES SECTION */}
-      <section className="relative py-20 md:py-28 px-4">
-        {/* Subtle grid lines background overlay */}
-        <div className="absolute inset-0 -z-10 animated-grid-bg opacity-30" />
-
+      <section className="relative py-16 sm:py-20 md:py-28 px-4 bg-white">
         <div className="mx-auto max-w-7xl relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-brand-purple">
-              Expertise & Engineering
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600">
+              Core Capabilities
+            </span>
+            <h2 className="mt-2.5 sm:mt-3 text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+              Engineering Services Built to Scale
             </h2>
-            <p className="mt-3 text-3xl font-extrabold text-white sm:text-4xl md:text-5xl">
-              Next-Gen Cognitive Services
-            </p>
-            <p className="mt-4 text-sm text-white/50 leading-relaxed">
-              We design modular architectures with deep algorithmic safety. Every product we ship is performance audited for low-latency scale.
+            <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-600 leading-relaxed">
+              We specialize across 4 core engineering disciplines: Web Development, Mobile App Development, comprehensive AI Development, and robust Backend Infrastructure.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {activeServices.slice(0, 8).map((service, idx) => (
-              <GlowingCard key={service.id || idx} className="p-6 flex flex-col justify-between h-[280px]">
+              <GlowingCard key={service.id || idx} className="p-5 sm:p-6 flex flex-col justify-between min-h-[280px] sm:min-h-[300px]">
                 <div>
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white/5 border border-white/10 mb-5">
-                    <DynamicIcon name={service.iconName} className="h-6 w-6 text-brand-purple" />
+                  <div className="flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 border border-blue-100/80 mb-4 sm:mb-5">
+                    <DynamicIcon name={service.iconName} className="h-5 w-5 sm:h-6 sm:w-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-white tracking-tight">{service.title}</h3>
-                  <p className="mt-2 text-xs leading-relaxed text-white/50">{service.description}</p>
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">{service.title}</h3>
+                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600 line-clamp-4">{service.description}</p>
                 </div>
                 <Link
-                  href="/services"
-                  className="group mt-4 inline-flex items-center gap-1 text-xs font-semibold text-brand-cyan transition-colors hover:text-brand-purple"
+                  href={`/services#${service.id}`}
+                  className="group mt-5 sm:mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 transition-colors hover:text-blue-800"
                 >
                   Learn More
-                  <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </GlowingCard>
             ))}
@@ -184,68 +363,97 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. AI SPECIALIZATION SECTION */}
-      <section className="relative py-20 border-t border-b border-white/5 bg-bg-black/85">
+      {/* 4. AI ARCHITECTURE BREAKDOWN (Mobile Safe Simulation) */}
+      <section className="relative py-16 sm:py-20 border-t border-b border-slate-200/80 bg-slate-50/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 items-center">
-            {/* Visual AI Pipelines Block */}
-            <div className="relative rounded-2xl border border-white/5 bg-white/[0.01] p-6 backdrop-blur-md overflow-hidden sm:p-8">
-              <div className="absolute top-0 right-0 h-[250px] w-[250px] rounded-full bg-brand-cyan/5 blur-[80px]" />
-
-              <div className="mb-6 flex items-center justify-between border-b border-white/5 pb-4">
-                <span className="text-xs font-mono text-white/40">// LangGraph Cognitive Swarm</span>
-                <span className="rounded bg-brand-purple/20 px-2 py-0.5 text-[10px] font-mono text-brand-cyan glow-text-cyan">Stateful Sync</span>
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 items-center">
+            {/* Visual Node Graph Simulation (Mobile-friendly, no overflowing margins) */}
+            <div className="relative rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 lg:p-8 overflow-hidden">
+              <div className="mb-4 sm:mb-6 flex items-center justify-between border-b border-slate-100 pb-3 sm:pb-4 gap-2">
+                <span className="text-[11px] sm:text-xs text-slate-600 font-semibold truncate">// Production Agentic & RAG Pipeline</span>
+                <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2 sm:px-2.5 py-0.5 text-[10px] sm:text-[11px] text-emerald-700 font-medium shrink-0">
+                  Ready & Active
+                </span>
               </div>
 
-              {/* High Fidelity Node Graph Simulation */}
-              <div className="space-y-4 font-mono text-xs text-white/60">
-                <div className="flex items-center justify-between rounded-lg bg-white/5 border border-white/10 p-3">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-green-400 animate-ping" />
-                    <span>[Node: Query Intake]</span>
+              {/* Node Sequence List */}
+              <div className="space-y-2.5 sm:space-y-3 text-xs">
+                <div className="flex items-center justify-between rounded-xl bg-slate-50 border border-slate-200 p-3 sm:p-3.5 gap-2">
+                  <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+                    <span className="text-slate-800 font-semibold text-[11px] sm:text-xs truncate sm:whitespace-normal">
+                      [01. Task Ingestion & Goal Planning]
+                    </span>
                   </div>
-                  <span className="text-green-400">SUCCESS</span>
+                  <span className="text-emerald-700 font-bold text-[10px] sm:text-[11px] shrink-0 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    PLAN
+                  </span>
                 </div>
 
-                <div className="ml-4 flex items-center justify-between rounded-lg bg-brand-purple/10 border border-brand-purple/20 p-3">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-brand-cyan" />
-                    <span>[Node: Supervisor Router]</span>
+                <div className="sm:ml-4 flex items-center justify-between rounded-xl bg-blue-50/80 border border-blue-200 p-3 sm:p-3.5 gap-2">
+                  <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                    <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse shrink-0" />
+                    <span className="text-blue-900 font-semibold text-[11px] sm:text-xs truncate sm:whitespace-normal">
+                      [02. Deterministic RAG Document Search]
+                    </span>
                   </div>
-                  <span className="text-brand-cyan">EVALUATING</span>
+                  <span className="text-blue-700 font-bold text-[10px] sm:text-[11px] shrink-0 bg-blue-100/70 px-2 py-0.5 rounded border border-blue-200">
+                    RETRIEVAL
+                  </span>
                 </div>
 
-                <div className="ml-8 flex items-center justify-between rounded-lg bg-white/5 border border-white/10 p-3 opacity-50">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-white/30" />
-                    <span>[Node: RAG Query Agent]</span>
+                <div className="sm:ml-8 flex items-center justify-between rounded-xl bg-indigo-50/80 border border-indigo-200 p-3 sm:p-3.5 gap-2">
+                  <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                    <span className="h-2 w-2 rounded-full bg-indigo-600 shrink-0" />
+                    <span className="text-indigo-900 font-semibold text-[11px] sm:text-xs truncate sm:whitespace-normal">
+                      [03. Agentic Reasoning & Tool Calling]
+                    </span>
                   </div>
-                  <span>PENDING</span>
+                  <span className="text-indigo-700 font-bold text-[10px] sm:text-[11px] shrink-0 bg-indigo-100/70 px-2 py-0.5 rounded border border-indigo-200">
+                    EXECUTION
+                  </span>
                 </div>
+
+                <div className="sm:ml-12 flex items-center justify-between rounded-xl bg-slate-50 border border-slate-200 p-3 sm:p-3.5 gap-2">
+                  <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+                    <span className="text-slate-800 font-semibold text-[11px] sm:text-xs truncate sm:whitespace-normal">
+                      [04. Verified Response & Workflow Sync]
+                    </span>
+                  </div>
+                  <span className="text-emerald-700 font-bold text-[10px] sm:text-[11px] shrink-0 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    DELIVERY
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] sm:text-xs text-slate-500">
+                <span>RAG Accuracy: <strong className="text-slate-700">100% Grounded</strong></span>
+                <span>Privacy: <strong className="text-slate-700">100% Confidential</strong></span>
               </div>
             </div>
 
             {/* Specialization Text Info */}
             <div>
-              <h2 className="text-xs font-bold uppercase tracking-widest text-brand-cyan">
-                Cognitive Systems Architecture
+              <span className="text-xs font-bold uppercase tracking-widest text-blue-600">
+                AI Engineering
+              </span>
+              <h2 className="mt-2.5 sm:mt-3 text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                Production AI: Agentic Workflows, RAG & Fine-Tuning
               </h2>
-              <p className="mt-3 text-3xl font-extrabold text-white sm:text-4xl">
-                Multi-Agent Cognitive Pipelines
-              </p>
-              <p className="mt-4 text-sm text-white/50 leading-relaxed">
-                We design AI agents built on **LangChain** and **LangGraph** frameworks capable of recursive thinking. By orchestrating specific agent roles, we guarantee deterministic outcomes fit for financial auditing, resume screening, or patient intake.
+              <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-600 leading-relaxed">
+                We engineer full-lifecycle AI systems: autonomous multi-step Agentic AI workflows, deterministic RAG retrieval pipelines, custom model fine-tuning, automated business processes, and intelligent conversational assistants built with verifiable accuracy and strict enterprise privacy.
               </p>
 
-              <div className="mt-8 space-y-6">
+              <div className="mt-6 sm:mt-8 space-y-4 sm:space-y-5">
                 {specializations.map((spec, idx) => (
-                  <div key={idx} className="flex gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/5 border border-white/10">
-                      <DynamicIcon name={spec.iconName} className="h-5 w-5 text-brand-purple" />
+                  <div key={idx} className="flex gap-3.5 sm:gap-4 p-3 sm:p-3.5 rounded-xl border border-transparent hover:border-slate-200 hover:bg-white transition-all">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 border border-blue-100 text-blue-600">
+                      <DynamicIcon name={spec.iconName} className="h-5 w-5" />
                     </div>
                     <div>
-                      <h4 className="text-base font-bold text-white">{spec.title}</h4>
-                      <p className="mt-1 text-xs text-white/40 leading-relaxed">{spec.description}</p>
+                      <h4 className="text-sm sm:text-base font-bold text-slate-900">{spec.title}</h4>
+                      <p className="mt-1 text-xs sm:text-sm text-slate-600 leading-relaxed">{spec.description}</p>
                     </div>
                   </div>
                 ))}
@@ -256,83 +464,82 @@ export default function HomePage() {
       </section>
 
       {/* 5. FEATURED PROJECTS */}
-      <section className="relative py-20 px-4">
+      <section className="relative py-16 sm:py-20 px-4 bg-white">
         <div className="mx-auto max-w-7xl">
-          <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-10 sm:mb-12 gap-4">
             <div>
-              <h2 className="text-xs font-bold uppercase tracking-widest text-brand-purple">
-                Portfolio Show
+              <span className="text-xs font-bold uppercase tracking-widest text-blue-600">
+                Our Work
+              </span>
+              <h2 className="mt-2 text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                Real Projects We Have Built & Shipped
               </h2>
-              <p className="mt-2 text-3xl font-extrabold text-white sm:text-4xl">
-                Featured Engineering Cases
-              </p>
             </div>
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-white hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 sm:px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all self-start sm:self-auto"
             >
               All Projects
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
             {loading ? (
-              <div className="col-span-3 text-center py-10 text-xs font-mono text-white/40">
-                Retrieving dynamic project profiles...
+              <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center py-10 text-xs font-mono text-slate-400">
+                Loading projects...
               </div>
             ) : projects.length === 0 ? (
-              <div className="col-span-3 text-center py-10 text-xs text-white/40 italic">
-                No active project cases published currently.
+              <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center py-10 text-xs text-slate-400 italic">
+                No active projects published currently.
               </div>
             ) : (
               projects.slice(0, 3).map((project) => (
                 <GlowingCard key={project.id} className="flex flex-col justify-between overflow-hidden group">
-
                   <div>
-                    <div className="relative h-48 w-full overflow-hidden">
+                    <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-slate-100 border-b border-slate-100">
                       <img
                         src={project.image}
                         alt={project.title}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-bg-black to-transparent" />
                     </div>
 
-                    <div className="p-6">
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-brand-cyan">
+                    <div className="p-5 sm:p-6">
+                      <span className="inline-block rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-blue-700">
                         {project.category}
                       </span>
-                      <h3 className="mt-2 text-xl font-bold text-white tracking-tight group-hover:text-brand-purple transition-colors">
+                      <h3 className="mt-2.5 sm:mt-3 text-lg sm:text-xl font-bold text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors">
                         {project.title}
                       </h3>
-                      <p className="mt-2 text-xs leading-relaxed text-white/50 line-clamp-3">
+                      <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600 line-clamp-3">
                         {project.description}
                       </p>
 
                       {/* Performance metrics display */}
-                      <div className="mt-5 grid grid-cols-3 gap-2 border-t border-white/5 pt-4 text-center">
+                      <div className="mt-4 sm:mt-5 grid grid-cols-3 gap-2 border-t border-slate-100 pt-3.5 sm:pt-4 text-center">
                         {project.metrics.map((metric, idx) => (
                           <div key={idx}>
-                            <span className="block text-sm font-bold text-white">{metric.value}</span>
-                            <span className="block text-[8px] uppercase tracking-wider text-white/40">{metric.label}</span>
+                            <span className="block text-xs sm:text-sm font-bold text-slate-900">{metric.value}</span>
+                            <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-500 font-medium leading-tight mt-0.5">{metric.label}</span>
                           </div>
                         ))}
                       </div>
                     </div>
                   </div>
 
-                  <div className="border-t border-white/5 px-6 py-4 flex items-center justify-between">
-                    <div className="flex gap-1.5 flex-wrap max-w-[70%]">
+                  <div className="border-t border-slate-100 px-5 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between bg-slate-50/50">
+                    <div className="flex gap-1.5 flex-wrap max-w-[75%]">
                       {project.techStack.slice(0, 3).map((tech, idx) => (
-                        <span key={idx} className="rounded bg-white/5 border border-white/10 px-2 py-0.5 text-[9px] font-mono text-white/60">
+                        <span key={idx} className="rounded-md bg-white border border-slate-200 px-2 py-0.5 text-[10px] font-medium text-slate-700">
                           {tech}
                         </span>
                       ))}
                     </div>
                     <Link
                       href={`/projects#${project.id}`}
-                      className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 border border-white/10 hover:border-brand-purple text-white/70 hover:text-white transition-colors"
+                      className="flex h-8 w-8 items-center justify-center rounded-full bg-white border border-slate-200 hover:border-blue-400 text-slate-600 hover:text-blue-600 transition-colors shrink-0"
+                      aria-label={`View ${project.title}`}
                     >
                       <ArrowUpRight className="h-4 w-4" />
                     </Link>
@@ -345,42 +552,45 @@ export default function HomePage() {
       </section>
 
       {/* 6. TECHNOLOGY STACK */}
-      <section className="relative py-20 border-t border-white/5 bg-bg-black/50 px-4">
+      <section className="relative py-16 sm:py-20 border-t border-slate-200/80 bg-slate-50/50 px-4">
         <div className="mx-auto max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-brand-cyan">
-              Technical Stack
+          <div className="text-center mb-8 sm:mb-12">
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600">
+              Tools & Technologies
+            </span>
+            <h2 className="mt-2 text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              Modern Technologies We Use
             </h2>
-            <p className="mt-2 text-3xl font-extrabold text-white">
-              Enterprise Ecosystem
+            <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-slate-600">
+              We pick battle-tested tools that make your application fast, secure, and easy to maintain.
             </p>
           </div>
 
           {/* Selector Tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-8 sm:mb-10">
             {(["ai", "frontend", "backend", "cloud"] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${activeTab === tab
-                  ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-lg shadow-brand-purple/20"
-                  : "border border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5 hover:text-white"
+                className={`rounded-full px-4 sm:px-5 py-2 sm:py-2.5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${activeTab === tab
+                  ? "bg-blue-600 text-white"
+                  : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                   }`}
               >
-                {tab === "ai" ? "AI / ML Frameworks" : tab}
+                {tab === "ai" ? "AI & Automation" : tab === "frontend" ? "Web & Mobile" : tab === "backend" ? "Backend & APIs" : "Cloud & Database"}
               </button>
             ))}
           </div>
 
           {/* Grid Panel */}
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6 text-center">
-            {techStack[activeTab].map((tech, idx) => (
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 md:grid-cols-6 text-center">
+            {techStack[activeTab]?.map((tech, idx) => (
               <div
                 key={idx}
-                className="flex flex-col items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] p-5 backdrop-blur-md transition-all hover:border-white/10 hover:bg-white/[0.03]"
+                className="flex flex-col items-center justify-center rounded-xl border border-slate-200/90 bg-white p-4 sm:p-5 transition-all hover:border-blue-200 hover:-translate-y-0.5"
               >
-                <span className="text-3xl mb-3">{tech.icon}</span>
-                <span className="text-sm font-semibold text-white/80">{tech.name}</span>
+                <span className="text-2xl sm:text-3xl mb-2 sm:mb-3">{tech.icon}</span>
+                <span className="text-xs sm:text-sm font-semibold text-slate-800">{tech.name}</span>
               </div>
             ))}
           </div>
@@ -388,123 +598,59 @@ export default function HomePage() {
       </section>
 
       {/* 7. PROCESS SECTION */}
-      <section className="relative py-20 px-4">
+      <section className="relative py-16 sm:py-20 px-4 bg-white">
         <div className="mx-auto max-w-7xl">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-brand-purple">
-              Workflow Model
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600">
+              How We Work
+            </span>
+            <h2 className="mt-2 text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              Simple 6-Step Delivery Process
             </h2>
-            <p className="mt-2 text-3xl font-extrabold text-white sm:text-4xl">
-              Systematic Delivery Process
+            <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-slate-600">
+              No confusing technical jargon. You get regular updates and direct access to the developers building your project.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {processFlow.map((step, idx) => (
-              <GlowingCard key={idx} className="p-6 border border-white/5 bg-white/[0.01] relative h-[180px]">
-                <div className="absolute top-4 right-6 text-3xl font-mono font-extrabold text-brand-purple/15">
+              <GlowingCard key={idx} className="p-5 sm:p-6 relative min-h-[160px] sm:min-h-[190px]">
+                <div className="absolute top-4 right-5 sm:right-6 text-2xl sm:text-3xl font-mono font-extrabold text-slate-200">
                   {step.step}
                 </div>
-                <h4 className="text-lg font-bold text-white tracking-tight">{step.name}</h4>
-                <p className="mt-3 text-xs leading-relaxed text-white/50">{step.desc}</p>
+                <h4 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">{step.name}</h4>
+                <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm leading-relaxed text-slate-600">{step.desc}</p>
               </GlowingCard>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 8. TESTIMONIAL SECTION */}
-      <section className="relative py-20 border-t border-b border-white/5 bg-bg-black/70 px-4">
-        <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-10 h-[300px] w-[500px] rounded-full bg-brand-cyan/5 blur-[100px]" />
-
-        <div className="mx-auto max-w-4xl relative z-10 text-center">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-brand-cyan">
-            Client Review
-          </h2>
-          <p className="mt-2 text-2xl font-extrabold text-white sm:text-3xl mb-12">
-            Trusted By Engineering Leaders
-          </p>
-
-          {loading ? (
-            <div className="text-xs font-mono text-white/40 py-10">
-              Retrieving dynamic feedback database...
-            </div>
-          ) : testimonials.length === 0 ? (
-            <div className="text-xs text-white/40 py-10 italic">
-              No client reviews published currently.
-            </div>
-          ) : (
-            <>
-              <div className="relative rounded-2xl border border-white/5 bg-white/[0.01] p-8 backdrop-blur-md min-h-[220px]">
-                <p className="text-base leading-relaxed text-white/80 italic">
-                  "{testimonials[activeTestimonial]?.content}"
-                </p>
-
-                <div className="mt-8 flex items-center justify-center gap-3">
-                  {testimonials[activeTestimonial]?.image && (
-                    <div className="h-10 w-10 rounded-full border border-white/10 overflow-hidden bg-white/5">
-                      <img
-                        src={testimonials[activeTestimonial]?.image}
-                        alt={testimonials[activeTestimonial]?.name}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                  )}
-                  <div className="text-left">
-                    <span className="block text-sm font-bold text-white">
-                      {testimonials[activeTestimonial]?.name}
-                    </span>
-                    <span className="block text-[10px] text-white/40">
-                      {testimonials[activeTestimonial]?.role}, {testimonials[activeTestimonial]?.company}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Testimonial slider selectors */}
-              <div className="flex items-center justify-center gap-2 mt-6">
-                {testimonials.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveTestimonial(idx)}
-                    className={`h-2 rounded-full transition-all duration-300 ${activeTestimonial === idx ? "w-6 bg-brand-purple" : "w-2 bg-white/20"
-                      }`}
-                    aria-label={`Slide ${idx + 1}`}
-                  />
-                ))}
-              </div>
-            </>
-          )}
-        </div>
-      </section>
-
       {/* 9. CONTACT CTA */}
-      <section className="relative py-20 px-4 text-center overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-purple/10 to-transparent" />
-
-        <div className="relative z-10 mx-auto max-w-4xl border border-white/5 bg-gradient-to-tr from-bg-black/90 to-brand-purple/10 p-10 md:p-16 rounded-3xl backdrop-blur-lg">
-          <h2 className="text-3xl font-extrabold text-white sm:text-5xl tracking-tight leading-tight">
-            Let's Build Your <br />
-            Next <span className="bg-gradient-to-r from-brand-purple to-brand-cyan bg-clip-text text-transparent glow-text-cyan">AI Product</span>
+      <section className="relative py-16 sm:py-20 px-4 text-center overflow-hidden bg-white">
+        <div className="relative z-10 mx-auto max-w-4xl border border-blue-100/90 bg-gradient-to-br from-blue-50/70 via-indigo-50/30 to-white p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            Have an App or AI Idea? <br className="hidden sm:inline" />
+            Let's <span className="text-blue-600">Build It Together</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm text-white/50 leading-relaxed">
-            Partner with UnifiedStack. Schedule a structured technical scoping call directly with Mohd Huzaifa to evaluate integration speeds.
+          <p className="mx-auto mt-3 sm:mt-4 max-w-lg text-xs sm:text-base text-slate-600 leading-relaxed">
+            Talk directly with Mohd Huzaifa & Mohd Suhail. We will understand your requirements, explain the best approach, and share an honest quote with clear timelines.
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               href="/contact"
-              className="neon-btn w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-5 py-3 sm:px-8 sm:py-4 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 px-6 sm:px-7 py-3 sm:py-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white whitespace-nowrap shrink-0 transition-colors"
             >
-              Start Your Project
-              <ArrowRight className="h-4 w-4" />
+              <span className="whitespace-nowrap">Start Your Project</span>
+              <ArrowRight className="h-4 w-4 shrink-0" />
             </Link>
             <Link
               href="/contact?calendly=true"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-5 py-3 sm:px-8 sm:py-4 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white hover:bg-white/10 transition-all hover:scale-105"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 sm:px-7 py-3 sm:py-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:border-slate-300 whitespace-nowrap shrink-0 transition-colors"
             >
-              Schedule Consultation
-              <ArrowUpRight className="h-4 w-4" />
+              <span className="whitespace-nowrap">Book a Consultation</span>
+              <ArrowUpRight className="h-4 w-4 shrink-0" />
             </Link>
           </div>
         </div>

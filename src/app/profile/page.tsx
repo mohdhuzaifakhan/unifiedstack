@@ -1,6 +1,5 @@
 "use client";
 
-import ParticleBackground from "@/components/ui/particle-background";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Award,
@@ -253,46 +252,42 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
 ## 1. MVP Starter Plan
 * **Target Audience:** Startups looking to validate ideas with production-grade MVPs rapidly.
 * **Deliverables:** Next.js single-page web portal, database backend, standard APIs, authentication, and Vercel launch.
-* **Timeline:** 3-4 Weeks
-* **Pricing:** Starting at ₹50,000 / $3,000
+* **Timeline:** 2-4 Weeks
+* **Pricing:** Starting at ₹40,000 / $1,200
 
-## 2. Enterprise Full-Stack SaaS
-* **Target Audience:** Established SMEs and corporate entities looking for robust multi-tenant portals.
-* **Deliverables:** Complex responsive app UI, NestJS/FastAPI state engines, optimized databases, payment gateways, and Docker setup.
-* **Timeline:** 6-8 Weeks
-* **Pricing:** Starting at ₹1,500,000 / $12,000
+## 2. Full-Stack Web & Mobile App
+* **Target Audience:** Established businesses looking for high-performance websites and React Native mobile apps.
+* **Deliverables:** Responsive modern web app, mobile app for Android/iOS, secure database, payment gateways (Razorpay/Stripe), and cloud hosting.
+* **Timeline:** 4-8 Weeks
+* **Pricing:** Starting at ₹1,20,000 / $2,800
 
-## 3. Cognitive AI & Agentic Automation
-* **Target Audience:** Businesses seeking to automate customer service, billing workflows, or data parsing using LLMs.
-* **Deliverables:** LangGraph multi-agent cognitive networks, Vector database semantic search, RAG pipelines, and verification scripts.
-* **Timeline:** 6-10 Weeks
-* **Pricing:** Starting at ₹2,500,000 / $18,000`;
+## 3. Smart AI & Automation System
+* **Target Audience:** Businesses seeking to automate customer inquiries, document searching, or daily reporting using AI.
+* **Deliverables:** WhatsApp/Web AI chatbots, document search (RAG) on company PDFs, automated webhook integrations, and full monitoring.
+* **Timeline:** 4-8 Weeks
+* **Pricing:** Starting at ₹1,50,000 / $3,200`;
 
   return (
-    <div className="relative min-h-screen pb-20 overflow-hidden">
-      {/* Dynamic particles background - hidden during print */}
-      <div className="no-print">
-        <ParticleBackground />
-      </div>
-
-      {/* Branded Glowing backdrops - hidden during print */}
-      <div className="pointer-events-none absolute -top-40 right-1/4 h-[350px] w-[350px] rounded-full bg-brand-cyan/5 blur-[120px] no-print" />
-      <div className="pointer-events-none absolute bottom-40 left-1/4 h-[400px] w-[400px] rounded-full bg-brand-purple/5 blur-[130px] no-print" />
+    <div className="profile-white-canvas relative min-h-screen pb-20 overflow-hidden bg-white text-slate-900">
+      {/* Soft ambient light glow tints */}
+      <div className="pointer-events-none absolute -top-40 right-1/4 h-[350px] w-[350px] rounded-full bg-blue-50/70 blur-[120px] no-print" />
+      <div className="pointer-events-none absolute bottom-40 left-1/4 h-[400px] w-[400px] rounded-full bg-indigo-50/60 blur-[130px] no-print" />
 
       {/* FLOATING ACTION TOOLBAR (Web page only) */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3 rounded-full border border-white/10 bg-bg-black/80 px-6 py-3 shadow-[0_15px_40px_-5px_rgba(0,0,0,0.8)] backdrop-blur-md no-print">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-white/40 border-r border-white/10 pr-3">
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 sm:gap-3 rounded-full border border-slate-200 bg-white/95 px-3.5 sm:px-6 py-2 sm:py-3 backdrop-blur-md no-print max-w-[94vw]">
+        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 border-r border-slate-200 pr-2.5 sm:pr-3 hidden xs:inline">
           Document Controls
         </span>
 
         {/* Ink Saver Toggle */}
         <button
           onClick={() => setIsInkSaver(!isInkSaver)}
-          className={`flex h-9 w-9 items-center justify-center rounded-full border text-white transition-all ${isInkSaver
-              ? "border-yellow-500/40 bg-yellow-500/10 text-yellow-400"
-              : "border-white/5 bg-white/[0.02] hover:bg-white/5"
-            }`}
-          title={isInkSaver ? "Disable Ink-Saver Mode (Print Branded Dark)" : "Enable Ink-Saver Mode (Print Eco-Friendly Light)"}
+          className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all cursor-pointer ${
+            isInkSaver
+              ? "border-amber-400 bg-amber-50 text-amber-600"
+              : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+          }`}
+          title={isInkSaver ? "Disable Ink-Saver Mode" : "Enable Ink-Saver Mode (Eco-Friendly Print)"}
         >
           {isInkSaver ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </button>
@@ -300,7 +295,7 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
         {/* Print Button */}
         <button
           onClick={handlePrint}
-          className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-4 py-2 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-brand-purple/20 transition-all hover:scale-105"
+          className="neon-btn flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white transition-all hover:scale-[1.02] cursor-pointer"
         >
           <Printer className="h-3.5 w-3.5" />
           Print / Save PDF
@@ -311,19 +306,19 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
 
         {/* HEADER SECTION (no-print) */}
         <div className="text-center max-w-4xl mx-auto mb-12 no-print">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-purple/30 bg-brand-purple/10 px-3.5 py-1 text-[11px] font-bold tracking-widest uppercase text-brand-cyan">
-            <Cpu className="h-3 w-3 text-brand-purple" />
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-[11px] font-bold tracking-wider uppercase text-blue-700">
+            <Cpu className="h-3 w-3 text-blue-600" />
             Core Services & Capabilities
           </span>
-          <h1 className="mt-3 text-4xl font-extrabold text-white sm:text-5xl leading-tight">
-            UnifiedStack | <span className="bg-gradient-to-r from-brand-purple to-brand-cyan bg-clip-text text-transparent">Capabilities & Portfolio Hub</span>
+          <h1 className="mt-3 text-4xl font-extrabold text-slate-900 sm:text-5xl leading-tight tracking-tight">
+            UnifiedStack | <span className="text-blue-600">Capabilities & Portfolio Hub</span>
           </h1>
-          <p className="mt-4 text-sm text-white/50 max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-4 text-sm sm:text-base text-slate-600 max-w-3xl mx-auto leading-relaxed">
             We build high-performance web applications, mobile platforms, and autonomous AI agents designed to automate operations and scale. Explore our core services, view our capabilities presentation, and access our standard pricing and onboarding resources below.
           </p>
 
           {/* TABS CONTAINER */}
-          <div className="mt-8 flex flex-wrap justify-center gap-2 border-b border-white/5 pb-2">
+          <div className="mt-8 flex flex-wrap justify-center gap-2 border-b border-slate-200 pb-3">
             {[
               { id: "profile", label: "Services Profile", icon: FileText },
               { id: "deck", label: "Capabilities Deck", icon: Layers },
@@ -340,10 +335,11 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
                     setActiveTab(tab.id as any);
                     if (tab.id === "deck") setDeckSlide(0);
                   }}
-                  className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all ${active
-                      ? "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-md shadow-brand-purple/15"
-                      : "text-white/60 hover:text-white hover:bg-white/[0.02]"
-                    }`}
+                  className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
+                    active
+                      ? "bg-blue-600 text-white"
+                      : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  }`}
                 >
                   <Icon className="h-4 w-4" />
                   {tab.label}

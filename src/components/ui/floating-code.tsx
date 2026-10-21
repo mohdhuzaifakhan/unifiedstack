@@ -62,7 +62,7 @@ export default function FloatingCode({
       style={{
         animationDelay: `${delay}s`,
       }}
-      className={`animate-float select-none pointer-events-none absolute hidden rounded-xl border border-white/5 bg-black/60 p-4 font-mono text-xs text-white/70 shadow-2xl backdrop-blur-lg sm:block md:text-sm ${className}`}
+      className={`animate-float select-none pointer-events-none absolute hidden rounded-xl border border-white/5 bg-black/60 p-4 font-mono text-xs text-white/70 backdrop-blur-lg sm:block md:text-sm ${className}`}
     >
       <div className="mb-2 flex items-center justify-between border-b border-white/10 pb-2">
         <div className="flex items-center gap-1.5">

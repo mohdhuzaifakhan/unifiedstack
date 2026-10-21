@@ -1977,51 +1977,51 @@ export default function CaseStudyDetailsPage({ params }: { params: Promise<{ id:
           </div>
 
           {/* Detailed Breakdown Sections */}
-          <div className="space-y-10 text-sm sm:text-base leading-relaxed text-white/70">
+          <div className="space-y-10 text-sm sm:text-base leading-relaxed text-slate-600">
             {/* Problem */}
-            <section className="rounded-xl border border-white/5 bg-white/[0.01] p-6 sm:p-8 backdrop-blur-md">
-              <h3 className="flex items-center gap-2 text-base font-bold text-white tracking-tight mb-4">
-                <Layers className="h-5 w-5 text-brand-purple shrink-0" />
-                1. Challenge Definition & Operational Bottlenecks
+            <section className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8 shadow-2xs">
+              <h3 className="flex items-center gap-2 text-base font-bold text-slate-900 tracking-tight mb-4">
+                <Layers className="h-5 w-5 text-blue-600 shrink-0" />
+                1. The Challenge
               </h3>
-              <p className="leading-relaxed text-white/60">
+              <p className="leading-relaxed text-slate-600">
                 {project.problem}
               </p>
             </section>
 
             {/* Solution */}
-            <section className="rounded-xl border border-white/5 bg-white/[0.01] p-6 sm:p-8 backdrop-blur-md">
-              <h3 className="flex items-center gap-2 text-base font-bold text-white tracking-tight mb-4">
-                <Database className="h-5 w-5 text-brand-cyan shrink-0" />
-                2. Core Architectural Engineering Strategy
+            <section className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8 shadow-2xs">
+              <h3 className="flex items-center gap-2 text-base font-bold text-slate-900 tracking-tight mb-4">
+                <Database className="h-5 w-5 text-blue-600 shrink-0" />
+                2. What We Built & How We Solved It
               </h3>
-              <p className="leading-relaxed text-white/60">
+              <p className="leading-relaxed text-slate-600">
                 {project.solution}
               </p>
               {project.architecturalOverview && (
-                <div className="mt-5 rounded bg-black/40 border border-white/5 p-4 text-xs font-mono text-white/40 leading-relaxed">
-                  <span className="block font-bold text-brand-cyan mb-1">// System Inter-connectivity Node State:</span>
+                <div className="mt-5 rounded-xl bg-slate-50 border border-slate-200 p-4 text-xs font-mono text-slate-600 leading-relaxed">
+                  <span className="block font-bold text-blue-700 mb-1">// Technical Architecture:</span>
                   {project.architecturalOverview}
                 </div>
               )}
             </section>
 
             {/* Shipped outcomes */}
-            <section className="rounded-xl border border-white/5 bg-white/[0.01] p-6 sm:p-8 backdrop-blur-md">
-              <h3 className="flex items-center gap-2 text-base font-bold text-white tracking-tight mb-4">
-                <BarChart3 className="h-5 w-5 text-brand-blue shrink-0" />
-                3. Quantifiable Results & Production Benchmarks
+            <section className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8 shadow-2xs">
+              <h3 className="flex items-center gap-2 text-base font-bold text-slate-900 tracking-tight mb-4">
+                <BarChart3 className="h-5 w-5 text-emerald-600 shrink-0" />
+                3. Key Results & Impact
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {project.results.map((res, idx) => (
                   <div
                     key={idx}
-                    className="rounded-lg border border-white/5 bg-white/[0.01] p-4 text-xs relative"
+                    className="rounded-xl border border-slate-200 bg-slate-50/60 p-4 text-xs relative"
                   >
-                    <span className="absolute top-2 right-4 text-lg font-mono font-bold text-brand-purple/20">
-                      {idx + 1}
+                    <span className="absolute top-2 right-4 text-lg font-mono font-bold text-slate-300">
+                      0{idx + 1}
                     </span>
-                    <p className="leading-relaxed text-white/55">{res}</p>
+                    <p className="leading-relaxed text-slate-700">{res}</p>
                   </div>
                 ))}
               </div>
@@ -2029,12 +2029,12 @@ export default function CaseStudyDetailsPage({ params }: { params: Promise<{ id:
           </div>
 
           {/* Contact CTA */}
-          <div className="mt-20 border-t border-white/5 pt-10 text-center">
+          <div className="mt-20 border-t border-slate-200 pt-10 text-center">
             <Link
               href="/contact"
-              className="neon-btn inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue px-5 py-3 sm:px-8 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-xl shadow-brand-purple/20 transition-all hover:scale-105"
+              className="neon-btn inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-xs font-semibold uppercase tracking-wider text-white shadow-md transition-all hover:scale-[1.02]"
             >
-              Schedule structural technical scope call
+              Discuss Your Project With Us
             </Link>
           </div>
         </div>
@@ -2043,7 +2043,7 @@ export default function CaseStudyDetailsPage({ params }: { params: Promise<{ id:
   }
 
   return (
-    <div className="lightbox-enabled relative">
+    <div className="lightbox-enabled case-study-white-canvas relative bg-white text-slate-900 min-h-screen">
       <style dangerouslySetInnerHTML={{ __html: `
         .lightbox-enabled img {
           cursor: zoom-in !important;
