@@ -232,15 +232,14 @@ function ContactPageContent() {
                       <button
                         type="button"
                         onClick={() => setClientLocation("in")}
-                        className={`rounded-lg px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
-                          clientLocation === "in"
+                        className={`rounded-lg px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${clientLocation === "in"
                             ? "bg-blue-600 text-white shadow-xs"
                             : "text-slate-600 hover:text-slate-900 hover:bg-white"
-                        }`}
+                          }`}
                       >
                         India (₹ INR)
                       </button>
-                      <button
+                      {/* <button
                         type="button"
                         onClick={() => setClientLocation("intl")}
                         className={`rounded-lg px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
@@ -250,7 +249,7 @@ function ContactPageContent() {
                         }`}
                       >
                         International ($ USD)
-                      </button>
+                      </button> */}
                     </div>
                   </div>
 
@@ -338,11 +337,10 @@ function ContactPageContent() {
                             key={tier}
                             type="button"
                             onClick={() => handleBudgetSelect(tier)}
-                            className={`rounded-xl border py-2.5 sm:py-3 px-1 sm:px-2 text-center text-[11px] sm:text-xs font-semibold transition-all cursor-pointer ${
-                              isSelected
+                            className={`rounded-xl border py-2.5 sm:py-3 px-1 sm:px-2 text-center text-[11px] sm:text-xs font-semibold transition-all cursor-pointer ${isSelected
                                 ? "border-blue-600 bg-blue-50 text-blue-700 shadow-2xs"
                                 : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300"
-                            }`}
+                              }`}
                           >
                             {tier}
                           </button>

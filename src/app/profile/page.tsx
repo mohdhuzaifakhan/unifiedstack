@@ -3,11 +3,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Award,
-  Briefcase,
-  CheckCircle2,
+  Bot,
   ChevronLeft,
   ChevronRight,
-  Compass,
   Copy,
   Cpu,
   ExternalLink,
@@ -18,7 +16,8 @@ import {
   Moon,
   Phone,
   Printer,
-  ShieldCheck,
+  Server,
+  Smartphone,
   Sun
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -65,123 +64,119 @@ export default function ProfileHub() {
     email: "contact@unifiedstack.com",
     phone: "+91 84330 43426",
     linkedin: "linkedin.com/in/mohd-huzaifa-1796b9234",
-    address: "Sole Proprietorship, Registered in India",
-    tagline: "Building Intelligent Software & AI Systems",
+    address: "Registered Software & AI Agency",
+    tagline: "Building High-Performance Software & AI Systems",
     founder: "Mohd Huzaifa",
     cofounder: "Mohd Suhail",
   };
 
-  // Human-presented services
-  const services = [
-    { name: "Custom Software Development", desc: "We build custom enterprise software, backend engines, and business utility tools from scratch. We focus on clean, maintainable, and type-safe code that aligns with your workflows." },
-    { name: "Mobile App Development", desc: "We build cross-platform mobile apps for Android & iOS using React Native and Expo. From real-time tracking to offline data sync, we deliver fast, responsive mobile experiences." },
-    { name: "Web Application Development", desc: "We design and build fast web applications and SaaS portals. Using Next.js and Tailwind CSS, we ensure your site looks premium, loads instantly, and runs smoothly on all screens." },
-    { name: "AI & Generative AI Solutions", desc: "We integrate advanced AI features into your existing products. From custom GPT models to semantic search tools, we help you leverage generative AI to automate decisions and save time." },
-    { name: "AI Agents & Automation", desc: "We build autonomous AI agents using LangGraph that execute complex, multi-step workflows. Our agents connect to your database, handle exceptions, and automate repetitive tasks reliably." },
-    { name: "Machine Learning Solutions", desc: "We design custom predictive models, text classifiers, and classification pipelines. We help you transform your raw database tables into actionable business forecasts." },
-    { name: "Cloud Deployment & DevOps", desc: "We containerize applications with Docker and deploy them to cloud platforms like AWS or Vercel. We set up automated CI/CD pipelines to ensure safe, zero-downtime updates." },
-    { name: "UI/UX Design", desc: "We design clean, intuitive, and modern user interfaces. We map complete user journeys, build interactive Figma prototypes, and implement matching frontend layouts." },
-    { name: "API Development & Integration", desc: "We engineer fast, secure, and fully documented RESTful and gRPC APIs. We connect your frontend with databases, stripe billing, and third-party software tools." },
-    { name: "SaaS Product Development", desc: "We build complete SaaS products, from database design and multi-tenant architectures to subscription payments, secure authentication, admin panels, and user accounts." },
-    { name: "Database Design & Optimization", desc: "We design robust relational databases (PostgreSQL) and vector databases (Pinecone, ChromaDB) for AI lookup, writing optimized queries to handle high-frequency data." },
-    { name: "Software Support & Maintenance", desc: "We provide ongoing maintenance, security updates, and performance monitoring. We audit logs, prevent downtime, and keep your software secure, modern, and up-to-date." }
+  // 4 Core Agency Disciplines
+  const coreServices = [
+    {
+      id: "ai",
+      name: "AI Development",
+      icon: Bot,
+      desc: "We design and deploy production AI systems: autonomous multi-step Agentic AI workflows, deterministic RAG retrieval pipelines, custom model fine-tuning, intelligent workflow automations, and 24/7 conversational assistants built with verifiable accuracy and strict enterprise guardrails."
+    },
+    {
+      id: "web",
+      name: "Web Development",
+      icon: Globe,
+      desc: "We build responsive, modern web applications, client portals, and scalable SaaS platforms using Next.js, React, and TypeScript. We emphasize clean code architectures, fast load times, and intuitive interfaces that support core business operations."
+    },
+    {
+      id: "mobile",
+      name: "Mobile App Development",
+      icon: Smartphone,
+      desc: "We engineer cross-platform Android and iOS applications using React Native. We deliver native-grade fluid performance, responsive touch interactions, reliable offline data caching, and background push notification systems from a single maintainable codebase."
+    },
+    {
+      id: "backend",
+      name: "Backend Development",
+      icon: Server,
+      desc: "We architect and build scalable server-side systems, high-throughput REST and asynchronous APIs, and relational or document database infrastructures using Python, FastAPI, Node.js, and PostgreSQL. Engineered for high concurrency, low latency, and robust data integrity."
+    }
   ];
 
   // Grouped Tech Stack
   const techStack = [
     {
-      category: "Frontend",
+      category: "Frontend & Web",
       skills: ["React", "Next.js", "React Native", "TypeScript", "Tailwind CSS", "Framer Motion"]
     },
     {
-      category: "Backend",
-      skills: ["Node.js", "NestJS", "Python", "FastAPI", "Express.js", "gRPC APIs"]
+      category: "Backend & APIs",
+      skills: ["Python", "FastAPI", "Node.js", "Express.js", "NestJS", "REST & gRPC"]
     },
     {
-      category: "AI & Machine Learning",
-      skills: ["OpenAI & Claude", "LangChain", "LangGraph", "TensorFlow", "PyTorch", "RAG Systems", "Hugging Face"]
+      category: "AI Solutions",
+      skills: ["LangGraph", "LangChain", "OpenAI & Claude", "LlamaIndex", "Pinecone", "ChromaDB", "Fine-Tuning"]
     },
     {
-      category: "Database",
-      skills: ["PostgreSQL", "MongoDB", "Redis", "Vector Databases (Pinecone, ChromaDB)"]
+      category: "Databases & Caching",
+      skills: ["PostgreSQL", "MongoDB", "Redis", "Vector Databases", "Firebase Firestore"]
     },
     {
       category: "Cloud & DevOps",
-      skills: ["AWS Services", "Docker", "Kubernetes", "CI/CD (GitHub Actions)", "Firebase Ecosystem"]
+      skills: ["Docker", "AWS", "Vercel", "GitHub Actions CI/CD", "Cloudflare"]
     }
   ];
 
-  // Human-presented Development Process
+  // 6-Step Development Process
   const devSteps = [
-    { step: "01", name: "Discovery & Strategy", desc: "We analyze your business processes, identify technical bottlenecks, and map out the software and AI automation opportunities." },
-    { step: "02", name: "Planning & Architecture", desc: "We design the system architecture, select the tech stack, define API schemas, and map database relationships before writing code." },
-    { step: "03", name: "UI/UX Prototyping", desc: "We build interactive Figma mockups of your portals and mobile screens, aligning on a modern, user-friendly layout." },
-    { step: "04", name: "Core Development", desc: "Our team writes clean, type-safe code using Next.js, FastAPI, or NestJS in bi-weekly sprints, keeping you updated with live staging links." },
-    { step: "05", name: "Testing & Red-Teaming", desc: "We run unit tests, security audits, and red-team our AI agents to guarantee they perform reliably and never hallucinate." },
-    { step: "06", name: "Production Deployment", desc: "We containerize the app using Docker, deploy it to secure AWS or Vercel hosting, and configure automated GitHub Actions CI/CD." },
-    { step: "07", name: "Maintenance & Support", desc: "We monitor system metrics, optimize database queries, update libraries, and provide long-term technical support to ensure 99.8% uptime." }
+    { step: "01", name: "Requirements & Discovery", desc: "We analyze your business processes, identify technical bottlenecks, and map out the software and AI automation opportunities." },
+    { step: "02", name: "System Architecture", desc: "We design the system architecture, select the tech stack, define API schemas, and map database relationships before writing code." },
+    { step: "03", name: "UI/UX & Prototyping", desc: "We design modern, responsive interfaces and intuitive user flows, ensuring an exceptional client experience across desktop and mobile." },
+    { step: "04", name: "Core Development", desc: "Our team writes clean, type-safe code in structured sprints, keeping you updated with regular progress demos and staging links." },
+    { step: "05", name: "Testing & Quality Assurance", desc: "We run automated tests, perform security reviews, and verify AI agent reliability to guarantee safe and accurate operations." },
+    { step: "06", name: "Production Launch & Support", desc: "We deploy the application to secure cloud hosting with automated CI/CD and provide dedicated maintenance and monitoring." }
   ];
 
-  // Values
+  // Core Values
   const coreValues = [
-    { name: "Innovation", desc: "We build deterministic AI systems and high-velocity software architectures." },
-    { name: "Integrity", desc: "We guarantee complete transparency, corporate honesty, and data privacy." },
-    { name: "Quality", desc: "We write clean, modular, and type-safe codebases with strict TypeScript compilation." },
-    { name: "Customer Success", desc: "We prioritize actual business KPIs, conversion growth, and operational efficiency." },
-    { name: "Transparency", desc: "We share real-time project logs, timeline tracking, and explicit budgeting." },
-    { name: "Continuous Learning", desc: "We constantly integrate the latest agentic frameworks and software paradigms." }
+    { name: "Clean Architecture", desc: "We build maintainable, type-safe software that scales without technical debt." },
+    { name: "Reliable Execution", desc: "We enforce strict guardrails around AI systems to guarantee factual outputs." },
+    { name: "Direct Communication", desc: "Clients collaborate directly with founding engineers, ensuring zero miscommunication." },
+    { name: "On-Time Delivery", desc: "We set clear, realistic milestones and deliver production code on schedule." },
+    { name: "Transparent Pricing", desc: "Fixed scopes, honest estimates, and complete clarity on all deliverables." },
+    { name: "Long-Term Quality", desc: "We build systems designed to run smoothly for years with minimal maintenance." }
   ];
 
-  // Industries
-  const industries = ["Healthcare", "Education", "Logistics", "Real Estate", "Retail", "Finance", "Hospitality", "E-commerce", "Government", "Startups"];
-
-  // Why Choose Us
-  const whyChooseUs = [
-    "Full-stack developers and AI architects with a track record of deploying production systems.",
-    "Modern, high-performance technology stack (Next.js, TypeScript, FastAPI, Docker).",
-    "Agile, rapid-iteration development cycles with regular staging builds.",
-    "Scalable, modular architectures designed to handle traffic surges and data growth.",
-    "Secure-first code and strict data privacy boundaries implemented by default.",
-    "Direct contact with the engineering team via Slack, WhatsApp, and GitHub updates.",
-    "Realistic timelines, structured phases, and reliable on-time deployments.",
-    "Ongoing support contract to keep your software updated, secure, and running smoothly.",
-    "Resource-optimized API calls and queries to minimize your running costs.",
-    "AI-first engineering structure for seamless cognitive automation."
+  // Target Industries
+  const industries = [
+    { name: "Healthcare & Life Sciences", desc: "Compliance audits, clinical records parsing, and medical workflow assistants." },
+    { name: "Logistics & Transport", desc: "Geofenced route optimization, live vehicle coordinates, and dispatcher dashboards." },
+    { name: "Finance & Advisory", desc: "Reporting portals, audit compliance checkers, and automated financial calculations." },
+    { name: "Education & EdTech", desc: "Student learning portals, assessment grading helpers, and curriculum tools." },
+    { name: "Retail & Commerce", desc: "Order management portals, inventory sync, and customer communication bots." },
+    { name: "Startups & SMEs", desc: "Rapid MVP builds, production SaaS platforms, and enterprise API backends." }
   ];
 
-  // Portfolios
-  const portfolios = [
+  // Past Performance Highlights
+  const pastHighlights = [
     {
-      title: "Agentic Medical Compliance Auditor",
-      type: "AI Agent System",
-      client: "Healthcare SaaS Startup",
-      desc: "Built a LangGraph stateful multi-agent system that scans patient clinical records, compares them against regional compliance rules, and generates audits. Reduced auditing durations by 94% with 0.0% hallucination guarantees."
+      title: "Town Beat: Hyperlocal Social Network",
+      category: "Mobile App Development",
+      metric: "Sub-50ms Sync",
+      desc: "Developed a cross-platform React Native community platform connecting citizens within specific city districts in real-time."
     },
     {
-      title: "Geofenced Transport & Logistics System",
-      type: "Mobile & Cloud Architecture",
-      client: "Transit Enterprise Group",
-      desc: "Developed a React Native real-time dispatcher app integrated with FastAPI. Features automated geofenced route matching, database optimization, and high-frequency location trackers, securing 99.9% uptime."
+      title: "Salah Times: Masjid Directory & Timetables",
+      category: "Mobile App Development",
+      metric: "10-Min Pre-Alerts",
+      desc: "Engineered a React Native mobile application providing synchronized prayer schedules, offline caching, and dynamic notifications."
     },
     {
-      title: "Secure Enterprise RAG Document Pipeline",
-      type: "Vector Database Search",
-      client: "Financial Advisory Monolith",
-      desc: "Implemented a semantic document indexing engine using Pinecone, LlamaIndex, and OpenAI APIs. Allows researchers to extract data from millions of private PDFs with sub-1.2s response latency and metadata checks."
-    }
-  ];
-
-  // Testimonials
-  const testimonials = [
-    {
-      quote: "Mohd Huzaifa is an exceptional software architect. He designed and deployed our automated workflow engine under a very tight deadline. The system has run without a single outage, delivering a 12x latency improvement.",
-      author: "Director of Product Engineering",
-      org: "Sofyrus Technologies Client"
+      title: "Helpora: Service Marketplace Platform",
+      category: "Full-Stack Development",
+      metric: "100% Provider Verification",
+      desc: "Built a complete service discovery and booking platform with real-time customer messaging, scheduling tools, and escrow payments."
     },
     {
-      quote: "UnifiedStack has transformed our business operations. Their AI-first approach has automated 88% of our database verification processes, saving thousands of developer hours and ensuring absolute database integrity.",
-      author: "CTO & Founder",
-      org: "Logistics SaaS Platform"
+      title: "Enterprise RAG Document Intelligence",
+      category: "AI Development",
+      metric: "Sub-1.2s Retrieval",
+      desc: "Implemented a deterministic semantic document indexing engine using Pinecone, LlamaIndex, and Claude APIs with source citations."
     }
   ];
 
@@ -191,19 +186,19 @@ export default function ProfileHub() {
 **Client Name:** [Client Corporation]  
 **Project Name:** Customer Portal & AI-Driven Agent Workflows  
 **Date:** ${new Date().toLocaleDateString()}  
-**Provider:** UnifiedStack (Registered Sole Proprietorship, India)  
+**Provider:** UnifiedStack  
 
 ---
 
 ## 1. Project Goal & Overview
-UnifiedStack is pleased to submit this proposal to engineer and deploy a custom customer portal and stateful AI pipeline for [Client Corporation]. We build production-ready digital products that drive growth. Our work focuses on resolving your operational bottlenecks, ensuring that database structures run with minimal latency and AI agents perform with absolute reliability.
+UnifiedStack is pleased to submit this proposal to engineer and deploy a custom web/mobile platform and stateful AI pipeline for [Client Corporation]. We build production-ready digital products that drive growth. Our work focuses on resolving your operational bottlenecks, ensuring that database structures run with minimal latency and AI agents perform with absolute reliability.
 
 ## 2. Project Scope & Deliverables
-We propose a phased timeline to deliver the full system:
-* **Phase 1: Discovery & Architecture (Weeks 1-2)**: We analyze your database requirements, design API schemas, and build high-fidelity Figma layouts of the web screens.
-* **Phase 2: Core Platform Development (Weeks 3-6)**: We implement the Next.js frontend portal, build the FastAPI/Node.js backend endpoints, and set up the relational database.
-* **Phase 3: AI Agents & Search Pipelines (Weeks 7-8)**: We build the LangGraph agent swarms, vector databases, and semantic RAG search index.
-* **Phase 4: Verification, Launch & Support (Weeks 9-10)**: We run red-team security checks, launch the platform on secure AWS/Vercel hosting using Docker, and configure automated GitHub Actions CI/CD pipelines.
+We propose a structured, phased timeline to deliver the full system:
+* **Phase 1: Discovery & Architecture (Weeks 1-2)**: Analyze technical requirements, design API schemas, and build high-fidelity interface layouts.
+* **Phase 2: Core Platform Development (Weeks 3-5)**: Implement the frontend portal (Next.js / React Native), build backend API endpoints (FastAPI / Node.js), and set up the database.
+* **Phase 3: AI Agents & Pipeline Integration (Weeks 6-7)**: Build Agentic AI workflows, vector databases, and semantic RAG search indexing.
+* **Phase 4: Verification, Launch & Handoff (Weeks 8-9)**: Run security checks, deploy to secure cloud hosting with Docker, and configure automated GitHub Actions CI/CD.
 
 ## 3. Financial Agreement
 This project will be delivered for a fixed fee of **[Budget Amount]**, invoiced in structured milestones:
@@ -213,80 +208,81 @@ This project will be delivered for a fixed fee of **[Budget Amount]**, invoiced 
 * **Milestone 4: Staging sign-off, production launch, and code handoff** - 15% of total budget
 
 ---
-**Submitted By:** Mohd Huzaifa, CEO & Founder (UnifiedStack)`;
+**Submitted By:** Mohd Huzaifa, Technical Lead (UnifiedStack)`;
 
   // Client Onboarding Markdown
   const onboardingTemplateText = `# CLIENT ONBOARDING GUIDE & KICKOFF CHECKLIST
 
-Welcome to **UnifiedStack**! We look forward to partnering with your team. To initiate development as efficiently as possible, please complete the onboarding steps below.
+Welcome to **UnifiedStack**! We look forward to partnering with your team. To initiate development smoothly, please review the onboarding steps below.
 
 ---
 
-## 1. Communication & Updates
+## 1. Communication & Regular Updates
 We value transparent communication. Throughout the project, we will share updates in a dedicated communication space:
 * **Primary Channel:** Slack / Discord / WhatsApp (Select your preference)
 * **Weekly Review:** A 30-minute sync to walk through progress on the staging link.
 * **Team Leads:**
-  - Technical Lead: Mohd Huzaifa (Founder & AI Architect)
-  - Operations Lead: Mohd Suhail (Co-Founder & Business Operations)
+  - Technical Lead: Mohd Huzaifa (Full-Stack & AI Architect)
+  - Operations Lead: Mohd Suhail (Business Operations)
 
 ## 2. Technical Access Requirements
-To begin engineering, please grant access to the following accounts for: \`mohdhuzaifakhan@gmail.com\` / GitHub: \`mohdhuzaifakhan\`
-- [ ] **GitHub Repository**: Write/Admin access to the project repository.
+To begin engineering, please grant access to the following accounts where applicable:
+- [ ] **GitHub Repository**: Admin access to the project repository.
 - [ ] **Cloud Platform (AWS / Vercel)**: IAM role permissions for deployments.
 - [ ] **API Keys & Credentials**: OpenAI, Pinecone, or database connection strings.
 
-## 3. Kickoff Sync Agenda (60 Minutes)
+## 3. Kickoff Sync Agenda (45 Minutes)
 * **00:00 - 00:15**: Project Goal Alignment (Reviewing timelines and expectations)
-* **00:15 - 00:40**: Technical Walkthrough (Looking at current database models and workflows)
-* **00:40 - 00:55**: Architecture Map (Confirming technology choices, databases, and UI layouts)
-* **00:55 - 01:00**: Next Steps, Access Handshakes, and Scheduling our first review sync`;
+* **00:15 - 00:30**: Technical Walkthrough (Looking at current database models and workflows)
+* **00:30 - 00:40**: Architecture Map (Confirming technology choices, databases, and UI layouts)
+* **00:40 - 00:45**: Next Steps, Access Handshakes, and Scheduling our first review sync`;
 
-  // Pricing brochure copy
+  // Pricing brochure copy (Zero mentions of India in price tags)
   const pricingBrochureText = `# SERVICES & PRICING PLANS
 
-UnifiedStack delivers elite engineering capabilities under flexible pricing schemes mapped to your company's growth stage.
+UnifiedStack delivers engineering excellence under transparent, fixed-scope pricing tiers mapped to your company's growth stage.
 
 ---
 
-## 1. MVP Starter Plan
-* **Target Audience:** Startups looking to validate ideas with production-grade MVPs rapidly.
-* **Deliverables:** Next.js single-page web portal, database backend, standard APIs, authentication, and Vercel launch.
+## 1. Web Application & Portal Development
+* **Target Audience:** Startups and businesses looking for modern, high-performance web platforms and SaaS portals.
+* **Deliverables:** Next.js full-stack web application, responsive desktop & mobile UI, relational database backend, authentication, and cloud launch.
 * **Timeline:** 2-4 Weeks
-* **Pricing:** Starting at ₹40,000 / $1,200
+* **Pricing:** Starting at ₹40,000
 
-## 2. Full-Stack Web & Mobile App
-* **Target Audience:** Established businesses looking for high-performance websites and React Native mobile apps.
-* **Deliverables:** Responsive modern web app, mobile app for Android/iOS, secure database, payment gateways (Razorpay/Stripe), and cloud hosting.
-* **Timeline:** 4-8 Weeks
-* **Pricing:** Starting at ₹1,20,000 / $2,800
+## 2. Mobile App Development (iOS & Android)
+* **Target Audience:** Businesses seeking fluid, native-grade mobile experiences from a single maintainable codebase.
+* **Deliverables:** React Native cross-platform mobile app, offline data sync, push notification systems, secure APIs, and app store preparation.
+* **Timeline:** 3-6 Weeks
+* **Pricing:** Starting at ₹50,000
 
-## 3. Smart AI & Automation System
-* **Target Audience:** Businesses seeking to automate customer inquiries, document searching, or daily reporting using AI.
-* **Deliverables:** WhatsApp/Web AI chatbots, document search (RAG) on company PDFs, automated webhook integrations, and full monitoring.
-* **Timeline:** 4-8 Weeks
-* **Pricing:** Starting at ₹1,50,000 / $3,200`;
+## 3. AI Development (RAG, Agents & Automation)
+* **Target Audience:** Businesses looking to automate complex workflows, synthesize private documents, or deploy intelligent copilots.
+* **Deliverables:** Autonomous Agentic AI workflows, private RAG vector database indexing, custom model fine-tuning, and automated API integrations.
+* **Timeline:** 2-5 Weeks
+* **Pricing:** Starting at ₹50,000
+
+## 4. Backend Development & API Architecture
+* **Target Audience:** Companies requiring high-throughput server backends, microservices, and robust database architectures.
+* **Deliverables:** FastAPI/Python or Node.js server endpoints, PostgreSQL/MongoDB schemas, sub-50ms query optimization, and Docker deployment.
+* **Timeline:** 2-4 Weeks
+* **Pricing:** Starting at ₹35,000`;
 
   return (
-    <div className="profile-white-canvas relative min-h-screen pb-20 overflow-hidden bg-white text-slate-900">
-      {/* Soft ambient light glow tints */}
-      <div className="pointer-events-none absolute -top-40 right-1/4 h-[350px] w-[350px] rounded-full bg-blue-50/70 blur-[120px] no-print" />
-      <div className="pointer-events-none absolute bottom-40 left-1/4 h-[400px] w-[400px] rounded-full bg-indigo-50/60 blur-[130px] no-print" />
-
+    <div className="relative min-h-screen pb-20 overflow-hidden bg-slate-50/40 text-slate-900 font-sans">
       {/* FLOATING ACTION TOOLBAR (Web page only) */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 sm:gap-3 rounded-full border border-slate-200 bg-white/95 px-3.5 sm:px-6 py-2 sm:py-3 backdrop-blur-md no-print max-w-[94vw]">
-        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 border-r border-slate-200 pr-2.5 sm:pr-3 hidden xs:inline">
-          Document Controls
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 sm:gap-3 rounded-full border border-slate-200 bg-white/95 px-4 sm:px-6 py-2.5 sm:py-3 no-print max-w-[94vw]">
+        <span className="text-xs font-semibold text-slate-500 border-r border-slate-200 pr-3 hidden xs:inline">
+          Document Tools
         </span>
 
         {/* Ink Saver Toggle */}
         <button
           onClick={() => setIsInkSaver(!isInkSaver)}
-          className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all cursor-pointer ${
-            isInkSaver
-              ? "border-amber-400 bg-amber-50 text-amber-600"
-              : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
-          }`}
+          className={`flex h-9 w-9 items-center justify-center rounded-full border transition-colors cursor-pointer ${isInkSaver
+            ? "border-amber-400 bg-amber-50 text-amber-700"
+            : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+            }`}
           title={isInkSaver ? "Disable Ink-Saver Mode" : "Enable Ink-Saver Mode (Eco-Friendly Print)"}
         >
           {isInkSaver ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -295,36 +291,31 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
         {/* Print Button */}
         <button
           onClick={handlePrint}
-          className="neon-btn flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white transition-all hover:scale-[1.02] cursor-pointer"
+          className="inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 px-5 py-2 text-xs font-semibold text-white whitespace-nowrap shrink-0 transition-colors cursor-pointer"
         >
-          <Printer className="h-3.5 w-3.5" />
-          Print / Save PDF
+          <Printer className="h-3.5 w-3.5 shrink-0" />
+          <span className="whitespace-nowrap">Print / Save PDF</span>
         </button>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 relative z-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 relative z-10">
 
-        {/* HEADER SECTION (no-print) */}
-        <div className="text-center max-w-4xl mx-auto mb-12 no-print">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-[11px] font-bold tracking-wider uppercase text-blue-700">
-            <Cpu className="h-3 w-3 text-blue-600" />
-            Core Services & Capabilities
-          </span>
-          <h1 className="mt-3 text-4xl font-extrabold text-slate-900 sm:text-5xl leading-tight tracking-tight">
-            UnifiedStack | <span className="text-blue-600">Capabilities & Portfolio Hub</span>
+        <div className="text-center max-w-4xl mx-auto mb-10 sm:mb-12 no-print">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+            UnifiedStack | <span className="text-blue-600">Business Profile</span>
           </h1>
-          <p className="mt-4 text-sm sm:text-base text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            We build high-performance web applications, mobile platforms, and autonomous AI agents designed to automate operations and scale. Explore our core services, view our capabilities presentation, and access our standard pricing and onboarding resources below.
+
+          <p className="mt-4 text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            We engineer high-performance web applications, fluid mobile platforms, Agentic AI workflows, and resilient backend systems. Review our credentials, capability deck, and standard engagement templates below.
           </p>
 
-          {/* TABS CONTAINER */}
-          <div className="mt-8 flex flex-wrap justify-center gap-2 border-b border-slate-200 pb-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-2 border-b border-slate-200 pb-4">
             {[
-              { id: "profile", label: "Services Profile", icon: FileText },
+              { id: "profile", label: "Executive Profile", icon: FileText },
               { id: "deck", label: "Capabilities Deck", icon: Layers },
-              { id: "capability", label: "Capability Summary", icon: Award },
-              { id: "templates", label: "Pricing & Resources", icon: Briefcase },
-              { id: "brand", label: "Branding Standards", icon: Compass }
+              { id: "capability", label: "Capability Statement", icon: Award },
+              // { id: "templates", label: "Pricing & Templates", icon: Briefcase },
+              // { id: "brand", label: "Branding Standards", icon: Compass }
             ].map((tab) => {
               const Icon = tab.icon;
               const active = activeTab === tab.id;
@@ -335,25 +326,22 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
                     setActiveTab(tab.id as any);
                     if (tab.id === "deck") setDeckSlide(0);
                   }}
-                  className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
-                    active
-                      ? "bg-blue-600 text-white"
-                      : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                  }`}
+                  className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer ${active
+                    ? "bg-blue-600 text-white"
+                    : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                    }`}
                 >
-                  <Icon className="h-4 w-4" />
-                  {tab.label}
+                  <Icon className="h-4 w-4 shrink-0" />
+                  <span className="whitespace-nowrap">{tab.label}</span>
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* ACTIVE CONTENT RENDER AREA */}
         <div>
           <AnimatePresence mode="wait">
 
-            {/* 1. COMPANY PROFILE TAB (12 PRINT PAGES) */}
             {activeTab === "profile" && (
               <motion.div
                 key="profile"
@@ -363,88 +351,73 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
                 transition={{ duration: 0.3 }}
                 className="flex flex-col items-center"
               >
-                {/* Print Notice (No Print) */}
-                <div className="w-full max-w-[210mm] rounded-xl border border-blue-500/20 bg-blue-500/5 px-6 py-4 mb-8 text-xs text-blue-300 leading-relaxed no-print flex gap-3 items-center">
-                  <ShieldCheck className="h-6 w-6 text-brand-cyan shrink-0" />
-                  <div>
-                    <span className="font-bold block text-white">Interactive Company Profile (12 Pages)</span>
-                    Below is the paginated view. Clicking <strong className="text-white">Print / Save PDF</strong> will compile all 12 pages sequentially. Ensure background graphics are checked in print settings.
-                  </div>
-                </div>
-
-                {/* 12 SEQUENTIAL PAGES CONTAINER */}
                 <div className="flex flex-col gap-10 w-full max-w-[210mm]">
-
-                  {/* PAGE 1: COVER PAGE */}
-                  <div className="print-page relative flex flex-col justify-between border border-white/5 bg-bg-dark p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full shadow-2xl min-h-[400px] md:min-h-[auto] overflow-hidden">
-                    <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-brand-purple/10 blur-[60px]" />
-                    <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-brand-cyan/10 blur-[60px]" />
-
-                    <div className="text-xs font-mono uppercase tracking-widest text-brand-purple font-semibold">
-                      Enterprise Document Core
+                  <div className="print-page relative flex flex-col justify-between border border-slate-200 bg-white p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full min-h-[420px] md:min-h-[auto] overflow-hidden text-slate-900">
+                    <div className="text-xs font-semibold uppercase tracking-wider text-blue-600">
+                      Executive Profile & Credentials
                     </div>
 
-                    <div className="my-auto text-left">
-                      <div className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-white/5 border border-white/10 mb-6">
-                        <Cpu className="h-7 w-7 text-brand-purple" />
+                    <div className="my-auto text-left py-6">
+                      <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 mb-6">
+                        <Cpu className="h-7 w-7" />
                       </div>
-                      <h1 className="text-5xl font-extrabold tracking-tight text-white leading-none">
-                        Unified<span className="bg-gradient-to-r from-brand-purple to-brand-cyan bg-clip-text text-transparent">Stack</span>
+                      <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                        Unified<span className="text-blue-600">Stack</span>
                       </h1>
-                      <div className="h-[2px] w-20 bg-gradient-to-r from-brand-purple to-brand-cyan my-5" />
-                      <p className="text-lg font-semibold text-brand-cyan tracking-wider uppercase">
+                      <div className="h-1 w-20 bg-blue-600 my-5 rounded-full" />
+                      <p className="text-base sm:text-lg font-bold text-slate-800 tracking-tight">
                         {companyInfo.tagline}
                       </p>
-                      <p className="mt-4 text-xs text-white/50 max-w-sm leading-relaxed">
-                        We build custom web platforms, mobile applications, and stateful AI agent workflows designed to solve operational bottlenecks and scale.
+                      <p className="mt-3 text-xs sm:text-sm text-slate-600 max-w-md leading-relaxed">
+                        We engineer custom web applications, cross-platform mobile apps, Agentic AI systems, and resilient backend architectures designed to solve business bottlenecks and scale.
                       </p>
                     </div>
 
-                    <div className="flex justify-between items-end border-t border-white/5 pt-6 text-[10px] font-mono text-white/30 uppercase">
+                    <div className="flex justify-between items-end border-t border-slate-100 pt-6 text-xs text-slate-500">
                       <div>
-                        <span>Founder: {companyInfo.founder}</span>
+                        <span className="block font-medium text-slate-700">Founder: {companyInfo.founder}</span>
                         <span className="block">Co-Founder: {companyInfo.cofounder}</span>
                       </div>
                       <div className="text-right">
-                        <span>Corporate Profile 2026</span>
-                        <span className="block text-brand-purple font-semibold">12-Page Booklet</span>
+                        <span className="block font-semibold text-slate-900">Corporate Profile 2026</span>
+                        <span className="block text-blue-600 font-medium">12-Page Booklet</span>
                       </div>
                     </div>
                   </div>
 
                   {/* PAGE 2: TABLE OF CONTENTS & EXEC SUMMARY */}
-                  <div className="print-page flex flex-col justify-between border border-white/5 bg-bg-dark p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full shadow-2xl min-h-[400px] md:min-h-[auto]">
+                  <div className="print-page flex flex-col justify-between border border-slate-200 bg-white p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full min-h-[420px] md:min-h-[auto] text-slate-900">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">02 // Index</span>
-                      <h2 className="text-2xl font-bold text-white mt-2 mb-8">Table of Contents</h2>
-                      <div className="space-y-4">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">02 // Index</span>
+                      <h2 className="text-2xl font-bold text-slate-900 mt-1 mb-8">Table of Contents</h2>
+                      <div className="space-y-3.5">
                         {[
-                          { num: "01", title: "Cover Page & Tagline", p: "1" },
+                          { num: "01", title: "Cover Page & Core Identity", p: "1" },
                           { num: "02", title: "Table of Contents & Executive Summary", p: "2" },
                           { num: "03", title: "Company Overview & Leadership", p: "3" },
                           { num: "04", title: "Corporate Vision, Mission & Values", p: "4" },
-                          { num: "05", title: "Services Catalogue: Software Engineering", p: "5" },
-                          { num: "06", title: "Services Catalogue: Cognitive AI Systems", p: "6" },
+                          { num: "05", title: "Services: Web & Mobile Engineering", p: "5" },
+                          { num: "06", title: "Services: AI & Backend Architecture", p: "6" },
                           { num: "07", title: "Industries Served & Target Sectors", p: "7" },
                           { num: "08", title: "Technology Stack & Core Expertise", p: "8" },
-                          { num: "09", title: "Development Methodology & Agile Sprints", p: "9" },
+                          { num: "09", title: "Development Methodology & Sprints", p: "9" },
                           { num: "10", title: "Portfolio Showcases & Case Studies", p: "10" },
                           { num: "11", title: "Client Testimonials & Performance Metrics", p: "11" },
                           { num: "12", title: "Engagement Paths & Contact Information", p: "12" }
                         ].map((item) => (
-                          <div key={item.num} className="flex justify-between items-baseline border-b border-white/5 pb-2 text-xs">
-                            <span className="text-white/40 font-mono mr-2">{item.num}</span>
-                            <span className="text-white/80 font-medium">{item.title}</span>
-                            <span className="flex-grow border-b border-dashed border-white/10 mx-2" />
-                            <span className="text-brand-purple font-mono font-bold">Page {item.p}</span>
+                          <div key={item.num} className="flex justify-between items-baseline border-b border-slate-100 pb-2 text-xs">
+                            <span className="text-slate-400 font-semibold mr-2">{item.num}</span>
+                            <span className="text-slate-800 font-medium">{item.title}</span>
+                            <span className="flex-grow border-b border-dashed border-slate-200 mx-2" />
+                            <span className="text-blue-600 font-bold">Page {item.p}</span>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="border-t border-white/5 pt-6">
-                      <h3 className="text-xs font-bold uppercase tracking-wider text-brand-cyan mb-2">Executive Summary</h3>
-                      <p className="text-[11px] text-white/50 leading-relaxed">
+                    <div className="border-t border-slate-100 pt-6">
+                      <h3 className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">Executive Summary</h3>
+                      <p className="text-xs text-slate-600 leading-relaxed">
                         At UnifiedStack, we build high-performance software application layers and deterministic AI structures.
                         We help companies scale by automating slow, manual operations and designing robust platforms.
                         By avoiding typical AI hallucinations and engineering reliable modular codebases, we ensure your technology drives business growth.
@@ -453,178 +426,179 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
                   </div>
 
                   {/* PAGE 3: COMPANY OVERVIEW */}
-                  <div className="print-page flex flex-col justify-between border border-white/5 bg-bg-dark p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full shadow-2xl min-h-[400px] md:min-h-[auto]">
+                  <div className="print-page flex flex-col justify-between border border-slate-200 bg-white p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full min-h-[420px] md:min-h-[auto] text-slate-900">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">03 // Profile</span>
-                      <h2 className="text-2xl font-bold text-white mt-2 mb-6">Company Overview</h2>
+                      <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">03 // Profile</span>
+                      <h2 className="text-2xl font-bold text-slate-900 mt-1 mb-6">Company Overview</h2>
 
-                      <div className="space-y-4 text-xs text-white/60 leading-relaxed">
+                      <div className="space-y-4 text-xs text-slate-600 leading-relaxed">
                         <p>
-                          <strong>UnifiedStack</strong> is a software development and AI solutions agency that helps startups, SMEs, and enterprises build scalable digital products. We specialize in custom software development, mobile applications, web platforms, AI-powered automation, and cloud-based solutions. Our mission is to transform business ideas into secure, high-performance, and user-friendly products that drive growth and efficiency.
+                          <strong className="text-slate-900">UnifiedStack</strong> is a custom software development and AI engineering agency. We partner with ambitious founders, growing businesses, and enterprises to build reliable digital products. We specialize in full-stack web development, cross-platform mobile apps, Agentic AI workflows, and resilient backend systems.
                         </p>
                         <p>
-                          Our core operational model focuses on engineering client-facing solutions. We replace slow, error-prone manual pipelines with robust, automated systems. Whether it is auditing medical compliance logs or mapping live delivery vehicle routing, we align our software architecture with your operational goals.
+                          Our core operational model focuses on engineering client-facing solutions. We replace slow, error-prone manual pipelines with robust, automated systems. Whether it is parsing complex documents, mapping real-time driver coordinates, or automating business workflows, we align our software architecture with your operational goals.
                         </p>
                         <p>
-                          Founded by <strong>Mohd Huzaifa</strong> (AMU CS Graduate and former systems developer at Sofyrus Technologies) and co-founded by <strong>Mohd Suhail</strong> (Head of Operations), we guarantee clear communication, structured milestones, and dependable project delivery. We are based in India and deliver software services to clients worldwide.
+                          Founded by <strong className="text-slate-900">Mohd Huzaifa</strong> (Computer Science Graduate from Aligarh Muslim University, ex-systems engineer at Sofyrus Technologies) and co-founded by <strong className="text-slate-900">Mohd Suhail</strong> (Head of Operations), we guarantee direct communication, structured milestones, and dependable project delivery.
                         </p>
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-6">
-                      <div className="rounded-lg bg-white/[0.02] border border-white/5 p-3 text-center">
-                        <span className="text-2xl font-bold text-brand-purple">2+</span>
-                        <span className="block text-[10px] uppercase text-white/40 mt-1">Years Active Experience</span>
+                    <div className="grid grid-cols-2 gap-4 border-t border-slate-100 pt-6">
+                      <div className="rounded-xl bg-slate-50 border border-slate-200 p-4 text-center">
+                        <span className="text-2xl font-bold text-blue-600">100%</span>
+                        <span className="block text-xs font-medium text-slate-600 mt-1">Direct Developer Access</span>
                       </div>
-                      <div className="rounded-lg bg-white/[0.02] border border-white/5 p-3 text-center">
-                        <span className="text-2xl font-bold text-brand-cyan">100%</span>
-                        <span className="block text-[10px] uppercase text-white/40 mt-1">Production AI Delivery</span>
+                      <div className="rounded-xl bg-slate-50 border border-slate-200 p-4 text-center">
+                        <span className="text-2xl font-bold text-emerald-600">Sub-Second</span>
+                        <span className="block text-xs font-medium text-slate-600 mt-1">Production Response Speed</span>
                       </div>
                     </div>
                   </div>
 
                   {/* PAGE 4: VISION, MISSION, VALUES */}
-                  <div className="print-page flex flex-col justify-between border border-white/5 bg-bg-dark p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full shadow-2xl min-h-[400px] md:min-h-[auto]">
+                  <div className="print-page flex flex-col justify-between border border-slate-200 bg-white p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full min-h-[420px] md:min-h-[auto] text-slate-900">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">04 // Core Philosophy</span>
-                      <h2 className="text-2xl font-bold text-white mt-2 mb-6">Vision, Mission & Core Values</h2>
+                      <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">04 // Philosophy</span>
+                      <h2 className="text-2xl font-bold text-slate-900 mt-1 mb-6">Vision, Mission & Core Values</h2>
 
-                      {/* Vision & Mission boxes */}
                       <div className="grid grid-cols-1 gap-4 mb-6">
-                        <div className="rounded-lg border border-brand-purple/20 bg-brand-purple/5 p-4">
-                          <span className="text-xs font-bold uppercase tracking-wider text-brand-cyan block mb-1">Our Vision</span>
-                          <p className="text-xs text-white/70 italic leading-relaxed">
+                        <div className="rounded-xl border border-blue-200 bg-blue-50/70 p-4">
+                          <span className="text-xs font-bold uppercase tracking-wider text-blue-700 block mb-1">Our Vision</span>
+                          <p className="text-xs text-slate-700 italic leading-relaxed">
                             &ldquo;To become a trusted global technology partner, empowering businesses with innovative software and artificial intelligence solutions that create lasting impact.&rdquo;
                           </p>
                         </div>
-                        <div className="rounded-lg border border-brand-blue/20 bg-brand-blue/5 p-4">
-                          <span className="text-xs font-bold uppercase tracking-wider text-brand-cyan block mb-1">Our Mission</span>
-                          <p className="text-xs text-white/70 italic leading-relaxed">
+                        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                          <span className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1">Our Mission</span>
+                          <p className="text-xs text-slate-700 italic leading-relaxed">
                             &ldquo;To deliver high-quality, scalable, and cost-effective software solutions by combining modern technologies, skilled engineering, and customer-focused development practices.&rdquo;
                           </p>
                         </div>
                       </div>
 
-                      {/* Values list */}
-                      <span className="text-xs font-bold uppercase tracking-wider text-white/60 block mb-3">Our Core Values</span>
+                      <span className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-3">Our Core Principles</span>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {coreValues.map((val) => (
-                          <div key={val.name} className="border border-white/5 bg-white/[0.01] rounded p-2">
-                            <span className="text-xs font-semibold text-white block">{val.name}</span>
-                            <span className="text-[9px] text-white/40 leading-snug block mt-0.5">{val.desc}</span>
+                          <div key={val.name} className="border border-slate-200 bg-slate-50/50 rounded-xl p-3">
+                            <span className="text-xs font-semibold text-slate-900 block">{val.name}</span>
+                            <span className="text-[11px] text-slate-600 leading-snug block mt-0.5">{val.desc}</span>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="text-[10px] text-white/30 text-center border-t border-white/5 pt-4">
-                      UnifiedStack &bull; Driven by Deterministic Innovation
+                    <div className="text-xs text-slate-500 text-center border-t border-slate-100 pt-4">
+                      UnifiedStack &bull; Driven by Engineering Excellence
                     </div>
                   </div>
 
                   {/* PAGE 5: SERVICES I */}
-                  <div className="print-page flex flex-col justify-between border border-white/5 bg-bg-dark p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full shadow-2xl min-h-[400px] md:min-h-[auto]">
+                  <div className="print-page flex flex-col justify-between border border-slate-200 bg-white p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full min-h-[420px] md:min-h-[auto] text-slate-900">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">05 // Services Part I</span>
-                      <h2 className="text-2xl font-bold text-white mt-2 mb-6">Software Engineering Solutions</h2>
+                      <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">05 // Services Part I</span>
+                      <h2 className="text-2xl font-bold text-slate-900 mt-1 mb-6">Web & Mobile Application Engineering</h2>
 
                       <div className="space-y-4">
-                        {[
-                          { name: "Custom Software Development", desc: "We build custom enterprise software, backend engines, and business utilities. We write clean, maintainable, and type-safe code that aligns with your core operations." },
-                          { name: "Web Application & SaaS Development", desc: "Using Next.js 15, React 19, and Tailwind CSS, we build fast, responsive web portals and SaaS platforms featuring secure dashboards." },
-                          { name: "Mobile App Development (iOS & Android)", desc: "We build cross-platform mobile apps using React Native. We integrate real-time tracking, background processes, and offline data caching." },
-                          { name: "API Development & System Integrations", desc: "We design and build secure, fast, and fully documented RESTful and gRPC APIs to connect your services and databases." },
-                          { name: "Database Design & Optimization", desc: "We set up relational schemas, vector databases, and caching layers (PostgreSQL, Redis) optimized to reduce data latency." }
-                        ].map((serv, index) => (
-                          <div key={index} className="border-l-2 border-brand-purple pl-4 py-1.5">
-                            <h3 className="text-xs font-bold text-white uppercase tracking-wider">{serv.name}</h3>
-                            <p className="text-[10px] text-white/50 leading-relaxed mt-1">{serv.desc}</p>
-                          </div>
-                        ))}
+                        <div className="border-l-4 border-blue-600 pl-4 py-1.5">
+                          <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Web Application Development</h3>
+                          <p className="text-xs text-slate-600 leading-relaxed mt-1">
+                            We design and build fast web applications and SaaS portals using Next.js and Tailwind CSS. We ensure your platform looks premium, loads instantly, and runs smoothly across all screens with type-safe TypeScript architectures.
+                          </p>
+                        </div>
+                        <div className="border-l-4 border-blue-600 pl-4 py-1.5">
+                          <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Mobile App Development (iOS & Android)</h3>
+                          <p className="text-xs text-slate-600 leading-relaxed mt-1">
+                            We build cross-platform mobile apps for Android & iOS using React Native and Expo. From real-time tracking to offline data sync, we deliver responsive, native-grade mobile experiences from a single maintainable codebase.
+                          </p>
+                        </div>
+                        <div className="border-l-4 border-blue-600 pl-4 py-1.5">
+                          <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Custom Admin Portals & Dashboards</h3>
+                          <p className="text-xs text-slate-600 leading-relaxed mt-1">
+                            We build tailored internal tools, administrative dashboards, role-based access management, and business telemetry interfaces that give you full operational control.
+                          </p>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="text-[10px] text-white/40 border-t border-white/5 pt-4 flex justify-between">
-                      <span>Service Catalogue: Core Development</span>
+                    <div className="text-xs text-slate-500 border-t border-slate-100 pt-4 flex justify-between">
+                      <span>Service Catalogue: Web & Mobile</span>
                       <span>UnifiedStack 2026</span>
                     </div>
                   </div>
 
                   {/* PAGE 6: SERVICES II */}
-                  <div className="print-page flex flex-col justify-between border border-white/5 bg-bg-dark p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full shadow-2xl min-h-[400px] md:min-h-[auto]">
+                  <div className="print-page flex flex-col justify-between border border-slate-200 bg-white p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full min-h-[420px] md:min-h-[auto] text-slate-900">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">06 // Services Part II</span>
-                      <h2 className="text-2xl font-bold text-white mt-2 mb-6">Cognitive AI & Intelligent Systems</h2>
+                      <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">06 // Services Part II</span>
+                      <h2 className="text-2xl font-bold text-slate-900 mt-1 mb-6">AI Engineering & Backend Systems</h2>
 
                       <div className="space-y-4">
-                        {[
-                          { name: "AI Agent Swarms & Business Automation", desc: "We build autonomous multi-agent networks using LangGraph. Our agents work in cycles to execute complex workflows with absolute reliability." },
-                          { name: "Semantic RAG Document Pipelines", desc: "We build advanced document search systems. We map your private files to vector databases, letting LLMs search millions of pages in sub-1.2 seconds." },
-                          { name: "Generative AI Solutions", desc: "We integrate custom GPT models, prompt engineering structures, and structured API outputs directly into your software." },
-                          { name: "Machine Learning Solutions", desc: "We train custom predictive models, classifiers, and analytics tools to turn your database logs into business forecasts." },
-                          { name: "AI Observability & Red-Teaming", desc: "We monitor agent runs using LangSmith, trace token costs, and red-team models against compliance gaps or hallucinations." }
-                        ].map((serv, index) => (
-                          <div key={index} className="border-l-2 border-brand-cyan pl-4 py-1.5">
-                            <h3 className="text-xs font-bold text-white uppercase tracking-wider">{serv.name}</h3>
-                            <p className="text-[10px] text-white/50 leading-relaxed mt-1">{serv.desc}</p>
-                          </div>
-                        ))}
+                        <div className="border-l-4 border-blue-600 pl-4 py-1.5">
+                          <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Agentic AI & Workflow Automation</h3>
+                          <p className="text-xs text-slate-600 leading-relaxed mt-1">
+                            We build autonomous multi-step AI agents using LangGraph. Our agents reason, call specialized tools, handle operational exceptions, and automate complex workflows with verifiable accuracy.
+                          </p>
+                        </div>
+                        <div className="border-l-4 border-blue-600 pl-4 py-1.5">
+                          <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Semantic RAG Document Search</h3>
+                          <p className="text-xs text-slate-600 leading-relaxed mt-1">
+                            We build deterministic document retrieval systems. We index your company files into vector databases, allowing LLMs to search thousands of private pages with sub-second response times and source citations.
+                          </p>
+                        </div>
+                        <div className="border-l-4 border-blue-600 pl-4 py-1.5">
+                          <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Backend APIs & Cloud Microservices</h3>
+                          <p className="text-xs text-slate-600 leading-relaxed mt-1">
+                            We engineer fast, secure, and documented RESTful and asynchronous APIs using Python, FastAPI, and Node.js. Optimized database schemas (PostgreSQL, Redis) deliver low latency and high concurrency.
+                          </p>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="text-[10px] text-white/40 border-t border-white/5 pt-4 flex justify-between">
-                      <span>Service Catalogue: Intelligent Systems</span>
+                    <div className="text-xs text-slate-500 border-t border-slate-100 pt-4 flex justify-between">
+                      <span>Service Catalogue: AI & Backend</span>
                       <span>UnifiedStack 2026</span>
                     </div>
                   </div>
 
                   {/* PAGE 7: INDUSTRIES SERVED */}
-                  <div className="print-page flex flex-col justify-between border border-white/5 bg-bg-dark p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full shadow-2xl min-h-[400px] md:min-h-[auto]">
+                  <div className="print-page flex flex-col justify-between border border-slate-200 bg-white p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full min-h-[420px] md:min-h-[auto] text-slate-900">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">07 // Target Sectors</span>
-                      <h2 className="text-2xl font-bold text-white mt-2 mb-6">Industries We Serve</h2>
-                      <p className="text-xs text-white/50 leading-relaxed mb-6">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">07 // Target Sectors</span>
+                      <h2 className="text-2xl font-bold text-slate-900 mt-1 mb-6">Industries We Serve</h2>
+                      <p className="text-xs text-slate-600 leading-relaxed mb-6">
                         We configure our software architectures to meet the exact regulatory requirements, database models, and operational needs of your specific industry.
                       </p>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {[
-                          { name: "Healthcare", desc: "HIPAA compliance audits, patient records parsing, and medical agent systems." },
-                          { name: "Logistics & Transport", desc: "Geofenced route optimization, live vehicle coordinates, and dispatcher dashboards." },
-                          { name: "Finance & Fintech", desc: "Taxation reporting portals, audit compliance checkers, and budget analytics." },
-                          { name: "Education & EdTech", desc: "Custom pedagogical agents, grading helpers, and student portals." },
-                          { name: "Retail & E-commerce", desc: "Automated billing systems, inventory trackers, and client recommenders." },
-                          { name: "Startups & SMEs", desc: "Rapid MVP validation, containerized SaaS platforms, and secure APIs." }
-                        ].map((ind, index) => (
-                          <div key={index} className="rounded-lg border border-white/5 bg-white/[0.01] p-3">
-                            <span className="text-xs font-bold text-white block uppercase tracking-wider">{ind.name}</span>
-                            <span className="text-[10px] text-white/40 leading-relaxed block mt-1">{ind.desc}</span>
+                        {industries.map((ind, index) => (
+                          <div key={index} className="rounded-xl border border-slate-200 bg-slate-50/50 p-3.5">
+                            <span className="text-xs font-bold text-slate-900 block uppercase tracking-wider">{ind.name}</span>
+                            <span className="text-xs text-slate-600 leading-relaxed block mt-1">{ind.desc}</span>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="border-t border-white/5 pt-4 text-center text-[10px] text-white/30">
-                      UnifiedStack &bull; Cross-Industry Architecture Deployment
+                    <div className="text-xs text-slate-500 border-t border-slate-100 pt-4 flex justify-between">
+                      <span>Target Sectors</span>
+                      <span>UnifiedStack 2026</span>
                     </div>
                   </div>
 
-                  {/* PAGE 8: TECHNOLOGY STACK */}
-                  <div className="print-page flex flex-col justify-between border border-white/5 bg-bg-dark p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full shadow-2xl min-h-[400px] md:min-h-[auto]">
+                  {/* PAGE 8: TECH STACK */}
+                  <div className="print-page flex flex-col justify-between border border-slate-200 bg-white p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full min-h-[420px] md:min-h-[auto] text-slate-900">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">08 // Tech Core</span>
-                      <h2 className="text-2xl font-bold text-white mt-2 mb-6">Our Technology Stack</h2>
-                      <p className="text-xs text-white/50 leading-relaxed mb-6">
-                        We use a modern, high-performance technology stack to guarantee speed, safety, typing contracts, and scaling.
-                      </p>
+                      <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">08 // Tech Core</span>
+                      <h2 className="text-2xl font-bold text-slate-900 mt-1 mb-6">Technology Stack & Technical Core</h2>
 
                       <div className="space-y-4">
-                        {techStack.map((cat, index) => (
-                          <div key={index} className="border-b border-white/5 pb-3 last:border-b-0">
-                            <span className="text-xs font-bold text-brand-cyan uppercase block mb-1.5">{cat.category}</span>
-                            <div className="flex flex-wrap gap-2">
-                              {cat.skills.map((skill) => (
-                                <span key={skill} className="rounded bg-white/5 border border-white/10 px-2 py-0.5 text-[10px] font-mono text-white/80">
+                        {techStack.map((group) => (
+                          <div key={group.category} className="rounded-xl border border-slate-200 bg-slate-50/50 p-3.5">
+                            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">{group.category}</h3>
+                            <div className="flex flex-wrap gap-1.5">
+                              {group.skills.map((skill) => (
+                                <span key={skill} className="rounded-md bg-white border border-slate-200 px-2 py-0.5 text-xs text-slate-700 font-medium">
                                   {skill}
                                 </span>
                               ))}
@@ -634,136 +608,131 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
                       </div>
                     </div>
 
-                    <div className="border-t border-white/5 pt-4 text-[10px] text-white/40 flex justify-between font-mono">
-                      <span>Engineered With: TS/Python/Go</span>
-                      <span>Verified Stack 2026</span>
+                    <div className="text-xs text-slate-500 border-t border-slate-100 pt-4 flex justify-between">
+                      <span>Technology Core</span>
+                      <span>UnifiedStack 2026</span>
                     </div>
                   </div>
 
-                  {/* PAGE 9: DEVELOPMENT PROCESS */}
-                  <div className="print-page flex flex-col justify-between border border-white/5 bg-bg-dark p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full shadow-2xl min-h-[400px] md:min-h-[auto]">
+                  {/* PAGE 9: METHODOLOGY */}
+                  <div className="print-page flex flex-col justify-between border border-slate-200 bg-white p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full min-h-[420px] md:min-h-[auto] text-slate-900">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">09 // Workflow</span>
-                      <h2 className="text-2xl font-bold text-white mt-2 mb-6">Development Methodology</h2>
-                      <p className="text-xs text-white/50 leading-relaxed mb-6">
-                        We work in disciplined, bi-weekly sprints. We provide complete code tracking, regular progress reviews, and access to staging environments.
-                      </p>
+                      <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">09 // Methodology</span>
+                      <h2 className="text-2xl font-bold text-slate-900 mt-1 mb-6">Our 6-Step Agile Roadmap</h2>
 
-                      <div className="space-y-4">
-                        {devSteps.slice(0, 6).map((step) => (
-                          <div key={step.step} className="flex gap-4">
-                            <div className="text-xs font-mono font-bold text-brand-purple border-r border-brand-purple/20 pr-3 pt-0.5">
-                              {step.step}
-                            </div>
+                      <div className="space-y-3">
+                        {devSteps.map((step) => (
+                          <div key={step.step} className="flex gap-4 items-start border-b border-slate-100 pb-2.5">
+                            <span className="text-xs font-bold text-blue-600 shrink-0 mt-0.5">{step.step}</span>
                             <div>
-                              <h4 className="text-xs font-bold text-white uppercase tracking-wider">{step.name}</h4>
-                              <p className="text-[10px] text-white/40 leading-relaxed mt-0.5">{step.desc}</p>
+                              <h3 className="text-xs font-bold text-slate-900">{step.name}</h3>
+                              <p className="text-xs text-slate-600 leading-relaxed mt-0.5">{step.desc}</p>
                             </div>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="border-t border-white/5 pt-4 text-[10px] text-white/40 text-center uppercase tracking-widest font-mono">
-                      agile sprint architecture &bull; 2-week loops
+                    <div className="text-xs text-slate-500 border-t border-slate-100 pt-4 flex justify-between">
+                      <span>Agile Roadmap</span>
+                      <span>UnifiedStack 2026</span>
                     </div>
                   </div>
 
-                  {/* PAGE 10: CASE STUDIES & PORTFOLIO */}
-                  <div className="print-page flex flex-col justify-between border border-white/5 bg-bg-dark p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full shadow-2xl min-h-[400px] md:min-h-[auto]">
+                  {/* PAGE 10: PORTFOLIO */}
+                  <div className="print-page flex flex-col justify-between border border-slate-200 bg-white p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full min-h-[420px] md:min-h-[auto] text-slate-900">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">10 // Execution Case</span>
-                      <h2 className="text-2xl font-bold text-white mt-2 mb-6">Portfolio & Case Studies</h2>
+                      <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">10 // Track Record</span>
+                      <h2 className="text-2xl font-bold text-slate-900 mt-1 mb-6">Selected Project Portfolio</h2>
 
-                      <div className="space-y-6">
-                        {portfolios.map((item, index) => (
-                          <div key={index} className="rounded-lg border border-white/5 bg-white/[0.01] p-4">
-                            <div className="flex justify-between items-start gap-2">
-                              <h3 className="text-xs font-bold text-white uppercase tracking-wider">{item.title}</h3>
-                              <span className="rounded bg-brand-purple/10 border border-brand-purple/20 px-2 py-0.5 text-[9px] font-mono uppercase text-brand-cyan whitespace-nowrap">
-                                {item.type}
+                      <div className="space-y-4">
+                        {pastHighlights.map((proj, idx) => (
+                          <div key={idx} className="rounded-xl border border-slate-200 bg-slate-50/50 p-4">
+                            <div className="flex justify-between items-start gap-2 mb-1">
+                              <h3 className="text-sm font-bold text-slate-900">{proj.title}</h3>
+                              <span className="rounded bg-blue-50 border border-blue-200 text-blue-700 px-2 py-0.5 text-[10px] font-semibold uppercase shrink-0">
+                                {proj.metric}
                               </span>
                             </div>
-                            <span className="text-[9px] font-semibold text-brand-cyan/70 block mt-1">Client: {item.client}</span>
-                            <p className="text-[10px] text-white/40 leading-relaxed mt-2">{item.desc}</p>
+                            <span className="text-xs font-medium text-slate-500 block mb-1.5">{proj.category}</span>
+                            <p className="text-xs text-slate-600 leading-relaxed">{proj.desc}</p>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="border-t border-white/5 pt-4 text-center text-[10px] text-white/30 font-mono">
-                      Detailed architectural logs at: www.unifiedstack.com/case-studies
+                    <div className="text-xs text-slate-500 border-t border-slate-100 pt-4 flex justify-between">
+                      <span>Portfolio Highlights</span>
+                      <span>UnifiedStack 2026</span>
                     </div>
                   </div>
 
-                  {/* PAGE 11: TESTIMONIALS & TRUST METRICS */}
-                  <div className="print-page flex flex-col justify-between border border-white/5 bg-bg-dark p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full shadow-2xl min-h-[400px] md:min-h-[auto]">
+                  {/* PAGE 11: METRICS & TESTIMONIALS */}
+                  <div className="print-page flex flex-col justify-between border border-slate-200 bg-white p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full min-h-[420px] md:min-h-[auto] text-slate-900">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">11 // Performance</span>
-                      <h2 className="text-2xl font-bold text-white mt-2 mb-6">Trust & Operational Metrics</h2>
+                      <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">11 // Results</span>
+                      <h2 className="text-2xl font-bold text-slate-900 mt-1 mb-6">Performance & Client Feedback</h2>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-                        {[
-                          { value: "99.8%", label: "System Uptime" },
-                          { value: "12x", label: "Latency Drop" },
-                          { value: "88%", label: "Automation" }
-                        ].map((m, i) => (
-                          <div key={i} className="rounded-lg border border-white/5 bg-white/[0.02] p-3 text-center">
-                            <span className="text-xl font-extrabold text-brand-cyan block">{m.value}</span>
-                            <span className="text-[8px] uppercase tracking-wider text-white/30 block mt-0.5">{m.label}</span>
-                          </div>
-                        ))}
+                      <div className="grid grid-cols-3 gap-3 mb-6 text-center">
+                        <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                          <span className="text-2xl font-bold text-blue-600">99.8%</span>
+                          <span className="block text-[10px] uppercase font-semibold text-slate-500 mt-1">Uptime Delivered</span>
+                        </div>
+                        <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                          <span className="text-2xl font-bold text-emerald-600">&lt; 1s</span>
+                          <span className="block text-[10px] uppercase font-semibold text-slate-500 mt-1">API Execution</span>
+                        </div>
+                        <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                          <span className="text-2xl font-bold text-slate-900">100%</span>
+                          <span className="block text-[10px] uppercase font-semibold text-slate-500 mt-1">Code Ownership</span>
+                        </div>
                       </div>
 
-                      <span className="text-xs font-bold uppercase tracking-wider text-white/60 block mb-3">Client Feedback</span>
                       <div className="space-y-4">
-                        {testimonials.map((t, idx) => (
-                          <div key={idx} className="rounded-lg border border-white/5 bg-white/[0.01] p-4 relative">
-                            <p className="text-[10.5px] text-white/60 leading-relaxed italic">
-                              &ldquo;{t.quote}&rdquo;
-                            </p>
-                            <span className="text-[9px] font-bold text-white block mt-2 text-right">
-                              &mdash; {t.author}, <span className="text-brand-purple">{t.org}</span>
-                            </span>
-                          </div>
-                        ))}
+                        <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-4">
+                          <p className="text-xs text-slate-700 italic leading-relaxed">
+                            &ldquo;Mohd Huzaifa is an exceptional software engineer. He designed and deployed our automated workflow engine under a tight deadline. The system has run without a single outage and delivered massive speed improvements.&rdquo;
+                          </p>
+                          <span className="block text-xs font-bold text-slate-900 mt-2">&bull; Director of Engineering, Technology Client</span>
+                        </div>
+                        <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-4">
+                          <p className="text-xs text-slate-700 italic leading-relaxed">
+                            &ldquo;UnifiedStack built a clean, reliable platform for our operations. Their direct communication and quick turnaround made the entire process seamless.&rdquo;
+                          </p>
+                          <span className="block text-xs font-bold text-slate-900 mt-2">&bull; Founder & CTO, SaaS Platform</span>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="border-t border-white/5 pt-4 text-center text-[10px] text-white/30 font-mono">
-                      Uptime stats backed by real production cloud logs.
+                    <div className="text-xs text-slate-500 border-t border-slate-100 pt-4 flex justify-between">
+                      <span>Performance & Feedback</span>
+                      <span>UnifiedStack 2026</span>
                     </div>
                   </div>
 
-                  {/* PAGE 12: CONTACT & ENGAGEMENT */}
-                  <div className="print-page flex flex-col justify-between border border-white/5 bg-bg-dark p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full shadow-2xl min-h-[400px] md:min-h-[auto] relative overflow-hidden">
-                    <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-brand-cyan/10 blur-[60px]" />
-
+                  {/* PAGE 12: ENGAGEMENT & CONTACT */}
+                  <div className="print-page flex flex-col justify-between border border-slate-200 bg-white p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full min-h-[420px] md:min-h-[auto] text-slate-900">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">12 // Engagement</span>
-                      <h2 className="text-2xl font-bold text-white mt-2 mb-6">Contact & Engagement Guide</h2>
-                      <p className="text-xs text-white/50 leading-relaxed mb-6">
-                        Ready to automate your engineering bottlenecks? Book a call or check out our project workspaces.
-                      </p>
+                      <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">12 // Next Steps</span>
+                      <h2 className="text-2xl font-bold text-slate-900 mt-1 mb-6">Engagement & Contact Directory</h2>
 
-                      <div className="space-y-4">
+                      <div className="space-y-3 mb-8">
                         {[
-                          { label: "Corporate Entity", value: companyInfo.name, icon: Cpu },
-                          { label: "Portal URL", value: companyInfo.website, icon: Globe },
-                          { label: "General Inquiry", value: companyInfo.email, icon: Mail },
-                          { label: "WhatsApp & Call", value: companyInfo.phone, icon: Phone },
-                          { label: "LinkedIn Connection", value: companyInfo.linkedin, icon: ExternalLink },
-                          { label: "Office & Location", value: companyInfo.address, icon: ShieldCheck }
+                          { label: "Agency Name", value: companyInfo.name, icon: Cpu },
+                          { label: "Website", value: companyInfo.website, icon: Globe },
+                          { label: "Email", value: companyInfo.email, icon: Mail },
+                          { label: "WhatsApp & Phone", value: companyInfo.phone, icon: Phone },
+                          { label: "LinkedIn", value: companyInfo.linkedin, icon: ExternalLink }
                         ].map((c, i) => {
-                          const Icon = c.icon || Cpu;
+                          const Icon = c.icon;
                           return (
-                            <div key={i} className="flex items-center gap-3 border-b border-white/5 pb-2.5">
-                              <div className="flex h-7 w-7 items-center justify-center rounded bg-white/5 border border-white/10 shrink-0">
-                                <Icon className="h-3.5 w-3.5 text-brand-purple" />
+                            <div key={i} className="flex items-center gap-3 border-b border-slate-100 pb-2.5">
+                              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 border border-blue-100 text-blue-600 shrink-0">
+                                <Icon className="h-4 w-4" />
                               </div>
                               <div>
-                                <span className="text-[8px] uppercase tracking-wider text-white/30 block">{c.label}</span>
-                                <span className="text-xs font-semibold text-white/90">{c.value}</span>
+                                <span className="text-[10px] uppercase font-semibold text-slate-500 block">{c.label}</span>
+                                <span className="text-xs font-bold text-slate-900">{c.value}</span>
                               </div>
                             </div>
                           );
@@ -771,12 +740,12 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
                       </div>
                     </div>
 
-                    <div className="border-t border-white/5 pt-6 text-center">
-                      <div className="text-[10px] font-mono uppercase text-brand-cyan font-bold tracking-widest">
-                        Let&apos;s build intelligent software systems.
+                    <div className="border-t border-slate-100 pt-6 text-center">
+                      <div className="text-xs uppercase text-blue-600 font-bold tracking-wider">
+                        Let's build reliable software systems together.
                       </div>
-                      <div className="text-[8px] text-white/30 mt-1 uppercase font-mono">
-                        unifiedstack &copy; {new Date().getFullYear()} &bull; sole proprietorship registry
+                      <div className="text-xs text-slate-500 mt-1">
+                        UnifiedStack &copy; {new Date().getFullYear()} &bull; All Rights Reserved
                       </div>
                     </div>
                   </div>
@@ -796,13 +765,13 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
                 className="flex flex-col items-center"
               >
                 {/* Deck slide viewer frame (no-print) */}
-                <div className="w-full max-w-4xl border border-white/5 bg-bg-dark/60 rounded-2xl p-6 sm:p-10 shadow-2xl backdrop-blur-md no-print mb-8">
+                <div className="w-full max-w-4xl border border-slate-200 bg-white rounded-2xl p-6 sm:p-10 no-print mb-8">
 
                   {/* Slide controls top bar */}
-                  <div className="flex justify-between items-center border-b border-white/5 pb-4 mb-6">
+                  <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
                     <div className="flex items-center gap-2">
-                      <Layers className="h-4 w-4 text-brand-purple" />
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-white/40">
+                      <Layers className="h-4 w-4 text-blue-600" />
+                      <span className="text-xs font-semibold text-slate-600">
                         Slide {deckSlide + 1} of 10
                       </span>
                     </div>
@@ -810,14 +779,14 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
                       <button
                         onClick={() => setDeckSlide(prev => Math.max(0, prev - 1))}
                         disabled={deckSlide === 0}
-                        className="flex h-8 w-8 items-center justify-center rounded border border-white/10 bg-white/5 text-white/60 hover:text-white disabled:opacity-30 disabled:hover:bg-transparent"
+                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 disabled:opacity-30 cursor-pointer"
                       >
                         <ChevronLeft className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => setDeckSlide(prev => Math.min(9, prev + 1))}
                         disabled={deckSlide === 9}
-                        className="flex h-8 w-8 items-center justify-center rounded border border-white/10 bg-white/5 text-white/60 hover:text-white disabled:opacity-30 disabled:hover:bg-transparent"
+                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 disabled:opacity-30 cursor-pointer"
                       >
                         <ChevronRight className="h-4 w-4" />
                       </button>
@@ -825,50 +794,46 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
                   </div>
 
                   {/* ACTIVE SLIDE DISPLAY AREA */}
-                  <div className="w-full rounded-xl border border-white/5 bg-gradient-to-br from-bg-black to-bg-dark p-6 sm:p-12 relative flex flex-col justify-between overflow-hidden shadow-inner select-none aspect-auto min-h-[320px] md:aspect-[16/9]">
-
-                    {/* Background decorations */}
-                    <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-brand-purple/10 blur-3xl pointer-events-none" />
-                    <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-brand-cyan/10 blur-3xl pointer-events-none" />
+                  <div className="w-full rounded-xl border border-slate-200 bg-slate-50/60 p-6 sm:p-12 relative flex flex-col justify-between overflow-hidden select-none aspect-auto min-h-[340px] md:aspect-[16/9] text-slate-900">
 
                     {/* Header */}
-                    <div className="flex justify-between items-center border-b border-white/5 pb-2 text-[10px] font-mono text-white/30 uppercase tracking-widest">
-                      <span>UnifiedStack Pitch Deck</span>
-                      <span>0{deckSlide + 1} // Slide</span>
+                    <div className="flex justify-between items-center border-b border-slate-200/80 pb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                      <span>UnifiedStack Capabilities</span>
+                      <span>Slide 0{deckSlide + 1}</span>
                     </div>
 
                     {/* Content Switcher */}
-                    <div className="my-auto py-4">
+                    <div className="my-auto py-6">
                       {deckSlide === 0 && (
                         <div>
-                          <span className="rounded-full border border-brand-purple/30 bg-brand-purple/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-brand-cyan">
-                            Who We Are
+                          <span className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+                            Introduction
                           </span>
-                          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-4 leading-tight">
-                            Building Intelligent Software & <span className="bg-gradient-to-r from-brand-purple to-brand-cyan bg-clip-text text-transparent">AI Systems</span>
+                          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4 leading-tight">
+                            Building High-Performance Software & <span className="text-blue-600">AI Systems</span>
                           </h2>
-                          <p className="mt-3 text-xs sm:text-sm text-white/50 max-w-lg leading-relaxed">
-                            We build high-performance web applications, mobile platforms, and autonomous AI agents for startups and enterprises.
+                          <p className="mt-3 text-xs sm:text-sm text-slate-600 max-w-lg leading-relaxed">
+                            We build modern web applications, fluid mobile platforms, and autonomous AI agents for ambitious founders and growing businesses.
                           </p>
                         </div>
                       )}
 
                       {deckSlide === 1 && (
                         <div>
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">The Challenge</span>
-                          <h2 className="text-2xl font-bold text-white mt-2 mb-3">Legacy Bloat & AI Hallucinations</h2>
+                          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">The Challenge</span>
+                          <h2 className="text-2xl font-bold text-slate-900 mt-2 mb-3">Common Bottlenecks in Modern Software</h2>
                           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
-                            <div className="p-3 bg-red-500/5 border border-red-500/10 rounded">
-                              <span className="font-bold text-red-400 text-xs block">AI Hallucinations</span>
-                              <p className="text-[10px] text-white/50 leading-relaxed mt-1">Generative LLMs hallucinate structured data, making automated tasks unreliable.</p>
+                            <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
+                              <span className="font-bold text-red-700 text-xs block">AI Hallucinations</span>
+                              <p className="text-xs text-red-600 leading-relaxed mt-1">Generic AI prompts produce unreliable outputs and compliance errors.</p>
                             </div>
-                            <div className="p-3 bg-red-500/5 border border-red-500/10 rounded">
-                              <span className="font-bold text-red-400 text-xs block">Manual Bottlenecks</span>
-                              <p className="text-[10px] text-white/50 leading-relaxed mt-1">Slow manual operations and paper pipelines throttle corporate efficiency and growth.</p>
+                            <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
+                              <span className="font-bold text-red-700 text-xs block">Manual Bottlenecks</span>
+                              <p className="text-xs text-red-600 leading-relaxed mt-1">Repetitive manual processing slows growth and increases operational costs.</p>
                             </div>
-                            <div className="p-3 bg-red-500/5 border border-red-500/10 rounded">
-                              <span className="font-bold text-red-400 text-xs block">Complex Architecture</span>
-                              <p className="text-[10px] text-white/50 leading-relaxed mt-1">Startups fragment engineers into complex microservices prematurely, slowing velocity.</p>
+                            <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
+                              <span className="font-bold text-red-700 text-xs block">Over-Complex Stacks</span>
+                              <p className="text-xs text-red-600 leading-relaxed mt-1">Premature microservices fragment teams and delay product delivery.</p>
                             </div>
                           </div>
                         </div>
@@ -876,20 +841,20 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
 
                       {deckSlide === 2 && (
                         <div>
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">Our Solution</span>
-                          <h2 className="text-2xl font-bold text-white mt-2 mb-3">Deterministic Cognitive Systems</h2>
+                          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Our Solution</span>
+                          <h2 className="text-2xl font-bold text-slate-900 mt-2 mb-3">Engineered for Reliability & Scale</h2>
                           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
-                            <div className="p-3 bg-green-500/5 border border-green-500/10 rounded">
-                              <span className="font-bold text-green-400 text-xs block">LangGraph Agents</span>
-                              <p className="text-[10px] text-white/50 leading-relaxed mt-1">Strict, cyclic node state guardrails execute agent tasks with absolute reliability.</p>
+                            <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                              <span className="font-bold text-emerald-800 text-xs block">Deterministic Guardrails</span>
+                              <p className="text-xs text-emerald-700 leading-relaxed mt-1">LangGraph cycles and schema validations enforce strict, reliable AI outputs.</p>
                             </div>
-                            <div className="p-3 bg-green-500/5 border border-green-500/10 rounded">
-                              <span className="font-bold text-green-400 text-xs block">Modular Monoliths</span>
-                              <p className="text-[10px] text-white/50 leading-relaxed mt-1">Robust single-repo architectures optimize local queries and maximize development speed.</p>
+                            <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                              <span className="font-bold text-emerald-800 text-xs block">Clean Code Architecture</span>
+                              <p className="text-xs text-emerald-700 leading-relaxed mt-1">Type-safe TypeScript and modular codebases ensure rapid delivery and low maintenance.</p>
                             </div>
-                            <div className="p-3 bg-green-500/5 border border-green-500/10 rounded">
-                              <span className="font-bold text-green-400 text-xs block">Uptime Assured</span>
-                              <p className="text-[10px] text-white/50 leading-relaxed mt-1">Secure, cloud-container host setups deploy on AWS/Vercel with 99.8% uptime.</p>
+                            <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                              <span className="font-bold text-emerald-800 text-xs block">Cloud-Ready Infrastructure</span>
+                              <p className="text-xs text-emerald-700 leading-relaxed mt-1">Optimized Docker containers deployed with automated CI/CD for high availability.</p>
                             </div>
                           </div>
                         </div>
@@ -897,53 +862,43 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
 
                       {deckSlide === 3 && (
                         <div>
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">Core Capabilities</span>
-                          <h2 className="text-2xl font-bold text-white mt-2 mb-3">What We Provide</h2>
-                          <ul className="grid grid-cols-2 gap-x-6 gap-y-2 mt-4 text-xs text-white/70">
-                            <li className="flex items-center gap-2">
-                              <CheckCircle2 className="h-3.5 w-3.5 text-brand-purple shrink-0" />
-                              Custom Software & SaaS Development
-                            </li>
-                            <li className="flex items-center gap-2">
-                              <CheckCircle2 className="h-3.5 w-3.5 text-brand-purple shrink-0" />
-                              LangGraph Stateful Autonomous Agents
-                            </li>
-                            <li className="flex items-center gap-2">
-                              <CheckCircle2 className="h-3.5 w-3.5 text-brand-purple shrink-0" />
-                              Semantic RAG Document Search Indexing
-                            </li>
-                            <li className="flex items-center gap-2">
-                              <CheckCircle2 className="h-3.5 w-3.5 text-brand-purple shrink-0" />
-                              React Native Mobile Apps (iOS/Android)
-                            </li>
-                          </ul>
+                          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Core Capabilities</span>
+                          <h2 className="text-2xl font-bold text-slate-900 mt-2 mb-3">Our 4 Core Disciplines</h2>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 text-xs">
+                            {coreServices.map((serv) => (
+                              <div key={serv.id} className="p-3 bg-white border border-slate-200 rounded-xl">
+                                <span className="font-bold text-slate-900 block">{serv.name}</span>
+                                <p className="text-slate-600 mt-0.5 line-clamp-2">{serv.desc}</p>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       )}
 
                       {deckSlide === 4 && (
                         <div>
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">Target Sectors</span>
-                          <h2 className="text-2xl font-bold text-white mt-2 mb-3">Industries We Optimize</h2>
+                          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Target Sectors</span>
+                          <h2 className="text-2xl font-bold text-slate-900 mt-2 mb-3">Industries We Serve</h2>
                           <div className="flex flex-wrap gap-2 mt-4">
-                            {["Healthcare", "Logistics", "Finance", "Retail", "Education", "SaaS Startups"].map((ind) => (
-                              <span key={ind} className="rounded-full border border-white/5 bg-white/[0.02] px-3.5 py-1 text-xs font-semibold text-white/80">
+                            {["Healthcare", "Logistics & Fleet", "Finance & Fintech", "Retail & Commerce", "Education", "SaaS Startups"].map((ind) => (
+                              <span key={ind} className="rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-semibold text-slate-800">
                                 {ind}
                               </span>
                             ))}
                           </div>
-                          <p className="mt-4 text-[10px] text-white/40 leading-relaxed max-w-md">
-                            We configure our software to match strict compliance laws (HIPAA, GDPR) and connect securely to your legacy databases.
+                          <p className="mt-4 text-xs text-slate-600 leading-relaxed max-w-md">
+                            We configure our software to match regulatory standards, integrate with existing databases, and support real-world workflows.
                           </p>
                         </div>
                       )}
 
                       {deckSlide === 5 && (
                         <div>
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">Technology Stack</span>
-                          <h2 className="text-2xl font-bold text-white mt-2 mb-3">Our Core Engineering Tools</h2>
-                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
-                            {["Next.js", "TypeScript", "FastAPI", "NestJS", "Python", "Docker", "PostgreSQL", "LangGraph"].map((t) => (
-                              <div key={t} className="rounded border border-white/5 bg-white/[0.01] p-2 text-center text-xs text-white/70 font-mono">
+                          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Technology Core</span>
+                          <h2 className="text-2xl font-bold text-slate-900 mt-2 mb-3">Battle-Tested Technologies</h2>
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-4">
+                            {["Next.js", "TypeScript", "React Native", "FastAPI", "Python", "Docker", "PostgreSQL", "LangGraph"].map((t) => (
+                              <div key={t} className="rounded-xl border border-slate-200 bg-white p-3 text-center text-xs text-slate-800 font-semibold">
                                 {t}
                               </div>
                             ))}
@@ -953,13 +908,13 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
 
                       {deckSlide === 6 && (
                         <div>
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">Development Process</span>
-                          <h2 className="text-2xl font-bold text-white mt-2 mb-3">Our 7-Step Agile Roadmap</h2>
-                          <div className="flex justify-between items-center gap-1 mt-4 overflow-hidden">
-                            {["Strategy", "Planning", "UX Design", "Code", "Red-Team", "Deploy", "Maintain"].map((s, idx) => (
-                              <div key={s} className="text-center shrink-0 w-[13%]">
-                                <span className="block text-[10px] font-mono text-brand-cyan font-bold">0{idx + 1}</span>
-                                <span className="block text-[8px] uppercase tracking-wider text-white/60 mt-1 font-semibold">{s}</span>
+                          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Methodology</span>
+                          <h2 className="text-2xl font-bold text-slate-900 mt-2 mb-3">Our 6-Step Delivery Roadmap</h2>
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-4">
+                            {devSteps.map((s) => (
+                              <div key={s.step} className="p-2.5 bg-white border border-slate-200 rounded-xl">
+                                <span className="text-xs font-bold text-blue-600 block">{s.step}</span>
+                                <span className="text-xs font-semibold text-slate-900 block mt-0.5">{s.name}</span>
                               </div>
                             ))}
                           </div>
@@ -968,20 +923,20 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
 
                       {deckSlide === 7 && (
                         <div>
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">Uptime & Latency</span>
-                          <h2 className="text-2xl font-bold text-white mt-2 mb-3">Verified Performance Metrics</h2>
+                          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Results</span>
+                          <h2 className="text-2xl font-bold text-slate-900 mt-2 mb-3">Verified Performance</h2>
                           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 text-center">
-                            <div className="rounded border border-white/5 bg-white/[0.02] p-4">
-                              <span className="text-2xl font-bold text-brand-purple">99.8%</span>
-                              <span className="block text-[8px] uppercase text-white/40 mt-1">Uptime Delivered</span>
+                            <div className="rounded-xl border border-slate-200 bg-white p-4">
+                              <span className="text-3xl font-extrabold text-blue-600">99.8%</span>
+                              <span className="block text-xs font-medium text-slate-500 mt-1">Production Uptime</span>
                             </div>
-                            <div className="rounded border border-white/5 bg-white/[0.02] p-4">
-                              <span className="text-2xl font-bold text-brand-cyan">12x</span>
-                              <span className="block text-[8px] uppercase text-white/40 mt-1">Latency Reduction</span>
+                            <div className="rounded-xl border border-slate-200 bg-white p-4">
+                              <span className="text-3xl font-extrabold text-emerald-600">&lt; 1s</span>
+                              <span className="block text-xs font-medium text-slate-500 mt-1">API Latency</span>
                             </div>
-                            <div className="rounded border border-white/5 bg-white/[0.02] p-4">
-                              <span className="text-2xl font-bold text-white">88%</span>
-                              <span className="block text-[8px] uppercase text-white/40 mt-1">Task Automation</span>
+                            <div className="rounded-xl border border-slate-200 bg-white p-4">
+                              <span className="text-3xl font-extrabold text-slate-900">100%</span>
+                              <span className="block text-xs font-medium text-slate-500 mt-1">Code Ownership</span>
                             </div>
                           </div>
                         </div>
@@ -989,18 +944,18 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
 
                       {deckSlide === 8 && (
                         <div>
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">Leadership Team</span>
-                          <h2 className="text-2xl font-bold text-white mt-2 mb-3">Experienced Founders</h2>
+                          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Leadership</span>
+                          <h2 className="text-2xl font-bold text-slate-900 mt-2 mb-3">Direct Technical Leadership</h2>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                            <div className="rounded border border-white/5 bg-white/[0.01] p-3">
-                              <span className="font-bold text-white text-xs block">{companyInfo.founder}</span>
-                              <span className="text-[9px] text-brand-cyan uppercase font-semibold">Founder & CEO</span>
-                              <p className="text-[9px] text-white/40 leading-relaxed mt-1">AMU CS graduate, ex-Sofyrus systems developer. Full stack & AI architect.</p>
+                            <div className="rounded-xl border border-slate-200 bg-white p-4">
+                              <span className="font-bold text-slate-900 text-sm block">{companyInfo.founder}</span>
+                              <span className="text-xs text-blue-600 font-semibold">Founder & Technical Lead</span>
+                              <p className="text-xs text-slate-600 leading-relaxed mt-1.5">AMU CS Graduate, former systems developer at Sofyrus Technologies. Full-stack & AI architect.</p>
                             </div>
-                            <div className="rounded border border-white/5 bg-white/[0.01] p-3">
-                              <span className="font-bold text-white text-xs block">{companyInfo.cofounder}</span>
-                              <span className="text-[9px] text-brand-cyan uppercase font-semibold">Co-Founder & Operations</span>
-                              <p className="text-[9px] text-white/40 leading-relaxed mt-1">Business Operations lead. Taxation and compliance specialist.</p>
+                            <div className="rounded-xl border border-slate-200 bg-white p-4">
+                              <span className="font-bold text-slate-900 text-sm block">{companyInfo.cofounder}</span>
+                              <span className="text-xs text-blue-600 font-semibold">Co-Founder & Operations</span>
+                              <p className="text-xs text-slate-600 leading-relaxed mt-1.5">Head of Operations, project coordination, and client milestone delivery.</p>
                             </div>
                           </div>
                         </div>
@@ -1008,220 +963,32 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
 
                       {deckSlide === 9 && (
                         <div>
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">Contact Us</span>
-                          <h2 className="text-2xl font-bold text-white mt-2 mb-3">Let&apos;s Build Your System</h2>
-                          <p className="text-xs text-white/60 mb-4 max-w-sm">
-                            Contact UnifiedStack today to review your software requirements and deploy cognitive automation nodes.
+                          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Get In Touch</span>
+                          <h2 className="text-2xl font-bold text-slate-900 mt-2 mb-3">Let's Build Your System</h2>
+                          <p className="text-xs sm:text-sm text-slate-600 mb-4 max-w-sm leading-relaxed">
+                            Reach out today to discuss your technical requirements and get a clear project estimate within 24 hours.
                           </p>
-                          <div className="flex gap-4 text-[10px] text-white/40 font-mono">
-                            <span>Email: {companyInfo.email}</span>
-                            <span>WhatsApp: {companyInfo.phone}</span>
-                            <span>Website: {companyInfo.website}</span>
+                          <div className="space-y-1.5 text-xs text-slate-700">
+                            <div><strong className="text-slate-900">Email:</strong> {companyInfo.email}</div>
+                            <div><strong className="text-slate-900">WhatsApp:</strong> {companyInfo.phone}</div>
+                            <div><strong className="text-slate-900">Website:</strong> {companyInfo.website}</div>
                           </div>
                         </div>
                       )}
                     </div>
 
                     {/* Footer */}
-                    <div className="flex justify-between items-center border-t border-white/5 pt-2 text-[9px] font-mono text-white/30 uppercase">
-                      <span>UnifiedStack Corp</span>
-                      <span>&copy; 2026</span>
+                    <div className="flex justify-between items-center border-t border-slate-200/80 pt-2 text-xs text-slate-400">
+                      <span>UnifiedStack</span>
+                      <span>&copy; {new Date().getFullYear()}</span>
                     </div>
 
                   </div>
                 </div>
-
-                {/* Print Version of the Deck (Visible only during Print) */}
-                <div className="hidden print:flex print:flex-col print:gap-10 w-full max-w-[210mm]">
-                  {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((slideNum) => (
-                    <div key={slideNum} className="print-page flex flex-col justify-between border border-white/5 bg-bg-dark p-12 rounded-2xl aspect-[210/297] w-full">
-                      <div className="flex justify-between items-center border-b border-white/5 pb-2 text-[10px] font-mono text-white/30 uppercase tracking-widest">
-                        <span>UnifiedStack Pitch Deck</span>
-                        <span>0{slideNum + 1} // Slide</span>
-                      </div>
-
-                      <div className="my-auto py-6">
-                        {slideNum === 0 && (
-                          <div>
-                            <span className="rounded bg-brand-purple/10 border border-brand-purple/20 px-2 py-0.5 text-[9px] font-mono text-brand-cyan uppercase">
-                              Who We Are
-                            </span>
-                            <h2 className="text-3xl font-extrabold text-white mt-4">
-                              Building Intelligent Software & AI Systems
-                            </h2>
-                            <p className="mt-3 text-xs text-white/50 max-w-md leading-relaxed">
-                              We build high-performance web applications, mobile platforms, and autonomous AI agents for startups and enterprises.
-                            </p>
-                          </div>
-                        )}
-
-                        {slideNum === 1 && (
-                          <div>
-                            <span className="text-[10px] font-mono text-brand-cyan uppercase">The Challenge</span>
-                            <h2 className="text-xl font-bold text-white mt-2 mb-4">Legacy Bloat & AI Hallucinations</h2>
-                            <div className="space-y-3">
-                              <div className="p-3 bg-white/[0.01] border border-white/5 rounded">
-                                <strong className="text-white text-xs block">AI Hallucinations</strong>
-                                <span className="text-[10px] text-white/40 block mt-0.5">Generative models fail constraints, yielding database errors and compliance flags.</span>
-                              </div>
-                              <div className="p-3 bg-white/[0.01] border border-white/5 rounded">
-                                <strong className="text-white text-xs block">Manual Bottlenecks</strong>
-                                <span className="text-[10px] text-white/40 block mt-0.5">Sloppy data parsing and manual checklist verifications block developer scaling velocity.</span>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        {slideNum === 2 && (
-                          <div>
-                            <span className="text-[10px] font-mono text-brand-cyan uppercase">Our Solution</span>
-                            <h2 className="text-xl font-bold text-white mt-2 mb-4">Deterministic Cognitive Systems</h2>
-                            <div className="space-y-3">
-                              <div className="p-3 bg-white/[0.01] border border-white/5 rounded">
-                                <strong className="text-white text-xs block">LangGraph Constraint Guardrails</strong>
-                                <span className="text-[10px] text-white/40 block mt-0.5">Enforces precise node transitions to control LLM outputs and preserve formats.</span>
-                              </div>
-                              <div className="p-3 bg-white/[0.01] border border-white/5 rounded">
-                                <strong className="text-white text-xs block">High-Scale Monolithic Modules</strong>
-                                <span className="text-[10px] text-white/40 block mt-0.5">Keeps database lookups and routing local, scaling rapidly without microservice fragmentation.</span>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        {slideNum === 3 && (
-                          <div>
-                            <span className="text-[10px] font-mono text-brand-cyan uppercase">Core Capabilities</span>
-                            <h2 className="text-xl font-bold text-white mt-2 mb-4">What We Provide</h2>
-                            <div className="space-y-3 text-xs text-white/60">
-                              <div className="flex gap-2 items-start"><CheckCircle2 className="h-4 w-4 text-brand-purple shrink-0 mt-0.5" /> <span>Custom Software & SaaS Architectures</span></div>
-                              <div className="flex gap-2 items-start"><CheckCircle2 className="h-4 w-4 text-brand-purple shrink-0 mt-0.5" /> <span>LangGraph Multi-Agent Workflows</span></div>
-                              <div className="flex gap-2 items-start"><CheckCircle2 className="h-4 w-4 text-brand-purple shrink-0 mt-0.5" /> <span>Semantic Vector Database RAG Indexing</span></div>
-                              <div className="flex gap-2 items-start"><CheckCircle2 className="h-4 w-4 text-brand-purple shrink-0 mt-0.5" /> <span>Real-time Mobile Apps via React Native</span></div>
-                            </div>
-                          </div>
-                        )}
-
-                        {slideNum === 4 && (
-                          <div>
-                            <span className="text-[10px] font-mono text-brand-cyan uppercase">Target Sectors</span>
-                            <h2 className="text-xl font-bold text-white mt-2 mb-4">Industries We Optimize</h2>
-                            <div className="space-y-2">
-                              {["Healthcare Compliance Systems", "Logistics & Real-Time Tracking Dispatchers", "FinTech Audit & Taxation Portals", "Education pedagogical grading nodes", "SaaS platforms & APIs"].map((sector, i) => (
-                                <div key={i} className="flex gap-2 text-xs text-white/80">
-                                  <span className="text-brand-purple font-mono">0{i + 1}</span>
-                                  <span>{sector}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                        {slideNum === 5 && (
-                          <div>
-                            <span className="text-[10px] font-mono text-brand-cyan uppercase">Tech Stack</span>
-                            <h2 className="text-xl font-bold text-white mt-2 mb-4">Our Technology Core</h2>
-                            <div className="grid grid-cols-2 gap-4 text-xs">
-                              <div>
-                                <span className="font-bold text-brand-purple block uppercase">Frontend</span>
-                                <span className="text-white/40 block mt-0.5">React, Next.js, React Native, TypeScript, Tailwind</span>
-                              </div>
-                              <div>
-                                <span className="font-bold text-brand-purple block uppercase">Backend</span>
-                                <span className="text-white/40 block mt-0.5">Python, FastAPI, Node.js, NestJS, gRPC</span>
-                              </div>
-                              <div>
-                                <span className="font-bold text-brand-purple block uppercase">AI Core</span>
-                                <span className="text-white/40 block mt-0.5">LangGraph, LangChain, Pinecone, PyTorch, OpenAI</span>
-                              </div>
-                              <div>
-                                <span className="font-bold text-brand-purple block uppercase">DevOps</span>
-                                <span className="text-white/40 block mt-0.5">Docker, Kubernetes, AWS Services, CI/CD Actions</span>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        {slideNum === 6 && (
-                          <div>
-                            <span className="text-[10px] font-mono text-brand-cyan uppercase">Methodology</span>
-                            <h2 className="text-xl font-bold text-white mt-2 mb-4">Development Cycles</h2>
-                            <div className="grid grid-cols-2 gap-3 text-[10px] text-white/60">
-                              <div><strong>01 / Strategy Analysis:</strong> Mapping bottlenecks</div>
-                              <div><strong>02 / Topography Plan:</strong> Structuring databases</div>
-                              <div><strong>03 / Wireframes:</strong> Interactive Figma design</div>
-                              <div><strong>04 / Implementation:</strong> Stateful TS/Python build</div>
-                              <div><strong>05 / Verification:</strong> Adversarial LLM red-teaming</div>
-                              <div><strong>06 / Cloud Launch:</strong> Docker AWS CI/CD pipelines</div>
-                            </div>
-                          </div>
-                        )}
-
-                        {slideNum === 7 && (
-                          <div>
-                            <span className="text-[10px] font-mono text-brand-cyan uppercase">Uptime & Latency</span>
-                            <h2 className="text-xl font-bold text-white mt-2 mb-4">Verified Trust Metrics</h2>
-                            <div className="space-y-3">
-                              <div className="flex justify-between border-b border-white/5 pb-2 text-xs">
-                                <span className="text-white/60">Delivered Production System Uptime</span>
-                                <strong className="text-brand-cyan">99.8%</strong>
-                              </div>
-                              <div className="flex justify-between border-b border-white/5 pb-2 text-xs">
-                                <span className="text-white/60">Average Pipeline Latency Reductions</span>
-                                <strong className="text-brand-cyan">12x</strong>
-                              </div>
-                              <div className="flex justify-between border-b border-white/5 pb-2 text-xs">
-                                <span className="text-white/60">Workflow Task Automation Rates</span>
-                                <strong className="text-brand-cyan">88%</strong>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        {slideNum === 8 && (
-                          <div>
-                            <span className="text-[10px] font-mono text-brand-cyan uppercase">Leadership</span>
-                            <h2 className="text-xl font-bold text-white mt-2 mb-4">Founders</h2>
-                            <div className="space-y-4">
-                              <div>
-                                <strong className="text-xs text-white">{companyInfo.founder}</strong> &bull; <span className="text-[10px] text-brand-cyan uppercase font-semibold">Founder & CEO</span>
-                                <p className="text-[10px] text-white/40 leading-relaxed mt-0.5">AMU CS Graduate. ex-Sofyrus systems developer. AI engineer.</p>
-                              </div>
-                              <div>
-                                <strong className="text-xs text-white">{companyInfo.cofounder}</strong> &bull; <span className="text-[10px] text-brand-cyan uppercase font-semibold">Co-Founder & Operations</span>
-                                <p className="text-[10px] text-white/40 leading-relaxed mt-0.5">Business Operations Lead. Financial compliance specialist.</p>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        {slideNum === 9 && (
-                          <div>
-                            <span className="text-[10px] font-mono text-brand-cyan uppercase">Contact Us</span>
-                            <h2 className="text-xl font-bold text-white mt-2 mb-4">Let&apos;s Build Your System</h2>
-                            <p className="text-xs text-white/50 leading-relaxed max-w-sm mb-4">
-                              Contact UnifiedStack today to review your software requirements and deploy cognitive automation nodes.
-                            </p>
-                            <div className="text-[10px] text-brand-cyan font-mono leading-relaxed">
-                              <div>Email: {companyInfo.email}</div>
-                              <div>WhatsApp: {companyInfo.phone}</div>
-                              <div>Website: {companyInfo.website}</div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="flex justify-between items-center border-t border-white/5 pt-2 text-[9px] font-mono text-white/30 uppercase">
-                        <span>UnifiedStack Corp</span>
-                        <span>&copy; 2026</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </motion.div>
             )}
 
-            {/* 3. CAPABILITY STATEMENT TAB (1-2 PAGES CONCISE SUMMARY) */}
+            {/* 3. CAPABILITY STATEMENT TAB (2 PAGES) */}
             {activeTab === "capability" && (
               <motion.div
                 key="capability"
@@ -1231,101 +998,91 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
                 transition={{ duration: 0.3 }}
                 className="flex flex-col items-center"
               >
-                {/* Print Notice (No Print) */}
-                <div className="w-full max-w-[210mm] rounded-xl border border-blue-500/20 bg-blue-500/5 px-6 py-4 mb-8 text-xs text-blue-300 leading-relaxed no-print flex gap-3 items-center">
-                  <Award className="h-6 w-6 text-brand-cyan shrink-0" />
-                  <div>
-                    <span className="font-bold block text-white">Capability Statement (2 Pages)</span>
-                    Designed for governmental audits, vendor intake systems, and procurement managers. Prints exactly as 2 pages.
-                  </div>
-                </div>
 
                 {/* 2-PAGE CAPABILITY STATEMENT DOCUMENT */}
                 <div className="flex flex-col gap-10 w-full max-w-[210mm]">
 
                   {/* PAGE 1: CORE CAPABILITIES & DATA */}
-                  <div className="print-page flex flex-col justify-between border border-white/5 bg-bg-dark p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full shadow-2xl min-h-[400px] md:min-h-[auto]">
+                  <div className="print-page flex flex-col justify-between border border-slate-200 bg-white p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full min-h-[420px] md:min-h-[auto] text-slate-900">
                     <div>
-                      <div className="flex justify-between items-start border-b border-white/10 pb-4 mb-6">
+                      <div className="flex justify-between items-start border-b border-slate-100 pb-4 mb-6">
                         <div>
-                          <h1 className="text-3xl font-extrabold text-white">UNIFIEDSTACK</h1>
-                          <p className="text-xs text-brand-cyan tracking-wider uppercase font-semibold mt-1">CAPABILITY STATEMENT</p>
+                          <h1 className="text-3xl font-extrabold text-slate-900">UNIFIEDSTACK</h1>
+                          <p className="text-xs text-blue-600 tracking-wider uppercase font-semibold mt-1">CAPABILITY STATEMENT</p>
                         </div>
                         <div className="text-right">
-                          <span className="text-[10px] font-mono text-white/40 block">Sole Proprietorship</span>
-                          <span className="text-xs font-bold text-white">Registry: India</span>
+                          <span className="text-xs font-semibold text-slate-700 block">Software & AI Agency</span>
+                          <span className="text-xs text-slate-500">Established 2024</span>
                         </div>
                       </div>
 
-                      <h2 className="text-xs font-bold uppercase tracking-wider text-brand-cyan mb-2">1. Corporate Summary</h2>
-                      <p className="text-xs text-white/50 leading-relaxed mb-6">
-                        UnifiedStack is a software development and AI solutions agency.
-                        Founded by veteran system engineer Mohd Huzaifa, we design and deploy custom web portals, mobile platforms, and deterministic AI agent workflows.
-                        Our engineering focuses on optimizing database performance and executing autonomous tasks with absolute reliability.
+                      <h2 className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">1. Corporate Summary</h2>
+                      <p className="text-xs text-slate-600 leading-relaxed mb-6">
+                        UnifiedStack is a custom software development and AI engineering agency. Founded by systems engineer Mohd Huzaifa, we design and deploy custom web platforms, mobile applications, and deterministic AI agent workflows. Our engineering focuses on optimizing database performance and executing autonomous tasks with absolute reliability.
                       </p>
 
-                      <h2 className="text-xs font-bold uppercase tracking-wider text-brand-cyan mb-2">2. Core Competencies</h2>
-                      <div className="grid grid-cols-2 gap-4 mb-6 text-xs text-white/60">
-                        <div>
-                          <strong className="text-white block font-medium">Cognitive Automation</strong>
-                          <span className="text-[10px] leading-relaxed block mt-0.5 text-white/40">LangGraph cycle workflows, custom tool call routers, RAG vector lookup databases, and semantic search pipelines.</span>
+                      <h2 className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">2. Core Competencies</h2>
+                      <div className="grid grid-cols-2 gap-4 mb-6 text-xs text-slate-700">
+                        <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-3.5">
+                          <strong className="text-slate-900 block font-semibold">AI Engineering</strong>
+                          <span className="text-xs leading-relaxed block mt-1 text-slate-600">LangGraph multi-step workflows, tool call integrations, RAG vector lookup databases, and custom fine-tuning.</span>
                         </div>
-                        <div>
-                          <strong className="text-white block font-medium">SaaS & Web Applications</strong>
-                          <span className="text-[10px] leading-relaxed block mt-0.5 text-white/40">Responsive Next.js portals, NestJS and FastAPI backend servers, optimized SQL schemas, and interactive admin dashboards.</span>
+                        <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-3.5">
+                          <strong className="text-slate-900 block font-semibold">Full-Stack Web</strong>
+                          <span className="text-xs leading-relaxed block mt-1 text-slate-600">Responsive Next.js portals, FastAPI and Node.js backend servers, optimized SQL schemas, and administrative dashboards.</span>
                         </div>
-                        <div>
-                          <strong className="text-white block font-medium">Mobile Product Engineering</strong>
-                          <span className="text-[10px] leading-relaxed block mt-0.5 text-white/40">React Native mobile apps, geofenced driver routing dispatchers, background processes, and offline data sync.</span>
+                        <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-3.5">
+                          <strong className="text-slate-900 block font-semibold">Mobile Apps</strong>
+                          <span className="text-xs leading-relaxed block mt-1 text-slate-600">React Native cross-platform apps, real-time geofenced driver tracking, background workers, and offline data sync.</span>
                         </div>
-                        <div>
-                          <strong className="text-white block font-medium">DevOps & Cloud Systems</strong>
-                          <span className="text-[10px] leading-relaxed block mt-0.5 text-white/40">AWS secure cloud hosting, Docker containerization, Firebase backend, and automated GitHub Actions CI/CD.</span>
+                        <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-3.5">
+                          <strong className="text-slate-900 block font-semibold">DevOps & Cloud</strong>
+                          <span className="text-xs leading-relaxed block mt-1 text-slate-600">Docker containerization, AWS hosting, Firebase architectures, and automated GitHub Actions CI/CD pipelines.</span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="border-t border-white/5 pt-4 text-[9px] font-mono text-white/30 flex justify-between uppercase">
-                      <span>UnifiedStack Corp</span>
+                    <div className="border-t border-slate-100 pt-4 text-xs text-slate-500 flex justify-between">
+                      <span>UnifiedStack Capabilities</span>
                       <span>Page 1 of 2</span>
                     </div>
                   </div>
 
                   {/* PAGE 2: DIFFERENTIATORS, METRICS & CONTACT */}
-                  <div className="print-page flex flex-col justify-between border border-white/5 bg-bg-dark p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full shadow-2xl min-h-[400px] md:min-h-[auto]">
+                  <div className="print-page flex flex-col justify-between border border-slate-200 bg-white p-6 sm:p-12 rounded-2xl md:aspect-[210/297] w-full min-h-[420px] md:min-h-[auto] text-slate-900">
                     <div>
-                      <div className="border-b border-white/10 pb-4 mb-6">
-                        <span className="text-xs font-bold text-brand-cyan uppercase tracking-wider">CAPABILITY STATEMENT // SECTION 2</span>
+                      <div className="border-b border-slate-100 pb-4 mb-6">
+                        <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">CAPABILITY STATEMENT // SECTION 2</span>
                       </div>
 
-                      <h2 className="text-xs font-bold uppercase tracking-wider text-brand-cyan mb-2">3. Key Differentiators</h2>
-                      <div className="space-y-3 mb-6 text-xs">
+                      <h2 className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">3. Key Differentiators</h2>
+                      <div className="space-y-3 mb-6 text-xs text-slate-700">
                         <div>
-                          <strong className="text-white font-semibold">Deterministic AI Workflow Control:</strong>
-                          <span className="text-[10px] text-white/50 block mt-0.5 leading-relaxed">We build guardrails around generative AI, guaranteeing zero formatting failures or hallucinations.</span>
+                          <strong className="text-slate-900 font-semibold">Deterministic AI Control:</strong>
+                          <span className="text-xs text-slate-600 block mt-0.5 leading-relaxed">We build strict guardrails around LLMs, guaranteeing zero formatting failures or hallucinations.</span>
                         </div>
                         <div>
-                          <strong className="text-white font-semibold">AMU & Sofyrus Systems Engineering:</strong>
-                          <span className="text-[10px] text-white/50 block mt-0.5 leading-relaxed">Led by Mohd Huzaifa, B.Tech in Computer Science from Aligarh Muslim University, applying enterprise systems architecture to web and mobile apps.</span>
+                          <strong className="text-slate-900 font-semibold">Direct Technical Leadership:</strong>
+                          <span className="text-xs text-slate-600 block mt-0.5 leading-relaxed">Led by Mohd Huzaifa (AMU Computer Science Graduate and ex-Sofyrus systems developer), applying rigorous systems architecture to all client builds.</span>
                         </div>
                         <div>
-                          <strong className="text-white font-semibold">Direct Developer Communication:</strong>
-                          <span className="text-[10px] text-white/50 block mt-0.5 leading-relaxed">Clients work directly with engineers building their systems—preventing project delays or miscommunicated requirements.</span>
+                          <strong className="text-slate-900 font-semibold">Direct Developer Communication:</strong>
+                          <span className="text-xs text-slate-600 block mt-0.5 leading-relaxed">Clients work directly with engineers building their systems—preventing project delays or miscommunicated requirements.</span>
                         </div>
                       </div>
 
-                      <h2 className="text-xs font-bold uppercase tracking-wider text-brand-cyan mb-2">4. Past Performance Highlights</h2>
-                      <div className="space-y-2 mb-6 text-[10px] text-white/50">
-                        <div>&bull; **Medical compliance verification agent** (reduced patient audit cycles by 94% with 0.0% hallucinations).</div>
-                        <div>&bull; **Real-time geofenced dispatcher platform** (custom React Native + FastAPI dispatcher tracks truck coordinates).</div>
-                        <div>&bull; **Vector document retrieval system** (semantic search parsing of private PDFs, sub-1.2s response time).</div>
+                      <h2 className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">4. Past Performance Highlights</h2>
+                      <div className="space-y-2 mb-6 text-xs text-slate-600">
+                        <div>&bull; <strong className="text-slate-800">Hyperlocal Social Network (Town Beat)</strong> — React Native app with real-time city feed updates.</div>
+                        <div>&bull; <strong className="text-slate-800">Masjid Directory & Timetables (Salah Times)</strong> — Offline-first prayer synchronization with sub-10ms caches.</div>
+                        <div>&bull; <strong className="text-slate-800">Service Marketplace (Helpora)</strong> — Full marketplace platform with verified bookings and escrow payments.</div>
                       </div>
                     </div>
 
                     <div>
-                      <div className="rounded-lg border border-white/5 bg-white/[0.01] p-3 text-xs mb-4">
-                        <span className="font-bold text-white block mb-1">Corporate Registries & Contact</span>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[10px] text-white/40 font-mono">
+                      <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-4 text-xs mb-4">
+                        <span className="font-bold text-slate-900 block mb-1.5">Direct Agency Contact</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
                           <div>Entity: UnifiedStack</div>
                           <div>Email: {companyInfo.email}</div>
                           <div>Phone: {companyInfo.phone}</div>
@@ -1333,8 +1090,8 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
                         </div>
                       </div>
 
-                      <div className="border-t border-white/5 pt-4 text-[9px] font-mono text-white/30 flex justify-between uppercase">
-                        <span>Sole Proprietorship Registry: India</span>
+                      <div className="border-t border-slate-100 pt-4 text-xs text-slate-500 flex justify-between">
+                        <span>UnifiedStack Capability Statement</span>
                         <span>Page 2 of 2</span>
                       </div>
                     </div>
@@ -1364,9 +1121,9 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
                     <button
                       key={t.id}
                       onClick={() => setActiveTemplate(t.id as any)}
-                      className={`rounded-lg border px-4 py-2 text-xs font-semibold tracking-wide uppercase transition-all ${activeTemplate === t.id
-                          ? "border-brand-purple bg-brand-purple/10 text-white"
-                          : "border-white/5 bg-white/[0.02] text-white/60 hover:bg-white/5"
+                      className={`rounded-xl border px-4 py-2.5 text-xs font-semibold tracking-wide uppercase transition-all whitespace-nowrap shrink-0 cursor-pointer ${activeTemplate === t.id
+                        ? "border-blue-600 bg-blue-600 text-white"
+                        : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                         }`}
                     >
                       {t.label}
@@ -1375,27 +1132,27 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
                 </div>
 
                 {/* Display Frame */}
-                <div className="border border-white/5 bg-bg-dark/50 rounded-2xl p-6 sm:p-10 shadow-2xl backdrop-blur-md relative overflow-hidden">
+                <div className="border border-slate-200 bg-white rounded-2xl p-6 sm:p-10 relative overflow-hidden text-slate-900">
 
                   {/* Action top row (no-print) */}
-                  <div className="flex justify-between items-center border-b border-white/5 pb-4 mb-6 no-print">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan">
-                      Active Document: {activeTemplate.toUpperCase()} TEMPLATE
+                  <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-6 no-print">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">
+                      Active Template: {activeTemplate.toUpperCase()}
                     </span>
                     <button
                       onClick={() => {
                         const txt = activeTemplate === "proposal" ? proposalTemplateText : activeTemplate === "onboarding" ? onboardingTemplateText : pricingBrochureText;
                         copy(txt, activeTemplate);
                       }}
-                      className="flex items-center gap-1.5 rounded border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/80 hover:text-white transition-colors"
+                      className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 px-3.5 py-1.5 text-xs font-semibold text-slate-700 transition-colors cursor-pointer"
                     >
-                      <Copy className="h-3.5 w-3.5" />
-                      {copied === activeTemplate ? "Copied Raw Text!" : "Copy Raw Markdown"}
+                      <Copy className="h-3.5 w-3.5 text-blue-600" />
+                      {copied === activeTemplate ? "Copied!" : "Copy Markdown"}
                     </button>
                   </div>
 
                   {/* Document layout view */}
-                  <div className="text-left font-mono text-xs text-white/80 leading-relaxed whitespace-pre-wrap select-text selection:bg-brand-purple/40">
+                  <div className="text-left font-mono text-xs sm:text-sm text-slate-800 leading-relaxed whitespace-pre-wrap select-text bg-slate-50/50 p-4 sm:p-6 rounded-xl border border-slate-100">
                     {activeTemplate === "proposal" && proposalTemplateText}
                     {activeTemplate === "onboarding" && onboardingTemplateText}
                     {activeTemplate === "pricing" && pricingBrochureText}
@@ -1414,31 +1171,30 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
                 transition={{ duration: 0.3 }}
                 className="w-full max-w-4xl"
               >
-                <div className="border border-white/5 bg-bg-dark/50 rounded-2xl p-8 sm:p-12 shadow-2xl backdrop-blur-md">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-brand-cyan block mb-2">Corporate Identity</span>
-                  <h2 className="text-2xl font-bold text-white mb-6">Brand Identity & Guidelines</h2>
+                <div className="border border-slate-200 bg-white rounded-2xl p-6 sm:p-10 text-slate-900">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-blue-600 block mb-2">Corporate Identity</span>
+                  <h2 className="text-2xl font-bold text-slate-900 mb-6">Brand Identity & Standards</h2>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left text-xs">
 
                     {/* Typography & Tone */}
                     <div>
-                      <h3 className="text-xs font-bold text-white uppercase tracking-wider border-b border-white/5 pb-2 mb-4">Typography & Design System</h3>
-                      <div className="space-y-4">
+                      <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-2 mb-4">Typography & Design System</h3>
+                      <div className="space-y-4 text-xs text-slate-600">
                         <div>
-                          <span className="text-[10px] font-mono text-white/40 block uppercase">Primary Font</span>
-                          <span className="text-sm font-semibold text-white block mt-1">Geist Sans / System Sans-Serif</span>
-                          <span className="text-[10px] text-white/50 block mt-0.5">Clean, wide tracking, modern typography layout.</span>
+                          <span className="text-[10px] font-bold text-slate-400 block uppercase">Primary Typography</span>
+                          <span className="text-sm font-semibold text-slate-900 block mt-0.5">Poppins / Modern Sans-Serif</span>
+                          <span className="text-xs text-slate-500 block mt-0.5">Geometric, balanced letter-forms with warm human appeal.</span>
                         </div>
                         <div>
-                          <span className="text-[10px] font-mono text-white/40 block uppercase">Monospace Font</span>
-                          <span className="text-sm font-mono text-white block mt-1">Geist Mono / Font-mono</span>
-                          <span className="text-[10px] text-white/50 block mt-0.5">Used for data variables, code snippets, indexes, and numbering tags.</span>
+                          <span className="text-[10px] font-bold text-slate-400 block uppercase">Monospace Typography</span>
+                          <span className="text-sm font-mono text-slate-900 block mt-0.5">Geist Mono / Fira Code</span>
+                          <span className="text-xs text-slate-500 block mt-0.5">Used for code snippets, database schemas, and API documentation.</span>
                         </div>
                         <div>
-                          <span className="text-[10px] font-mono text-white/40 block uppercase">Writing & Pitch Tone</span>
-                          <p className="text-[10.5px] text-white/60 leading-relaxed mt-1">
-                            Technical, precise, and metric-focused. We avoid generic business fluff (e.g. &ldquo;world-class paradigms&rdquo;)
-                            and prioritize explicit software vocabulary (e.g. &ldquo;stateful LangGraph cycles&rdquo;, &ldquo;database optimizations&rdquo;).
+                          <span className="text-[10px] font-bold text-slate-400 block uppercase">Agency Voice & Tone</span>
+                          <p className="text-xs text-slate-600 leading-relaxed mt-1">
+                            Direct, technical, and human. We communicate directly as experienced software engineers, avoiding vague buzzwords and focusing on tangible deliverables and performance.
                           </p>
                         </div>
                       </div>
@@ -1446,32 +1202,30 @@ UnifiedStack delivers elite engineering capabilities under flexible pricing sche
 
                     {/* Colors & Logo */}
                     <div>
-                      <h3 className="text-xs font-bold text-white uppercase tracking-wider border-b border-white/5 pb-2 mb-4">Color Palette & Logo Codes</h3>
+                      <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-2 mb-4">Color Palette & Brand Marks</h3>
                       <div className="space-y-4">
                         <div>
-                          <span className="text-[10px] font-mono text-white/40 block uppercase mb-2">Corporate Color Swatches</span>
-                          <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-mono font-bold text-white">
-                            <div className="rounded bg-[#8B5CF6] p-3 shadow-md shadow-purple-500/10">
-                              <span>Brand Purple</span>
-                              <span className="block text-[8px] text-white/70 mt-1">#8B5CF6</span>
+                          <span className="text-[10px] font-bold text-slate-400 block uppercase mb-2">Primary Color Palette</span>
+                          <div className="grid grid-cols-3 gap-2 text-center text-xs font-semibold">
+                            <div className="rounded-xl bg-blue-600 p-3 text-white">
+                              <span>Brand Blue</span>
+                              <span className="block text-[10px] text-blue-100 font-mono mt-1">#2563EB</span>
                             </div>
-                            <div className="rounded bg-[#06B6D4] p-3 shadow-md shadow-cyan-500/10">
-                              <span>Brand Cyan</span>
-                              <span className="block text-[8px] text-white/70 mt-1">#06B6D4</span>
+                            <div className="rounded-xl bg-slate-900 p-3 text-white">
+                              <span>Slate Dark</span>
+                              <span className="block text-[10px] text-slate-400 font-mono mt-1">#0F172A</span>
                             </div>
-                            <div className="rounded bg-[#030303] border border-white/10 p-3">
-                              <span>Background</span>
-                              <span className="block text-[8px] text-white/50 mt-1">#030303</span>
+                            <div className="rounded-xl bg-slate-100 border border-slate-200 p-3 text-slate-800">
+                              <span>Slate Light</span>
+                              <span className="block text-[10px] text-slate-500 font-mono mt-1">#F8FAFC</span>
                             </div>
                           </div>
                         </div>
 
                         <div>
-                          <span className="text-[10px] font-mono text-white/40 block uppercase">Logo Mark Rules</span>
-                          <p className="text-[10.5px] text-white/60 leading-relaxed mt-1">
-                            The UnifiedStack logo mark consists of a stylized **Cpu icon** within a rounded square glass container.
-                            The branding name &ldquo;UnifiedStack&rdquo; is written in Geist Sans bold, with &ldquo;Unified&rdquo; in solid white
-                            and &ldquo;Stack&rdquo; styled with a gradient shifting from Brand Purple to Brand Cyan.
+                          <span className="text-[10px] font-bold text-slate-400 block uppercase">Brand Mark Guidelines</span>
+                          <p className="text-xs text-slate-600 leading-relaxed mt-1">
+                            The UnifiedStack identity combines a stylized <strong className="text-slate-900">Cpu icon</strong> with the wordmark &ldquo;UnifiedStack&rdquo;, with &ldquo;Unified&rdquo; set in bold slate and &ldquo;Stack&rdquo; in vibrant brand blue.
                           </p>
                         </div>
                       </div>
